@@ -44,11 +44,11 @@ than go to `filament-user.php` config file and change the `publish_resource` to 
 
 ## Support
 
-you can join our discord server to get support [TomatoPHP](https://discord.gg/Xqmt35Uh)
+you can join our discord server to get support [TomatoPHP](https://discord.gg/VZc8nBJ3ZU)
 
 ## Docs
 
-you can check docs of this package on [Docs](https://docs.tomatophp.com/plugins/laravel-package-generator)
+you can check docs of this package on [Docs](https://docs.tomatophp.com/filament/filament-users)
 
 ## Changelog
 
