@@ -22,21 +22,6 @@ class FilamentUsersServiceProvider extends ServiceProvider
            __DIR__.'/../config/filament-users.php' => config_path('filament-users.php'),
         ], 'filament-users-config');
 
-        //Register Migrations
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
-        //Publish Migrations
-        $this->publishes([
-           __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'filament-users-migrations');
-        //Register views
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'filament-users');
-
-        //Publish Views
-        $this->publishes([
-           __DIR__.'/../resources/views' => resource_path('views/vendor/filament-users'),
-        ], 'filament-users-views');
-
         //Register Langs
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'filament-users');
 
@@ -44,9 +29,6 @@ class FilamentUsersServiceProvider extends ServiceProvider
         $this->publishes([
            __DIR__.'/../resources/lang' => app_path('lang/vendor/filament-users'),
         ], 'filament-users-lang');
-
-        //Register Routes
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
     }
 
