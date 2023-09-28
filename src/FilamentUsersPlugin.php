@@ -15,10 +15,12 @@ class FilamentUsersPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel
-            ->resources([
-                UserResource::class,
-            ]);
+        if(!config('filament-users.publish_resource')){
+            $panel
+                ->resources([
+                    UserResource::class,
+                ]);
+        }
     }
 
     public function boot(Panel $panel): void
