@@ -9,7 +9,12 @@ User Resource For FilamentPHP Admin Dashboard
 ```bash
 composer require tomatophp/filament-users
 ```
-after install your package please run this command
+
+finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
+
+```php
+$panel->plugin(\TomatoPHP\FilamentUsers\FilamentUsersPlugin::make())
+```
 
 ## Publish Assets
 
