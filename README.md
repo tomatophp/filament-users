@@ -1,3 +1,5 @@
+![Screenshot](https://github.com/tomatophp/filament-users/blob/master/art/screenshot.png)
+
 # Filament users
 
 User Resource For FilamentPHP Admin Dashboard
