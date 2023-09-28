@@ -19,22 +19,10 @@ you can publish config file by use this command
 php artisan vendor:publish --tag="filament-users-config"
 ```
 
-you can publish views file by use this command
-
-```bash
-php artisan vendor:publish --tag="filament-users-views"
-```
-
 you can publish languages file by use this command
 
 ```bash
 php artisan vendor:publish --tag="filament-users-lang"
-```
-
-you can publish migrations file by use this command
-
-```bash
-php artisan vendor:publish --tag="filament-users-migrations"
 ```
 
 ## Publish Resource
