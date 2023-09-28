@@ -1,0 +1,42 @@
+{
+    "name": "tomatophp/filament-users",
+    "type": "library",
+    "description": "User Resource For FilamentPHP Admin Dashboard",
+    "keywords": [
+        "php",
+        "laravel",
+        "filamentphp",
+        "users",
+        "user CRUD",
+        "user resource",
+        "user management"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TomatoPHP\\FilamentUsers\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TomatoPHP\\FilamentUsers\\FilamentUsersServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Fady Mondy",
+            "email": "info@3x1.io"
+        }
+    ],
+    "require": {
+        "php": "^8.1|^8.2",
+        "tomatophp/console-helpers": "^1.1"
+    }
+}
