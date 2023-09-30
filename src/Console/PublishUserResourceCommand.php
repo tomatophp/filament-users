@@ -14,7 +14,7 @@ class PublishUserResourceCommand extends Command
      *
      * @var string
      */
-    protected $name = 'filament-user:publish';
+    protected $name = 'filament-users:publish';
 
     /**
      * The console command description.

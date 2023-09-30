@@ -11,6 +11,6 @@ class CreateUser extends CreateRecord
 
     public function getTitle(): string
     {
-        return trans('filament-user::user.resource.title.create');
+        return trans('filament-users::user.resource.title.create');
     }
 }

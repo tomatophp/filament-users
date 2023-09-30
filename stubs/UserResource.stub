@@ -45,7 +45,7 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return config('filament-user.group');
+        return config('filament-users.group');
     }
 
     public function getTitle(): string
@@ -74,7 +74,7 @@ class UserResource extends Resource
                 }),
         ];
 
-        if (config('filament-user.shield')) {
+        if (config('filament-users.shield')) {
             $rows[] = Forms\Components\Select::make('roles')
                 ->multiple()
                 ->relationship('roles', 'name')
@@ -88,7 +88,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        !config('filament-user.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
+        !config('filament-users.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
         $table
             ->columns([
                 TextColumn::make('id')

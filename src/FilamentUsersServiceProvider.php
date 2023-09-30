@@ -11,25 +11,24 @@ class FilamentUsersServiceProvider extends ServiceProvider
     {
         //Register generate command
         $this->commands([
-           \TomatoPHP\FilamentUsers\Console\PublishUserResourceCommand::class,
+            \TomatoPHP\FilamentUsers\Console\PublishUserResourceCommand::class,
         ]);
 
         //Register Config file
-        $this->mergeConfigFrom(__DIR__.'/../config/filament-users.php', 'filament-users');
+        $this->mergeConfigFrom(__DIR__ . '/../config/filament-users.php', 'filament-users');
 
         //Publish Config
         $this->publishes([
-           __DIR__.'/../config/filament-users.php' => config_path('filament-users.php'),
+            __DIR__ . '/../config/filament-users.php' => config_path('filament-users.php'),
         ], 'filament-users-config');
 
         //Register Langs
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'filament-users');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-users');
 
         //Publish Lang
         $this->publishes([
-           __DIR__.'/../resources/lang' => app_path('lang/vendor/filament-users'),
-        ], 'filament-users-lang');
-
+            __DIR__ . '/../resources/lang' => app_path('lang/vendor/filament-users'),
+        ], 'filament-users');
     }
 
     public function boot(): void
