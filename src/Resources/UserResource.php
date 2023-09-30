@@ -30,27 +30,27 @@ class UserResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return trans('filament-user::user.resource.label');
+        return trans('filament-users::user.resource.label');
     }
 
     public static function getPluralLabel(): string
     {
-        return trans('filament-user::user.resource.label');
+        return trans('filament-users::user.resource.label');
     }
 
     public static function getLabel(): string
     {
-        return trans('filament-user::user.resource.single');
+        return trans('filament-users::user.resource.single');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return config('filament-user.group');
+        return config('filament-users.group');
     }
 
     public function getTitle(): string
     {
-        return trans('filament-user::user.resource.title.resource');
+        return trans('filament-users::user.resource.title.resource');
     }
 
     public static function form(Form $form): Form
@@ -58,13 +58,13 @@ class UserResource extends Resource
         $rows = [
             TextInput::make('name')
                 ->required()
-                ->label(trans('filament-user::user.resource.name')),
+                ->label(trans('filament-users::user.resource.name')),
             TextInput::make('email')
                 ->email()
                 ->required()
-                ->label(trans('filament-user::user.resource.email')),
+                ->label(trans('filament-users::user.resource.email')),
             TextInput::make('password')
-                ->label(trans('filament-user::user.resource.password'))
+                ->label(trans('filament-users::user.resource.password'))
                 ->password()
                 ->maxLength(255)
                 ->dehydrateStateUsing(static function ($state) use ($form) {
@@ -74,12 +74,12 @@ class UserResource extends Resource
                 }),
         ];
 
-        if (config('filament-user.shield')) {
+        if (config('filament-users.shield')) {
             $rows[] = Forms\Components\Select::make('roles')
                 ->multiple()
                 ->preload()
                 ->relationship('roles', 'name')
-                ->label(trans('filament-user::user.resource.roles'));
+                ->label(trans('filament-users::user.resource.roles'));
         }
 
         $form->schema($rows);
@@ -89,41 +89,41 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        !config('filament-user.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
+        !config('filament-users.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
         $table
             ->columns([
                 TextColumn::make('id')
                     ->sortable()
-                    ->label(trans('filament-user::user.resource.id')),
+                    ->label(trans('filament-users::user.resource.id')),
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable()
-                    ->label(trans('filament-user::user.resource.name')),
+                    ->label(trans('filament-users::user.resource.name')),
                 TextColumn::make('email')
                     ->sortable()
                     ->searchable()
-                    ->label(trans('filament-user::user.resource.email')),
+                    ->label(trans('filament-users::user.resource.email')),
                 IconColumn::make('email_verified_at')
                     ->boolean()
                     ->sortable()
                     ->searchable()
-                    ->label(trans('filament-user::user.resource.email_verified_at')),
+                    ->label(trans('filament-users::user.resource.email_verified_at')),
                 TextColumn::make('created_at')
-                    ->label(trans('filament-user::user.resource.created_at'))
+                    ->label(trans('filament-users::user.resource.created_at'))
                     ->dateTime('M j, Y')
                     ->sortable(),
                 TextColumn::make('updated_at')
-                    ->label(trans('filament-user::user.resource.updated_at'))
+                    ->label(trans('filament-users::user.resource.updated_at'))
                     ->dateTime('M j, Y')
                     ->sortable(),
             ])
             ->filters([
                 Tables\Filters\Filter::make('verified')
-                    ->label(trans('filament-user::user.resource.verified'))
-                    ->query(fn(Builder $query): Builder => $query->whereNotNull('email_verified_at')),
+                    ->label(trans('filament-users::user.resource.verified'))
+                    ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
                 Tables\Filters\Filter::make('unverified')
-                    ->label(trans('filament-user::user.resource.unverified'))
-                    ->query(fn(Builder $query): Builder => $query->whereNull('email_verified_at')),
+                    ->label(trans('filament-users::user.resource.unverified'))
+                    ->query(fn (Builder $query): Builder => $query->whereNull('email_verified_at')),
             ])
             ->actions([
                 ActionGroup::make([

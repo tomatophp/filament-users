@@ -35,12 +35,12 @@ php artisan vendor:publish --tag="filament-users-lang"
 you can publish the resource to your project
 
 ```bash
-php artisan filament-user:publish
+php artisan filament-users:publish
 ```
 
 it will publish the resource to your project
 
-than go to `filament-user.php` config file and change the `publish_resource` to `true`
+than go to `filament-users.php` config file and change the `publish_resource` to `true`
 
 ## Support
 
