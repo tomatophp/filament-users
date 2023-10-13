@@ -28,7 +28,7 @@ class FilamentUsersServiceProvider extends ServiceProvider
         //Publish Lang
         $this->publishes([
             __DIR__ . '/../resources/lang' => app_path('lang/vendor/filament-users'),
-        ], 'filament-users');
+        ], 'filament-users-lang');
     }
 
     public function boot(): void
