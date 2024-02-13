@@ -67,10 +67,10 @@ class UserResource extends Resource
                 ->label(trans('filament-users::user.resource.password'))
                 ->password()
                 ->maxLength(255)
-                ->dehydrateStateUsing(static function ($state) use ($form) {
+                ->dehydrateStateUsing(static function ($state, $record) use ($form) {
                     return !empty($state)
                         ? Hash::make($state)
-                        : User::find($form->getColumns())?->password;
+                        : $record->password;
                 }),
         ];
 
