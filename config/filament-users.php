@@ -11,7 +11,7 @@ return [
     /*
      * The Group name of the resource.
      */
-    "group" => "Settings",
+    "group" => "ALC",
 
     /*
      * User Filament Impersonate
@@ -21,5 +21,5 @@ return [
     /*
      * User Filament Shield
      */
-    "shield" => true,
+    "shield" => false,
 ];

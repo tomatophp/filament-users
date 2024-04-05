@@ -18,7 +18,6 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
@@ -74,7 +73,7 @@ class UserResource extends Resource
                 }),
         ];
 
-        if (config('filament-users.shield')) {
+        if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
             $rows[] = Forms\Components\Select::make('roles')
                 ->multiple()
                 ->preload()
@@ -89,7 +88,9 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        !config('filament-users.impersonate') ?: $table->actions([Impersonate::make('impersonate')]);
+        if(class_exists( STS\FilamentImpersonate\Tables\Actions\Impersonate::class) && config('filament-users.impersonate')){
+            $table->actions([Impersonate::make('impersonate')]);
+        }
         $table
             ->columns([
                 TextColumn::make('id')

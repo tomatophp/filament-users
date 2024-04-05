@@ -13,7 +13,7 @@ composer require tomatophp/filament-users
 finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
-$panel->plugin(\TomatoPHP\FilamentUsers\FilamentUsersPlugin::make())
+->plugin(\TomatoPHP\FilamentUsers\FilamentUsersPlugin::make())
 ```
 
 ## Publish Assets
