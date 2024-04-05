@@ -12,7 +12,7 @@ class ListUsers extends ListRecords
 
     public function getTitle(): string
     {
-        return trans('filament-user::user.resource.title.list');
+        return trans('filament-users::user.resource.title.list');
     }
 
     protected function getActions(): array

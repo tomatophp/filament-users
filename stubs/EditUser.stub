@@ -25,7 +25,7 @@ class EditUser extends EditRecord
 
     public function getTitle(): string
     {
-        return trans('filament-user::user.resource.title.edit');
+        return trans('filament-users::user.resource.title.edit');
     }
 
     protected function getActions(): array
