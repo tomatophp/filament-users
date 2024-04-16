@@ -1,6 +1,11 @@
-![Screenshot](https://github.com/tomatophp/filament-users/blob/master/art/screenshot.png)
+![Screenshot](https://github.com/tomatophp/filament-users/blob/master/art/3x1io-tomato-users.jpg)
 
 # Filament users
+
+[![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-users/version.svg)](https://packagist.org/packages/tomatophp/filament-users)
+[![PHP Version Require](http://poser.pugx.org/tomatophp/filament-users/require/php)](https://packagist.org/packages/tomatophp/filament-users)
+[![License](https://poser.pugx.org/tomatophp/filament-users/license.svg)](https://packagist.org/packages/tomatophp/filament-users)
+[![Downloads](https://poser.pugx.org/tomatophp/filament-users/d/total.svg)](https://packagist.org/packages/tomatophp/filament-users)
 
 User Resource For FilamentPHP Admin Dashboard
 
