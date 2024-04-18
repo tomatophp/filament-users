@@ -15,6 +15,9 @@ return [
         "roles" => "Roles",
         "label" => "Users",
         "title" => [
+            "show" => "Show User",
+            "delete" => "Delete User",
+            "impersonate" => "Impersonate User",
             "create" => "Create User",
             "edit" => "Edit User",
             "list" => "Users",

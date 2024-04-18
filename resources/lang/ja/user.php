@@ -15,6 +15,9 @@ return [
         "roles" => "ロール",
         "label" => "ユーザー",
         "title" => [
+            "show" => "ユーザーを表示",
+            "delete" => "ユーザーを削除",
+            "impersonate" => "ユーザーを偽装",
             "create" => "ユーザーを作成",
             "edit" => "ユーザーを編集",
             "list" => "ユーザー",

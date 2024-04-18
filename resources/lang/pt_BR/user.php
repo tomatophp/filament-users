@@ -15,6 +15,9 @@ return [
         "roles" => "Funções",
         "label" => "Usuários",
         "title" => [
+            "show" => "Mostrar Usuário",
+            "delete" => "Deletar Usuário",
+            "impersonate" => "Impersonate Usuário",
             "create" => "Criar Usuário",
             "edit" => "Editar Usuário",
             "list" => "Usuários",

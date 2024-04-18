@@ -15,6 +15,9 @@ return [
         "roles" => "Rollen",
         "label" => "Gebruikers",
         "title" => [
+            "show" => "Toon Gebruiker",
+            "delete" => "Verwijder Gebruiker",
+            "impersonate" => "Impersonate Gebruiker",
             "create" => "Maak Gebruiker",
             "edit" => "Bewerk Gebruiker",
             "list" => "Gebruikers",

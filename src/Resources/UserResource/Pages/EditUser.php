@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
 use App\Models\User;
+use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Actions\DeleteAction;
@@ -30,9 +31,16 @@ class EditUser extends EditRecord
 
     protected function getActions(): array
     {
-        !config('filament-users.impersonate') ?: $ret[] = Impersonate::make()->record($this->getRecord());
-        $ret[] = DeleteAction::make();
+        $actions = [];
+        if(class_exists( \STS\FilamentImpersonate\Pages\Actions\Impersonate::class) && config('filament-users.impersonate')){
+            if(config('filament-users.impersonate')){
+                $actions[] = \STS\FilamentImpersonate\Pages\Actions\Impersonate::make()->record($this->getRecord());
+            }
+        }
 
-        return $ret;
+        $actions[] = DeleteAction::make();
+
+
+        return array_merge($actions, FilamentUser::getEditActions());
     }
 }

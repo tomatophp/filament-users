@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
+use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Actions\CreateAction;
@@ -17,8 +18,9 @@ class ListUsers extends ListRecords
 
     protected function getActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        $actions = [];
+        $actions[] = CreateAction::make();
+
+        return array_merge($actions, FilamentUser::getActions());
     }
 }

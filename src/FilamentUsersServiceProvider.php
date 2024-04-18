@@ -29,6 +29,10 @@ class FilamentUsersServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/lang' => app_path('lang/vendor/filament-users'),
         ], 'filament-users-lang');
+
+        $this->app->bind('filament-user', function () {
+            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices();
+        });
     }
 
     public function boot(): void
