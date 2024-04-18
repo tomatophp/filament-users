@@ -148,6 +148,22 @@ you can publish languages file by use this command
 php artisan vendor:publish --tag="filament-users-lang"
 ```
 
+## Other Filament Packages
+
+- [Filament Translations](https://www.github.com/tomatophp/filament-translations)
+- [Filament Settings Hub](https://www.github.com/tomatophp/filament-settings-hub)
+- [Filament Menus](https://www.github.com/tomatophp/filament-menus)
+- [Filament Alerts](https://www.github.com/tomatophp/filament-alerts)
+- [Filament Accounts](https://www.github.com/tomatophp/filament-accounts)
+- [Filament Wallet](https://www.github.com/tomatophp/filament-wallet)
+- [Filament Artisan](https://www.github.com/tomatophp/filament-artisan)
+- [Filament Browser](https://www.github.com/tomatophp/filament-browser)
+- [Filament Developer Gate](https://www.github.com/tomatophp/filament-developer-gate)
+- [Filament Locations](https://www.github.com/tomatophp/filament-locations)
+- [Filament Plugins](https://www.github.com/tomatophp/filament-plugins)
+- [Filament Splade](https://www.github.com/tomatophp/filament-splade)
+- [Filament Types](https://www.github.com/tomatophp/filament-types)
+
 ## Support
 
 you can join our discord server to get support [TomatoPHP](https://discord.gg/VZc8nBJ3ZU)
@@ -166,7 +182,7 @@ Please see [SECURITY](SECURITY.md) for more information about security.
 
 ## Credits
 
-- [Tomatophp](mailto:info@3x1.io)
+- [Fady Mondy](mailto:info@3x1.io)
 
 ## License
 
