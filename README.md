@@ -9,6 +9,13 @@
 
 User Resource For FilamentPHP Admin Dashboard
 
+## Screenshots
+
+![Users List](https://github.com/tomatophp/filament-users/blob/master/art/users.png)
+![Edit User](https://github.com/tomatophp/filament-users/blob/master/art/edit-user.png)
+![Users Filters](https://github.com/tomatophp/filament-users/blob/master/art/users-filter.png)
+
+
 ## Installation
 
 ```bash
