@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/tomatophp/filament-users/blob/master/art/3x1io-tomato-users.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/3x1io-tomato-users.jpg)
 
 # Filament users
 
@@ -11,9 +11,9 @@ User Resource For FilamentPHP Admin Dashboard
 
 ## Screenshots
 
-![Users List](https://github.com/tomatophp/filament-users/blob/master/art/users.png)
-![Edit User](https://github.com/tomatophp/filament-users/blob/master/art/edit-user.png)
-![Users Filters](https://github.com/tomatophp/filament-users/blob/master/art/users-filter.png)
+![Users List](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/users.png)
+![Edit User](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/edit-user.png)
+![Users Filters](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/users-filter.png)
 
 
 ## Installation
