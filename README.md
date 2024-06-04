@@ -9,6 +9,8 @@
 
 User Resource For FilamentPHP Admin Dashboard
 
+for v2 please use this [repo](https://github.com/3x1io/filament-user)
+
 ## Screenshots
 
 ![Users List](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/users.png)
