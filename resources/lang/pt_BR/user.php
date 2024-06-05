@@ -10,7 +10,7 @@ return [
         "updated_at" => "Atualizado em",
         "verified" => "Verificado",
         "unverified" => "Não verificado",
-        "name" => "Nomee",
+        "name" => "Nome",
         "email" => "Email",
         "password" => "Senha",
         "roles" => "Funções",
@@ -18,7 +18,7 @@ return [
         "title" => [
             "show" => "Mostrar Usuário",
             "delete" => "Deletar Usuário",
-            "impersonate" => "Impersonate Usuário",
+            "impersonate" => "Despersonificar Usuário",
             "create" => "Criar Usuário",
             "edit" => "Editar Usuário",
             "list" => "Usuários",
