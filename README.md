@@ -63,6 +63,10 @@ Now run the following command to install shield:
 php artisan shield:install
 ```
 
+Now we can [publish the package assets]([https://github.com/bezhanSalleh/filament-shield](https://github.com/tomatophp/filament-users?tab=readme-ov-file#publish-assets)).
+```bash
+php artisan vendor:publish --tag="filament-users-config"
+```
 now on your `filament-users.php` config allow shield
 
 ```php
