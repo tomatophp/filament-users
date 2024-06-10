@@ -7,7 +7,7 @@
 [![License](https://poser.pugx.org/tomatophp/filament-users/license.svg)](https://packagist.org/packages/tomatophp/filament-users)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-users/d/total.svg)](https://packagist.org/packages/tomatophp/filament-users)
 
-User Resource For FilamentPHP Admin Dashboard
+User Table Resource with a lot of packages integrations
 
 for v2 please use this [repo](https://github.com/3x1io/filament-user)
 
@@ -190,7 +190,7 @@ Please see [SECURITY](SECURITY.md) for more information about security.
 
 ## Credits
 
-- [Fady Mondy](mailto:info@3x1.io)
+- [Fady Mondy](https://wa.me/+201207860084)
 
 ## License
 
