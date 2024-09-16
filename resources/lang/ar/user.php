@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "group" => "إدارة الوصول",
+    "group" => "الإعدادات",
     "resource" => [
         "id" => "م",
         "single" => "مستخدم",

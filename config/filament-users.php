@@ -11,7 +11,7 @@ return [
     /*
      * The Group name of the resource.
      */
-    "group" => "ALC",
+    "group" => "Settings",
 
     /*
      * User Filament Impersonate
