@@ -29,7 +29,6 @@ class PublishUserResourceCommand extends Command
 
     }
 
-
     /**
      * Execute the console command.
      *

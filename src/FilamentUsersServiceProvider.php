@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-
 
 class FilamentUsersServiceProvider extends ServiceProvider
 {
@@ -31,7 +31,7 @@ class FilamentUsersServiceProvider extends ServiceProvider
         ], 'filament-users-lang');
 
         $this->app->bind('filament-user', function () {
-            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices();
+            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices;
         });
     }
 

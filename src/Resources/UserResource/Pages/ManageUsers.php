@@ -3,11 +3,11 @@
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
 use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 
-class ListUsers extends ListRecords
+class ManageUsers extends ManageRecords
 {
     protected static string $resource = UserResource::class;
 
