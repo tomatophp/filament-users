@@ -2,13 +2,13 @@
 
 # Filament users
 
-![Latest Stable Version](http://poser.pugx.org/tomatophp/filament-users/v)](https://packagist.org/packages/tomatophp/filament-users)
-![Daily Downloads](http://poser.pugx.org/tomatophp/filament-users/d/daily)](https://packagist.org/packages/tomatophp/filament-users)
-![Total Downloads](http://poser.pugx.org/tomatophp/filament-users/downloads)](https://packagist.org/packages/tomatophp/filament-users)
-![Version](http://poser.pugx.org/tomatophp/filament-users/version)](https://packagist.org/packages/tomatophp/filament-users)
-![License](http://poser.pugx.org/tomatophp/filament-users/license)](https://packagist.org/packages/tomatophp/filament-users)
-![PHP Version Require](http://poser.pugx.org/tomatophp/filament-users/require/php)](https://packagist.org/packages/tomatophp/filament-users)
-![Github actions Build](https://github.com/tomatophp/filament-users/workflows/Build/badge.svg)](https://packagist.org/packages/tomatophp/filament-users)
+[![Latest Stable Version](http://poser.pugx.org/tomatophp/filament-users/v)](https://packagist.org/packages/tomatophp/filament-users)
+[![Daily Downloads](http://poser.pugx.org/tomatophp/filament-users/d/daily)](https://packagist.org/packages/tomatophp/filament-users)
+[![Total Downloads](http://poser.pugx.org/tomatophp/filament-users/downloads)](https://packagist.org/packages/tomatophp/filament-users)
+[![Version](http://poser.pugx.org/tomatophp/filament-users/version)](https://packagist.org/packages/tomatophp/filament-users)
+[![License](http://poser.pugx.org/tomatophp/filament-users/license)](https://packagist.org/packages/tomatophp/filament-users)
+[![PHP Version Require](http://poser.pugx.org/tomatophp/filament-users/require/php)](https://packagist.org/packages/tomatophp/filament-users)
+[![Github actions Build](https://github.com/tomatophp/filament-users/workflows/Build/badge.svg)](https://packagist.org/packages/tomatophp/filament-users)
 
 User Table Resource with a lot of packages integrations
 
