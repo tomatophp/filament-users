@@ -29,7 +29,6 @@ class PublishUserResourceCommand extends Command
 
     }
 
-
     /**
      * Execute the console command.
      *
@@ -38,8 +37,8 @@ class PublishUserResourceCommand extends Command
     public function handle()
     {
         $this->generateStubs(
-            __DIR__ . '/../../stubs/UserResource.stub',
-            app_path('Filament/Resources') . '/UserResource.php',
+            __DIR__.'/../../stubs/UserResource.stub',
+            app_path('Filament/Resources').'/UserResource.php',
             [],
             [
                 app_path('Filament'),
@@ -48,19 +47,8 @@ class PublishUserResourceCommand extends Command
             ]
         );
         $this->generateStubs(
-            __DIR__ . '/../../stubs/ListUsers.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/ListUsers.php',
-            [],
-            [
-                app_path('Filament'),
-                app_path('Filament/Resources'),
-                app_path('Filament/Resources/UserResource'),
-                app_path('Filament/Resources/UserResource/Pages'),
-            ]
-        );
-        $this->generateStubs(
-            __DIR__ . '/../../stubs/EditUser.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/EditUser.php',
+            __DIR__.'/../../stubs/ListUsers.stub',
+            app_path('Filament/Resources/UserResource/Pages').'/ListUsers.php',
             [],
             [
                 app_path('Filament'),
@@ -70,8 +58,19 @@ class PublishUserResourceCommand extends Command
             ]
         );
         $this->generateStubs(
-            __DIR__ . '/../../stubs/CreateUser.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/CreateUser.php',
+            __DIR__.'/../../stubs/EditUser.stub',
+            app_path('Filament/Resources/UserResource/Pages').'/EditUser.php',
+            [],
+            [
+                app_path('Filament'),
+                app_path('Filament/Resources'),
+                app_path('Filament/Resources/UserResource'),
+                app_path('Filament/Resources/UserResource/Pages'),
+            ]
+        );
+        $this->generateStubs(
+            __DIR__.'/../../stubs/CreateUser.stub',
+            app_path('Filament/Resources/UserResource/Pages').'/CreateUser.php',
             [],
             [
                 app_path('Filament'),

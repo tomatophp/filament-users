@@ -21,7 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "TomatoPHP\\FilamentUsers\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -29,6 +29,16 @@
             "providers": [
                 "TomatoPHP\\FilamentUsers\\FilamentUsersServiceProvider"
             ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     },
     "authors": [
@@ -40,6 +50,12 @@
     "require": {
         "php": "^8.1|^8.2",
         "tomatophp/console-helpers": "^1.1",
-        "filament/filament": "^3.0.0"
+        "filament/filament": "^3.2"
+    },
+    "require-dev": {
+        "livewire/livewire": "^2.10|^3.0",
+        "orchestra/testbench": "^9.5",
+        "pestphp/pest-plugin-livewire": "^1.0|^2.1",
+        "spatie/pest-plugin-snapshots": "^1.1|^2.1"
     }
 }

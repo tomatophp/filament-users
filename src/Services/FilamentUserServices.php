@@ -11,17 +11,24 @@ use Filament\Tables\Filters\Filter;
 class FilamentUserServices
 {
     private array $tableActions = [];
+
     private array $tableColumns = [];
+
     private array $tableFilters = [];
+
     private array $actions = [];
+
     private array $editActions = [];
+
     private array $createActions = [];
+
     private array $relationManagers = [];
+
     private array $formInputs = [];
 
     public function registerTableAction(\Filament\Tables\Actions\Action|array $action)
     {
-       is_array($action) ? $this->tableActions = array_merge($this->tableActions, $action) : $this->tableActions[] = $action;
+        is_array($action) ? $this->tableActions = array_merge($this->tableActions, $action) : $this->tableActions[] = $action;
     }
 
     public function registerTableColumn(Column|array $column)

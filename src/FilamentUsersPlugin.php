@@ -4,33 +4,40 @@ namespace TomatoPHP\FilamentUsers;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Nwidart\Modules\Module;
+use TomatoPHP\FilamentUsers\Resources\TeamResource;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 
 class FilamentUsersPlugin implements Plugin
 {
-    private bool $isActive = false;
+    private static bool $useAvatar = false;
 
     public function getId(): string
     {
         return 'filament-user';
     }
 
+    public static function useAvatar(bool $useAvatar = true): void
+    {
+        self::$useAvatar = $useAvatar;
+    }
+
+    public static function hasAvatar(): bool
+    {
+        return self::$useAvatar;
+    }
+
     public function register(Panel $panel): void
     {
-        if(class_exists(Module::class) && \Nwidart\Modules\Facades\Module::find('FilamentUsers')?->isEnabled()){
-            $this->isActive = true;
-        }
-        else {
-            $this->isActive = true;
+        if (! config('filament-users.publish_resource')) {
+            $panel->resources([
+                UserResource::class,
+            ]);
         }
 
-        if($this->isActive) {
-            if (!config('filament-users.publish_resource')) {
-                $panel->resources([
-                    UserResource::class,
-                ]);
-            }
+        if (config('filament-users.teams')) {
+            $panel->resources([
+                TeamResource::class,
+            ]);
         }
     }
 
@@ -41,6 +48,6 @@ class FilamentUsersPlugin implements Plugin
 
     public static function make(): static
     {
-        return new static();
+        return new static;
     }
 }
