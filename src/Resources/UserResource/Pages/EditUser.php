@@ -2,8 +2,9 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
-use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
@@ -14,7 +15,7 @@ class EditUser extends EditRecord
 
     public function mutateFormDataBeforeSave(array $data): array
     {
-        $getUser = User::where('email', $data['email'])->first();
+        $getUser = config('filament-users.model')::where('email', $data['email'])->first();
         if ($getUser) {
             if (empty($data['password'])) {
                 $data['password'] = $getUser->password;
@@ -38,7 +39,32 @@ class EditUser extends EditRecord
             }
         }
 
-        $actions[] = DeleteAction::make();
+        $actions[] = DeleteAction::make('deleteSelectedUser')->using(function ($record, Action $action) {
+            $count = config('filament-users.model')::query()->count();
+            if ($count === 1) {
+                Notification::make()
+                    ->title(trans('filament-users::user.resource.notificaitons.last.title'))
+                    ->body(trans('filament-users::user.resource.notificaitons.last.body'))
+                    ->danger()
+                    ->icon('heroicon-o-exclamation-triangle')
+                    ->send();
+
+                return;
+            } elseif (auth()->user()->id === $record->id) {
+                Notification::make()
+                    ->title(trans('filament-users::user.resource.notificaitons.self.title'))
+                    ->body(trans('filament-users::user.resource.notificaitons.self.body'))
+                    ->danger()
+                    ->icon('heroicon-o-exclamation-triangle')
+                    ->send();
+
+                return;
+            } else {
+                $record->delete();
+                $action->success();
+            }
+
+        });
 
         return array_merge($actions, FilamentUser::getEditActions());
     }

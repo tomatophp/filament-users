@@ -9,16 +9,18 @@ use TomatoPHP\FilamentUsers\Resources\UserResource;
 
 class FilamentUsersPlugin implements Plugin
 {
-    private static bool $useAvatar = false;
+    protected static bool $useAvatar = false;
 
     public function getId(): string
     {
         return 'filament-user';
     }
 
-    public static function useAvatar(bool $useAvatar = true): void
+    public function useAvatar(bool $useAvatar = true): self
     {
         self::$useAvatar = $useAvatar;
+
+        return $this;
     }
 
     public static function hasAvatar(): bool
@@ -46,8 +48,8 @@ class FilamentUsersPlugin implements Plugin
         //
     }
 
-    public static function make(): static
+    public static function make(): self
     {
-        return new static;
+        return new FilamentUsersPlugin;
     }
 }

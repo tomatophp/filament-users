@@ -2,35 +2,28 @@
 
 namespace TomatoPHP\FilamentUsers\Resources;
 
-use App\Models\Team;
-use App\Models\User;
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Jetstream\Jetstream;
-use Spatie\Permission\Models\Role;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
 class UserResource extends Resource
 {
-    protected static ?string $model = User::class;
+    public static function getModel(): string
+    {
+        return config('filament-users.model');
+    }
 
     protected static ?int $navigationSort = 9;
 
@@ -53,9 +46,11 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return config('filament-users.shield') ? (Utils::isResourceNavigationGroupEnabled()
-            ? __('filament-shield::filament-shield.nav.group')
-            : '') : (config('filament-users.group') ?: trans('filament-users::user.group'));
+        if (config('filament-users.shield')) {
+            return __('filament-shield::filament-shield.nav.group');
+        }
+
+        return config('filament-users.group') ?: trans('filament-users::user.group');
     }
 
     public function getTitle(): string
@@ -66,14 +61,14 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         $rows = [
-            TextInput::make('name')
+            Forms\Components\TextInput::make('name')
                 ->required()
                 ->label(trans('filament-users::user.resource.name')),
-            TextInput::make('email')
+            Forms\Components\TextInput::make('email')
                 ->email()
                 ->required()
                 ->label(trans('filament-users::user.resource.email')),
-            TextInput::make('password')
+            Forms\Components\TextInput::make('password')
                 ->label(__('filament-panels::pages/auth/register.form.password.label'))
                 ->password()
                 ->revealable(filament()->arePasswordsRevealable())
@@ -82,7 +77,7 @@ class UserResource extends Resource
                 ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                 ->same('passwordConfirmation')
                 ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute')),
-            TextInput::make('passwordConfirmation')
+            Forms\Components\TextInput::make('passwordConfirmation')
                 ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
                 ->password()
                 ->revealable(filament()->arePasswordsRevealable())
@@ -116,12 +111,12 @@ class UserResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            TextEntry::make('name')
+            Infolists\Components\TextEntry::make('name')
                 ->columnSpanFull()
                 ->label(trans('filament-users::user.resource.name')),
-            TextEntry::make('email')
+            Infolists\Components\TextEntry::make('email')
                 ->label(trans('filament-users::user.resource.email')),
-            TextEntry::make('email_verified_at')
+            Infolists\Components\TextEntry::make('email_verified_at')
                 ->label(trans('filament-users::user.resource.email_verified_at')),
         ]);
     }
@@ -131,18 +126,18 @@ class UserResource extends Resource
         $actions = [];
 
         if (! config('filament-users.simple')) {
-            $actions[] = ViewAction::make()
+            $actions[] = Tables\Actions\ViewAction::make()
                 ->iconButton()
                 ->tooltip(trans('filament-users::user.resource.title.show'));
         }
 
-        $actions[] = EditAction::make()
+        $actions[] = Tables\Actions\EditAction::make()
             ->iconButton()
             ->tooltip(trans('filament-users::user.resource.title.edit'));
 
-        $actions[] = DeleteAction::make()
+        $actions[] = Tables\Actions\DeleteAction::make()
             ->using(function ($record, Tables\Actions\Action $action) {
-                $count = User::query()->count();
+                $count = config('filament-users.model')::query()->count();
                 if ($count === 1) {
                     Notification::make()
                         ->title(trans('filament-users::user.resource.notificaitons.last.title'))
@@ -177,21 +172,21 @@ class UserResource extends Resource
         }
 
         $columns = [
-            TextColumn::make('id')
+            Tables\Columns\TextColumn::make('id')
                 ->sortable()
                 ->label(trans('filament-users::user.resource.id')),
-            TextColumn::make('name')
+            Tables\Columns\TextColumn::make('name')
                 ->sortable()
                 ->searchable()
                 ->label(trans('filament-users::user.resource.name')),
-            TextColumn::make('email')
+            Tables\Columns\TextColumn::make('email')
                 ->sortable()
                 ->searchable()
                 ->label(trans('filament-users::user.resource.email')),
         ];
 
         if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
-            $columns[] = TextColumn::make('roles.name')
+            $columns[] = Tables\Columns\TextColumn::make('roles.name')
                 ->icon('heroicon-o-shield-check')
                 ->color('success')
                 ->toggleable()
@@ -199,7 +194,7 @@ class UserResource extends Resource
         }
 
         if (config('filament-users.teams') && class_exists(Jetstream::class)) {
-            $columns[] = TextColumn::make('teams.name')
+            $columns[] = Tables\Columns\TextColumn::make('teams.name')
                 ->color('info')
                 ->icon('heroicon-o-users')
                 ->toggleable()
@@ -207,18 +202,18 @@ class UserResource extends Resource
         }
 
         $columns = array_merge($columns, [
-            IconColumn::make('email_verified_at')
+            Tables\Columns\IconColumn::make('email_verified_at')
                 ->boolean()
                 ->sortable()
                 ->searchable()
                 ->label(trans('filament-users::user.resource.email_verified_at'))
                 ->toggleable(isToggledHiddenByDefault: true),
-            TextColumn::make('created_at')
+            Tables\Columns\TextColumn::make('created_at')
                 ->label(trans('filament-users::user.resource.created_at'))
                 ->dateTime('M j, Y')
                 ->toggleable(isToggledHiddenByDefault: true)
                 ->sortable(),
-            TextColumn::make('updated_at')
+            Tables\Columns\TextColumn::make('updated_at')
                 ->label(trans('filament-users::user.resource.updated_at'))
                 ->dateTime('M j, Y')
                 ->toggleable(isToggledHiddenByDefault: true)
@@ -268,7 +263,7 @@ class UserResource extends Resource
                         ->multiple()
                         ->searchable()
                         ->preload()
-                        ->options(Role::query()->pluck('name', 'id')->toArray()),
+                        ->options(config('filament-users.roles_model')::query()->pluck('name', 'id')->toArray()),
                 ])
                 ->action(function (array $data, Collection $records) {
                     $roles = $data['roles'];
@@ -292,7 +287,7 @@ class UserResource extends Resource
                         ->multiple()
                         ->searchable()
                         ->preload()
-                        ->options(Team::query()->pluck('name', 'id')->toArray()),
+                        ->options(config('filament-users.team_model')::query()->pluck('name', 'id')->toArray()),
                 ])
                 ->action(function (array $data, Collection $records) {
                     $teams = $data['teams'];
@@ -326,6 +321,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view' => Pages\ViewUser::route('/{record}'),
         ];
     }
 }

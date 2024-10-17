@@ -21,7 +21,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "TomatoPHP\\FilamentUsers\\Tests\\": "tests/"
+            "TomatoPHP\\FilamentUsers\\Tests\\": "tests/src/",
+            "TomatoPHP\\FilamentUsers\\Tests\\Database\\Factories\\": "tests/database/factories"
         }
     },
     "extra": {
@@ -32,13 +33,17 @@
         }
     },
     "scripts": {
+        "testbench": "vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse src tests",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage-html coverage"
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         }
     },
     "authors": [
@@ -49,13 +54,19 @@
     ],
     "require": {
         "php": "^8.1|^8.2",
-        "tomatophp/console-helpers": "^1.1",
-        "filament/filament": "^3.2"
+        "filament/filament": "^3.2",
+        "tomatophp/console-helpers": "^1.1"
     },
     "require-dev": {
+        "laravel/pint": "^1.18",
         "livewire/livewire": "^2.10|^3.0",
+        "nunomaduro/larastan": "^2.9",
         "orchestra/testbench": "^9.5",
-        "pestphp/pest-plugin-livewire": "^1.0|^2.1",
-        "spatie/pest-plugin-snapshots": "^1.1|^2.1"
+        "pestphp/pest": "^2.36",
+        "pestphp/pest-plugin-laravel": "^2.4",
+        "pestphp/pest-plugin-livewire": "^2.1",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-deprecation-rules": "^1.2",
+        "phpstan/phpstan-phpunit": "^1.4"
     }
 }

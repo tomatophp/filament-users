@@ -2,8 +2,6 @@
 
 namespace TomatoPHP\FilamentUsers\Resources;
 
-use App\Models\Team;
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +11,10 @@ use TomatoPHP\FilamentUsers\Resources\TeamResource\Pages;
 
 class TeamResource extends Resource
 {
-    protected static ?string $model = Team::class;
+    public static function getModel(): string
+    {
+        return config('filament-users.team_model');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -36,9 +37,11 @@ class TeamResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return config('filament-users.shield') ? (Utils::isResourceNavigationGroupEnabled()
-            ? __('filament-shield::filament-shield.nav.group')
-            : '') : (config('filament-users.group') ?: trans('filament-users::user.group'));
+        if (config('filament-users.shield')) {
+            return __('filament-shield::filament-shield.nav.group');
+        }
+
+        return config('filament-users.group') ?: trans('filament-users::user.group');
     }
 
     public static function form(Form $form): Form
