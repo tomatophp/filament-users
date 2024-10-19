@@ -25,7 +25,7 @@ return [
      * ---------------------------------------------
      * if you are using filament impersonate, you can set this to true.
      */
-    'impersonate' => true,
+    'impersonate' => false,
 
     /**
      * ---------------------------------------------
@@ -33,7 +33,7 @@ return [
      * ---------------------------------------------
      *  if you are using filament shield, you can set this to true.
      */
-    'shield' => false,
+    'shield' => true,
 
     /**
      * ---------------------------------------------
@@ -41,7 +41,7 @@ return [
      * ---------------------------------------------
      * change the resource from pages to modals by allow simple resource.
      */
-    'simple' => false,
+    'simple' => true,
 
     /**
      * ---------------------------------------------

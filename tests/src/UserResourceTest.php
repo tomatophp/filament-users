@@ -34,13 +34,27 @@ it('can render user list page', function () {
 });
 
 it('can render view user page', function () {
-    get(UserResource::getUrl('view', [
-        'record' => User::factory()->create(),
-    ]))->assertSuccessful();
+    if (config('filament-users.simple')) {
+        livewire(Pages\ManageUsers::class, [
+            'record' => User::factory()->create(),
+        ])
+            ->mountAction('view')
+            ->assertSuccessful();
+    } else {
+        get(UserResource::getUrl('view', [
+            'record' => User::factory()->create(),
+        ]))->assertSuccessful();
+    }
 });
 
 it('can render user create page', function () {
-    get(UserResource::getUrl('create'))->assertSuccessful();
+    if (config('filament-users.simple')) {
+        livewire(Pages\ManageUsers::class)
+            ->mountAction('create')
+            ->assertSuccessful();
+    } else {
+        get(UserResource::getUrl('create'))->assertSuccessful();
+    }
 });
 
 it('can create new user', function () {
@@ -82,8 +96,17 @@ it('can validate user input', function () {
 });
 
 it('can render user edit page', function () {
-    $user = User::factory()->create();
-    get(UserResource::getUrl('edit', ['record' => $user]))->assertSuccessful();
+    if (config('filament-users.simple')) {
+        livewire(Pages\ManageUsers::class, [
+            'record' => User::factory()->create(),
+        ])
+            ->mountAction('edit')
+            ->assertSuccessful();
+    } else {
+        get(UserResource::getUrl('edit', [
+            'record' => User::factory()->create(),
+        ]))->assertSuccessful();
+    }
 });
 
 it('can retrieve user data', function () {

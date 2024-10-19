@@ -18,9 +18,6 @@ class ManageUsers extends ManageRecords
 
     protected function getActions(): array
     {
-        $actions = [];
-        $actions[] = CreateAction::make();
-
-        return array_merge($actions, FilamentUser::getActions());
+       return UserResource\Actions\ManageUserActions::make();
     }
 }

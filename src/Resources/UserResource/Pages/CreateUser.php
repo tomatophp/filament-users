@@ -17,6 +17,6 @@ class CreateUser extends CreateRecord
 
     protected function getHeaderActions(): array
     {
-        return FilamentUser::getCreateActions();
+        return UserResource\Actions\CreatePageActions::make();
     }
 }
