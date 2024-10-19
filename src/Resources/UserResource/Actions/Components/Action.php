@@ -6,10 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Action
 {
-
-    /**
-     * @param Model|null $record
-     * @return \Filament\Actions\Action
-     */
-    public abstract static function make(?Model $record = null): \Filament\Actions\Action;
+    abstract public static function make(?Model $record = null): \Filament\Actions\Action;
 }

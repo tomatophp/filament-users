@@ -2,15 +2,14 @@
 
 namespace TomatoPHP\FilamentUsers\Services;
 
-
 class FilamentUserServices
 {
     private array $relations = [];
 
-    public function register(array|string $relation): void
+    public function register(array | string $relation): void
     {
-        if(is_array($relation)) {
-            foreach ($relation as $item){
+        if (is_array($relation)) {
+            foreach ($relation as $item) {
                 $this->relations[] = $item;
             }
         } else {
@@ -18,9 +17,6 @@ class FilamentUserServices
         }
     }
 
-    /**
-     * @return array
-     */
     public function getRelations(): array
     {
         return $this->relations;

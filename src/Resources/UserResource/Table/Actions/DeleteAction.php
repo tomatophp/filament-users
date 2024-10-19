@@ -18,12 +18,6 @@ class DeleteAction extends Action
             ->tooltip(trans('filament-users::user.resource.title.delete'));
     }
 
-
-    /**
-     * @param Model $record
-     * @param Tables\Actions\Action $action
-     * @return void
-     */
     private static function checkIfLastUserOrCurrentUser(Model $record, Tables\Actions\Action $action): void
     {
         $count = config('filament-users.model')::query()->count();

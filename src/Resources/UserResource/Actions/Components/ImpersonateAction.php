@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ImpersonateAction extends Action
 {
     /**
-     * @param Model|null $record
      * @return Action
      */
     public static function make(?Model $record = null): \Filament\Actions\Action
     {
-       return \STS\FilamentImpersonate\Pages\Actions\Impersonate::make()->record($record);
+        return \STS\FilamentImpersonate\Pages\Actions\Impersonate::make()->record($record);
     }
 }

@@ -6,8 +6,5 @@ use Filament\Tables\Actions\BulkAction;
 
 abstract class Action
 {
-    /**
-     * @return BulkAction
-     */
-    public abstract static function make(): BulkAction;
+    abstract public static function make(): BulkAction;
 }

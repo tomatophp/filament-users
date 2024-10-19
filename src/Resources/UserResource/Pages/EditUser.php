@@ -2,11 +2,7 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
-use Filament\Actions\Action;
-use Filament\Actions\DeleteAction;
-use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
-use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 
 class EditUser extends EditRecord

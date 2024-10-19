@@ -12,7 +12,7 @@ class DeleteAction extends Action
     {
         return Tables\Actions\DeleteBulkAction::make()
             ->using(function ($records, Tables\Actions\BulkAction $action) {
-                foreach ($records as $record){
+                foreach ($records as $record) {
                     self::checkIfLastUserOrCurrentUser($record);
                 }
 
@@ -21,10 +21,6 @@ class DeleteAction extends Action
             });
     }
 
-    /**
-     * @param Model $record
-     * @return void
-     */
     private static function checkIfLastUserOrCurrentUser(Model $record): void
     {
         $count = config('filament-users.model')::query()->count();

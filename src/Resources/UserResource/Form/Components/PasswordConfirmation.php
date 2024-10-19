@@ -4,7 +4,6 @@ namespace TomatoPHP\FilamentUsers\Resources\UserResource\Form\Components;
 
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Facades\Hash;
 
 class PasswordConfirmation extends Component
 {
