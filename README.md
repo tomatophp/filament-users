@@ -21,9 +21,18 @@ for v2 please use this [repo](https://github.com/3x1io/filament-user)
 6. [Use Laravel Jetstream Teams](#use-laravel-jetstream-teams)
 7. [Testing](#testing)
 8. [Publish Resource](#publish-resource)
-9. [Use Facade Class](#use-facade-class)
-10. [Publish Assets](#publish-assets)
-11. [Other Filament Packages](#other-filament-packages)
+9. [Register User Relation Manager](#register-user-relation-manager)
+10. [User Users Resource Hooks](#user-users-resource-hooks)
+    - [Table Columns](#table-columns)
+    - [Table Actions](#table-actions)
+    - [Table Filters](#table-filters)
+    - [Table Bulk Actions](#table-bulk-actions)
+    - [From Components](#from-components)
+    - [Page Actions](#page-actions)
+    - [Infolist Entries](#infolist-entries)
+11. [Use Simple User Resource](#use-simple-user-resource)
+12. [Publish Assets](#publish-assets)
+13. [Other Filament Packages](#other-filament-packages)
 
 ## Features
 
@@ -211,23 +220,144 @@ it will publish the resource to your project
 
 than go to `filament-users.php` config file and change the `publish_resource` to `true`
 
-## Use Facade Class
+## Register User Relation Manager
 
-you can use the facade class to attach anything to your user resource, in your provider like this 
+you can register the user relation manager to your project
+
 
 ```php
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 
 public function boot()
 {
-    FilamentUser::registerAction(\Filament\Actions\Action::make('update'));
-    FilamentUser::registerCreateAction(\Filament\Actions\Action::make('update'));
-    FilamentUser::registerEditAction(\Filament\Actions\Action::make('update'));
-    FilamentUser::registerFormInput(\Filament\Forms\Components\TextInput::make('text'));
-    FilamentUser::registerTableAction(\Filament\Tables\Actions\Action::make('update'));
-    FilamentUser::registerTableColumn(\Filament\Tables\Columns\Column::make('text'));
-    FilamentUser::registerTableFilter(\Filament\Tables\Filters\Filter::make('text'));
+    FilamentUser::register([
+        \Filament\Resources\RelationManagers\RelationManager::make() // Replace with your custom relation manager
+    ]);
 }
+```
+
+## User Users Resource Hooks
+
+we have add a lot of hooks to make it easy to attach actions, columns, filters, etc
+
+### Table Columns
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable;
+
+public function boot()
+{
+    UserTable::register([
+        \Filament\Tables\Columns\TextColumn::make('something')
+    ]);
+}
+```
+
+### Table Actions
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions;
+
+public function boot()
+{
+    UserActions::register([
+        \Filament\Tables\Actions\ReplicateAction::make()
+    ]);
+}
+```
+
+### Table Filters
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters;
+
+public function boot()
+{
+    UserFilters::register([
+        \Filament\Tables\Filters\SelectFilter::make('something')
+    ]);
+}
+```
+
+### Table Bulk Actions
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions;
+
+public function boot()
+{
+    UserBulkActions::register([
+        \Filament\Tables\BulkActions\DeleteAction::make()
+    ]);
+}
+```
+
+### From Components
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm;
+
+public function boot()
+{
+    UserForm::register([
+        \Filament\Forms\Components\TextInput::make('something')
+    ]);
+}
+```
+
+### Page Actions
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions;
+use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions;
+use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions;
+use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions;
+
+public function boot()
+{
+    ManageUserActions::register([
+        Filament\Actions\Action::make('action')
+    ]);
+    
+    EditPageActions::register([
+        Filament\Actions\Action::make('action')
+    ]);
+    
+    ViewPageActions::register([
+        Filament\Actions\Action::make('action')
+    ]);
+    
+    CreatePageActions::register([
+        Filament\Actions\Action::make('action')
+    ]);
+}
+```
+
+### Infolist Entries
+
+```php
+use TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfolist;
+
+public function boot()
+{
+    UserInfolist::register([
+       \Filament\Infolists\Components\TextEntry::make('something')
+    ]);
+}
+```
+
+## Use  Simple User Resource
+
+you can use the simple user resource by change on config, on your `filament-users.php` config allow simple
+
+```php
+/**
+ * ---------------------------------------------
+ * Use Simple Resource
+ * ---------------------------------------------
+ * change the resource from pages to modals by allow simple resource.
+ */
+'simple' => true,
 ```
 
 ## Publish Assets
