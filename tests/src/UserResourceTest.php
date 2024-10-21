@@ -7,6 +7,7 @@ use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\get;
@@ -16,7 +17,7 @@ beforeEach(function () {
     actingAs(User::factory()->create());
 });
 
-test('can render user resource', function () {
+it('can render user resource', function () {
     get(UserResource::getUrl())->assertSuccessful();
 });
 
