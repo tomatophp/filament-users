@@ -2,9 +2,7 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Table\Filters;
 
-use Filament\Forms;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
 
 class Roles extends Filter
 {

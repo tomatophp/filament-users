@@ -6,8 +6,5 @@ use Filament\Forms\Components\Field;
 
 abstract class Component
 {
-    /**
-     * @return Field
-     */
-    public static abstract function make(): Field;
+    abstract public static function make(): Field;
 }

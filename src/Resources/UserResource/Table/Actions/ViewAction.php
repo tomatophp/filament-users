@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Table\Actions;
 
 use Filament\Tables;
+
 class ViewAction extends Action
 {
     public static function make(): Tables\Actions\Action

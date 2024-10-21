@@ -18,9 +18,6 @@ class UserTable
             ->columns(self::getColumns());
     }
 
-    /**
-     * @return array
-     */
     public static function getDefaultColumns(): array
     {
         return [
@@ -33,23 +30,16 @@ class UserTable
         ];
     }
 
-    /**
-     * @return array
-     */
     private static function getColumns(): array
     {
         return array_merge(self::getDefaultColumns(), self::$columns);
     }
 
-    /**
-     * @param Column|array $column
-     * @return void
-     */
-    public static function register(Column|array $column): void
+    public static function register(Column | array $column): void
     {
-        if(is_array($column)) {
-            foreach ($column as $item){
-                if($item instanceof Column) {
+        if (is_array($column)) {
+            foreach ($column as $item) {
+                if ($item instanceof Column) {
                     self::$columns[] = $item;
                 }
             }
@@ -57,5 +47,4 @@ class UserTable
             self::$columns[] = $column;
         }
     }
-
 }

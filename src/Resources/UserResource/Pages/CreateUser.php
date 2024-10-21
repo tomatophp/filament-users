@@ -3,7 +3,6 @@
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 
 class CreateUser extends CreateRecord
