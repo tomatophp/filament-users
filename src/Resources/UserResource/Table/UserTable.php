@@ -12,6 +12,7 @@ class UserTable
     public static function make(Table $table): Table
     {
         return $table
+            ->deferLoading()
             ->bulkActions(UserBulkActions::make())
             ->actions(UserActions::make())
             ->filters(UserFilters::make())
