@@ -2,18 +2,15 @@
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 use TomatoPHP\FilamentUsers\Resources\UserResource;
 use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
 use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
-use function PHPUnit\Framework\assertEquals;
 
 beforeEach(function () {
     actingAs(User::factory()->create());
