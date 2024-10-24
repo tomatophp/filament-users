@@ -19,6 +19,7 @@ class Password extends Component
             ->revealable(filament()->arePasswordsRevealable())
             ->required(fn ($record) => ! $record)
             ->rule(\Illuminate\Validation\Rules\Password::default())
+            ->dehydrated(fn ($state) => filled($state))
             ->dehydrateStateUsing(fn ($state) => Hash::make($state))
             ->same('passwordConfirmation')
             ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute'));
