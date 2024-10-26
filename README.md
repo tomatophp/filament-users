@@ -62,7 +62,7 @@ for v2 please use this [repo](https://github.com/3x1io/filament-user)
 composer require tomatophp/filament-users
 ```
 
-finally reigster the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
+finally register the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
 ->plugin(\TomatoPHP\FilamentUsers\FilamentUsersPlugin::make())
