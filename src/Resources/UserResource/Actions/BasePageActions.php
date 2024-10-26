@@ -5,7 +5,7 @@ namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions;
 use Filament\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class BasePageActions
+class BasePageActions
 {
     protected static array $actions = [];
 
@@ -13,9 +13,9 @@ abstract class BasePageActions
 
     public static function make(?Model $record = null): array
     {
-        static::$record = $record;
+        self::$record = $record;
 
-        return (new static)->getActions();
+        return (new self)->getActions();
     }
 
     public function getDefaultActions(): array

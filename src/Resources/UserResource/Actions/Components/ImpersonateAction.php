@@ -11,6 +11,10 @@ class ImpersonateAction extends Action
      */
     public static function make(?Model $record = null): \Filament\Actions\Action
     {
-        return \STS\FilamentImpersonate\Pages\Actions\Impersonate::make()->record($record);
+        if(class_exists('\STS\FilamentImpersonate\Pages\Actions\Impersonate')){
+            return \STS\FilamentImpersonate\Pages\Actions\Impersonate::make()->record($record);
+        }
+
+        return \Filament\Actions\Action::make('impersonate');
     }
 }
