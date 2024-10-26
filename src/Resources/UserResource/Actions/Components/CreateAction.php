@@ -3,7 +3,6 @@
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions\Components;
 
 use Filament\Actions;
-use Illuminate\Database\Eloquent\Model;
 
 class CreateAction extends Action
 {

@@ -4,7 +4,6 @@ namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions\Components;
 
 use Filament\Actions;
 use Illuminate\Database\Eloquent\Model;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Pages\EditUser;
 
 class EditAction extends Action
 {

@@ -2,8 +2,6 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions\Components;
 
-use Illuminate\Database\Eloquent\Model;
-
 class ImpersonateAction extends Action
 {
     /**
@@ -11,7 +9,7 @@ class ImpersonateAction extends Action
      */
     public static function make(): \Filament\Actions\Action
     {
-        if(class_exists('\STS\FilamentImpersonate\Pages\Actions\Impersonate')){
+        if (class_exists('\STS\FilamentImpersonate\Pages\Actions\Impersonate')) {
             return \STS\FilamentImpersonate\Pages\Actions\Impersonate::make();
         }
 

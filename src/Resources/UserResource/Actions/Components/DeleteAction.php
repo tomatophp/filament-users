@@ -4,7 +4,6 @@ namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions\Components;
 
 use Filament\Actions;
 use Filament\Notifications\Notification;
-use Illuminate\Database\Eloquent\Model;
 
 class DeleteAction extends Action
 {
