@@ -2,8 +2,11 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions;
 
-class CreatePageActions extends BasePageActions
+
+class CreatePageActions
 {
+    use Contracts\CanRegister;
+
     public function getDefaultActions(): array
     {
         return [

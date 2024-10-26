@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Action
 {
-    abstract public static function make(?Model $record = null): \Filament\Actions\Action;
+    abstract public static function make(): \Filament\Actions\Action;
 }

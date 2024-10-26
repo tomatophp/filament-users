@@ -10,7 +10,6 @@ class EditAction extends Action
 {
     public static function make(?Model $record = null): Actions\Action
     {
-        return Actions\Action::make('edit')
-            ->url(EditUser::getUrl(['record' => $record]));
+        return Actions\EditAction::make();
     }
 }

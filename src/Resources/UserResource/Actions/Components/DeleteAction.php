@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeleteAction extends Action
 {
-    public static function make(?Model $record = null): Actions\Action
+    public static function make(): Actions\Action
     {
         return Actions\DeleteAction::make('deleteSelectedUser')
             ->using(function ($record, Actions\Action $action) {

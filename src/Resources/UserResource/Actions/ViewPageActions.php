@@ -2,12 +2,14 @@
 
 namespace TomatoPHP\FilamentUsers\Resources\UserResource\Actions;
 
-class ViewPageActions extends BasePageActions
+class ViewPageActions
 {
+    use Contracts\CanRegister;
+
     public function getDefaultActions(): array
     {
         return [
-            Components\EditAction::make(self::$record),
+            Components\EditAction::make(),
             Components\DeleteAction::make(),
         ];
     }

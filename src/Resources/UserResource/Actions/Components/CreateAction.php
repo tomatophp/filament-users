@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CreateAction extends Action
 {
-    public static function make(?Model $record = null): Actions\Action
+    public static function make(): Actions\Action
     {
         return Actions\CreateAction::make();
     }

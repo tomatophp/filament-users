@@ -16,6 +16,6 @@ class CreateUser extends CreateRecord
 
     protected function getHeaderActions(): array
     {
-        return UserResource\Actions\CreatePageActions::make();
+        return UserResource\Actions\CreatePageActions::make($this);
     }
 }

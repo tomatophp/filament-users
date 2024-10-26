@@ -16,6 +16,6 @@ class ListUsers extends ListRecords
 
     protected function getActions(): array
     {
-        return UserResource\Actions\ManageUserActions::make();
+        return UserResource\Actions\ManageUserActions::make($this);
     }
 }
