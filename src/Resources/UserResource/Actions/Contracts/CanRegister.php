@@ -32,7 +32,7 @@ trait CanRegister
                     ->model(method_exists(self::$page, 'getModel') ? self::$page->getModel() : null)
                     ->modelLabel(method_exists(self::$page, 'getModelLabel') ? get_model_label(self::$page->getModel()) : null)
                     ->form(fn (Form $form) => app(self::$page->getResource())::form($form))
-                    ->url(fn () => isset(app(self::$page->getResource())::getPages()[$action->getName()]) ? app(app(self::$page->getResource())::getPages()[$action->getName()]->getPage())->getUrl() : null);
+                    ->url(fn () => isset(app(self::$page->getResource())::getPages()[$action->getName()]) ? app(app(self::$page->getResource())::getPages()[$action->getName()]->getPage())->getUrl(['record' => method_exists(self::$page, 'getRecord') ? self::$page->getRecord() : null]) : null);
             }
 
             return $action;
