@@ -185,14 +185,6 @@ now clear your config
 php artisan config:cache
 ```
 
-## Testing
-
-if you like to run `PEST` testing just use this command
-
-```bash
-composer test
-```
-
 ## Publish Resource
 
 you can publish the resource to your project
@@ -357,6 +349,30 @@ you can publish languages file by use this command
 
 ```bash
 php artisan vendor:publish --tag="filament-users-lang"
+```
+
+## Testing
+
+if you like to run `PEST` testing just use this command
+
+```bash
+composer test
+```
+
+## Code Style
+
+if you like to fix the code style just use this command
+
+```bash
+composer format
+```
+
+## PHPStan
+
+if you like to check the code by `PHPStan` just use this command
+
+```bash
+composer analyse
 ```
 
 ## Other Filament Packages
