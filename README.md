@@ -1,38 +1,17 @@
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/3x1io-tomato-users.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg)
 
-# Filament users
+# Filament Users Manager
 
+[![Dependabot Updates](https://github.com/tomatophp/filament-users/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/tomatophp/filament-users/actions/workflows/dependabot/dependabot-updates)
+[![PHP Code Styling](https://github.com/tomatophp/filament-users/actions/workflows/fix-php-code-styling.yml/badge.svg)](https://github.com/tomatophp/filament-users/actions/workflows/fix-php-code-styling.yml)
+[![Tests](https://github.com/tomatophp/filament-users/actions/workflows/tests.yml/badge.svg)](https://github.com/tomatophp/filament-users/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-users/version.svg)](https://packagist.org/packages/tomatophp/filament-users)
 [![License](https://poser.pugx.org/tomatophp/filament-users/license.svg)](https://packagist.org/packages/tomatophp/filament-users)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-users/d/total.svg)](https://packagist.org/packages/tomatophp/filament-users)
 
-User Table Resource with a lot of packages integrations
+Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate.
 
-for v2 please use this [repo](https://github.com/3x1io/filament-user)
-
-
-## Documentation
-
-1. [Features](#features)
-2. [Screenshots](#screenshots)
-3. [Installation](#installation)
-4. [Use Filament Shield](#use-filament-shield)
-5. [Use Filament Impersonate](#use-filament-impersonate)
-6. [Use Laravel Jetstream Teams](#use-laravel-jetstream-teams)
-7. [Testing](#testing)
-8. [Publish Resource](#publish-resource)
-9. [Register User Relation Manager](#register-user-relation-manager)
-10. [User Users Resource Hooks](#user-users-resource-hooks)
-    - [Table Columns](#table-columns)
-    - [Table Actions](#table-actions)
-    - [Table Filters](#table-filters)
-    - [Table Bulk Actions](#table-bulk-actions)
-    - [From Components](#from-components)
-    - [Page Actions](#page-actions)
-    - [Infolist Entries](#infolist-entries)
-11. [Use Simple User Resource](#use-simple-user-resource)
-12. [Publish Assets](#publish-assets)
-13. [Other Filament Packages](#other-filament-packages)
+for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 
 ## Features
 
@@ -52,9 +31,15 @@ for v2 please use this [repo](https://github.com/3x1io/filament-user)
 
 ## Screenshots
 
-![Users List](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/users.png)
-![Edit User](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/edit-user.png)
-![Users Filters](https://raw.githubusercontent.com/tomatophp/filament-users/master/art/users-filter.png)
+![Users List](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/user-list.png)
+![Create User](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/create.png)
+![Edit User](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/edit.png)
+![Users Filters](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/filters.png)
+![Delete Current User](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/delete-current-user.png)
+![Impersonate](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/impersonate.png)
+![Shield](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/shield.png)
+![Roles Bulk Action](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/roles.png)
+![Edit Roles](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/edit-roles.png)
 
 ## Installation
 

@@ -11,7 +11,7 @@ class UserForm
 
     public static function make(Form $form): Form
     {
-        return $form->schema(self::getSchema());
+        return $form->schema(self::getSchema())->columns(2);
     }
 
     public static function getDefaultComponents(): array
