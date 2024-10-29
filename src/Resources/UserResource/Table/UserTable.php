@@ -13,9 +13,9 @@ class UserTable
     {
         return $table
             ->deferLoading()
-            ->bulkActions(UserBulkActions::make())
-            ->actions(UserActions::make())
-            ->filters(UserFilters::make())
+            ->bulkActions(config('filament-users.resource.table.bulkActions')::make())
+            ->actions(config('filament-users.resource.table.actions')::make())
+            ->filters(config('filament-users.resource.table.filters')::make())
             ->columns(self::getColumns());
     }
 

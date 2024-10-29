@@ -57,17 +57,17 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return UserForm::make($form);
+        return config('filament-users.resource.form.class')::make($form);
     }
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        return UserInfoList::make($infolist);
+        return config('filament-users.resource.infolist.class')::make($infolist);
     }
 
     public static function table(Table $table): Table
     {
-        return UserTable::make($table);
+        return config('filament-users.resource.table.class')::make($table);
     }
 
     /**

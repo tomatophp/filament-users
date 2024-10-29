@@ -28,6 +28,6 @@ class EditUser extends EditRecord
 
     protected function getActions(): array
     {
-        return UserResource\Actions\EditPageActions::make($this);
+        return config('filament-users.resource.pages.edit')::make($this);
     }
 }

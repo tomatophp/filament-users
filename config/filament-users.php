@@ -74,4 +74,32 @@ return [
      * if you when to custom the role model path
      */
     'roles_model' => \Spatie\Permission\Models\Role::class,
+
+
+    /**
+     * ---------------------------------------------
+     * Resource Building
+     * ---------------------------------------------
+     * if you want to use the resource custom class
+     */
+    'resource' => [
+        'table' => [
+            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable::class,
+            'filters' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters::class,
+            'actions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions::class,
+            'bulkActions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions::class,
+        ],
+        'form' => [
+            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class
+        ],
+        'infolist' => [
+            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfoList::class
+        ],
+        'pages' => [
+            'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
+            'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
+            'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
+            'delete' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class
+        ]
+    ]
 ];

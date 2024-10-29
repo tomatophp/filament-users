@@ -11,6 +11,6 @@ class ViewUser extends ViewRecord
 
     protected function getActions(): array
     {
-        return UserResource\Actions\ViewPageActions::make($this);
+        return config('filament-users.resource.pages.view')::make($this);
     }
 }

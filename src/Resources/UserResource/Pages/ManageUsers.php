@@ -16,6 +16,6 @@ class ManageUsers extends ManageRecords
 
     protected function getActions(): array
     {
-        return UserResource\Actions\ManageUserActions::make($this);
+        return config('filament-users.resource.pages.list')::make($this);
     }
 }
