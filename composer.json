@@ -68,5 +68,6 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-deprecation-rules": "^1.2",
         "phpstan/phpstan-phpunit": "^1.4"
-    }
+    },
+    "version": "2.0.8"
 }
