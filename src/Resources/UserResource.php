@@ -10,10 +10,7 @@ use Filament\Resources\RelationManagers\RelationManagerConfiguration;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfoList;
 use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable;
 
 class UserResource extends Resource
 {
