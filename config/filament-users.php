@@ -98,7 +98,7 @@ return [
             'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
             'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
             'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
-            'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class
+            'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class,
         ],
     ],
 ];

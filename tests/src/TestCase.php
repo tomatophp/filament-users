@@ -43,6 +43,7 @@ abstract class TestCase extends BaseTestCase
     public function getEnvironmentSetUp($app): void
     {
         $app['config']->set('filament-users.model', User::class);
+        $app['config']->set('filament-users.simple', false);
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite.database', __DIR__ . '/../database/database.sqlite');
 

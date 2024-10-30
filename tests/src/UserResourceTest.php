@@ -44,28 +44,28 @@ it('can render user list page', function () {
     livewire(Pages\ListUsers::class)->assertSuccessful();
 });
 
+it('can render view user action', function () {
+    livewire(Pages\ManageUsers::class, [
+        'record' => User::factory()->create(),
+    ])
+        ->mountAction('view')
+        ->assertSuccessful();
+});
+
 it('can render view user page', function () {
-    if (config('filament-users.simple')) {
-        livewire(Pages\ManageUsers::class, [
-            'record' => User::factory()->create(),
-        ])
-            ->mountAction('view')
-            ->assertSuccessful();
-    } else {
-        get(UserResource::getUrl('view', [
-            'record' => User::factory()->create(),
-        ]))->assertSuccessful();
-    }
+    get(UserResource::getUrl('view', [
+        'record' => User::factory()->create(),
+    ]))->assertSuccessful();
+});
+
+it('can render user create action', function () {
+    livewire(Pages\ManageUsers::class)
+        ->mountAction('create')
+        ->assertSuccessful();
 });
 
 it('can render user create page', function () {
-    if (config('filament-users.simple')) {
-        livewire(Pages\ManageUsers::class)
-            ->mountAction('create')
-            ->assertSuccessful();
-    } else {
-        get(UserResource::getUrl('create'))->assertSuccessful();
-    }
+    get(UserResource::getUrl('create'))->assertSuccessful();
 });
 
 it('can create new user', function () {
@@ -106,18 +106,18 @@ it('can validate user input', function () {
         ]);
 });
 
+it('can render user edit action', function () {
+    livewire(Pages\ManageUsers::class, [
+        'record' => User::factory()->create(),
+    ])
+        ->mountAction('edit')
+        ->assertSuccessful();
+});
+
 it('can render user edit page', function () {
-    if (config('filament-users.simple')) {
-        livewire(Pages\ManageUsers::class, [
-            'record' => User::factory()->create(),
-        ])
-            ->mountAction('edit')
-            ->assertSuccessful();
-    } else {
-        get(UserResource::getUrl('edit', [
-            'record' => User::factory()->create(),
-        ]))->assertSuccessful();
-    }
+    get(UserResource::getUrl('edit', [
+        'record' => User::factory()->create(),
+    ]))->assertSuccessful();
 });
 
 it('can retrieve user data', function () {
