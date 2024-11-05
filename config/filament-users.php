@@ -92,7 +92,7 @@ return [
             'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class,
         ],
         'infolist' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfoList::class,
+            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfoList::class,
         ],
         'pages' => [
             'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
