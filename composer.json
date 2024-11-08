@@ -35,7 +35,7 @@
     },
     "scripts": {
         "testbench": "vendor/bin/testbench package:discover --ansi",
-        "db": "vendor/bin/testbench package:create-sqlite-db && vendor/bin/testbench migrate",
+        "db": "vendor/bin/testbench key:generate && vendor/bin/testbench config:cache && vendor/bin/testbench package:create-sqlite-db && vendor/bin/testbench migrate",
         "analyse": "vendor/bin/phpstan analyse src tests",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",

@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Tests\Database\Seeders;
 
-use TomatoPHP\FilamentUsers\Tests\Models\User;
 use Illuminate\Database\Seeder;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 class UserSeed extends Seeder
 {
