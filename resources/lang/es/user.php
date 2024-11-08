@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'group' => 'ALC',
+    'group' => 'Configuraciones',
     'resource' => [
         'id' => 'ID',
         'single' => 'Usuario',
@@ -9,11 +9,12 @@ return [
         'created_at' => 'Creado',
         'updated_at' => 'Actualizado',
         'verified' => 'Verificado',
-        'unverified' => 'No verificado',
+        'unverified' => 'No Verificado',
         'name' => 'Nombre',
-        'email' => 'Correo electrónico',
+        'email' => 'Correo Electrónico',
         'password' => 'Contraseña',
         'roles' => 'Roles',
+        'teams' => 'Equipos',
         'label' => 'Usuarios',
         'title' => [
             'show' => 'Mostrar Usuario',
@@ -31,8 +32,22 @@ return [
             ],
             'self' => [
                 'title' => 'Error',
-                'body' => 'No puedes elimin',
+                'body' => 'No puedes eliminarte a ti mismo',
             ],
+        ],
+    ],
+    'bulk' => [
+        'teams' => 'Actualizar Equipos',
+        'roles' => 'Actualizar Roles',
+    ],
+    'team' => [
+        'title' => 'Equipos',
+        'single' => 'Equipo',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Nombre',
+            'owner' => 'Propietario',
+            'personal_team' => 'Equipo Personal',
         ],
     ],
 ];
