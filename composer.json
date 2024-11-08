@@ -22,7 +22,8 @@
     "autoload-dev": {
         "psr-4": {
             "TomatoPHP\\FilamentUsers\\Tests\\": "tests/src/",
-            "TomatoPHP\\FilamentUsers\\Tests\\Database\\Factories\\": "tests/database/factories"
+            "TomatoPHP\\FilamentUsers\\Tests\\Database\\Factories\\": "tests/database/factories",
+            "TomatoPHP\\FilamentUsers\\Tests\\Database\\Seeders\\": "tests/database/seeders"
         }
     },
     "extra": {
@@ -34,6 +35,7 @@
     },
     "scripts": {
         "testbench": "vendor/bin/testbench package:discover --ansi",
+        "db": "vendor/bin/testbench package:create-sqlite-db && vendor/bin/testbench migrate",
         "analyse": "vendor/bin/phpstan analyse src tests",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",

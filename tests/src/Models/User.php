@@ -15,6 +15,12 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     use HasFactory;
     use Notifiable;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+    
     protected $guarded = [];
 
     protected $hidden = [
