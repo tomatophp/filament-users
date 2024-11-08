@@ -1,6 +1,6 @@
 providers:
-  - BladeUI\Heroicons\BladeHeroiconsServiceProvider
   - BladeUI\Icons\BladeIconsServiceProvider
+  - BladeUI\Heroicons\BladeHeroiconsServiceProvider
   - Filament\Actions\ActionsServiceProvider
   - Filament\FilamentServiceProvider
   - Filament\Forms\FormsServiceProvider
