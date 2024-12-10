@@ -12,6 +12,7 @@ class Roles extends Column
             ->icon('heroicon-o-shield-check')
             ->color('success')
             ->toggleable()
-            ->badge();
+            ->badge()
+            ->label(trans('filament-users::user.resource.roles'));
     }
 }
