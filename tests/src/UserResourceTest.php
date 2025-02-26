@@ -17,8 +17,8 @@ beforeEach(function () {
 });
 
 it('can render user resource', function () {
-get(UserResource::getUrl())->assertSuccessful();
-    });
+    get(UserResource::getUrl())->assertSuccessful();
+});
 
 it('can list posts', function () {
     User::query()->delete();
@@ -53,10 +53,10 @@ it('can render view user action', function () {
 });
 
 it('can render view user page', function () {
-get(UserResource::getUrl('view', [
-    'record' => User::factory()->create(),
-]))->assertSuccessful();
-    });
+    get(UserResource::getUrl('view', [
+        'record' => User::factory()->create(),
+    ]))->assertSuccessful();
+});
 
 it('can render user create action', function () {
     livewire(Pages\ManageUsers::class)
@@ -65,8 +65,8 @@ it('can render user create action', function () {
 });
 
 it('can render user create page', function () {
-get(UserResource::getUrl('create'))->assertSuccessful();
-    });
+    get(UserResource::getUrl('create'))->assertSuccessful();
+});
 
 it('can create new user', function () {
     $newData = User::factory()->make();
@@ -115,10 +115,10 @@ it('can render user edit action', function () {
 });
 
 it('can render user edit page', function () {
-get(UserResource::getUrl('edit', [
-    'record' => User::factory()->create(),
-]))->assertSuccessful();
-    });
+    get(UserResource::getUrl('edit', [
+        'record' => User::factory()->create(),
+    ]))->assertSuccessful();
+});
 
 it('can retrieve user data', function () {
     $user = User::factory()->create();
