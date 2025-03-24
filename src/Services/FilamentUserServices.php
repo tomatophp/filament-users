@@ -22,7 +22,6 @@ class FilamentUserServices
         return $this->relations;
     }
 
-
     public static function getModel(): string
     {
         // Get the configuration value
