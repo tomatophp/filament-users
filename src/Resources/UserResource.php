@@ -18,32 +18,14 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    public static function getModel(): string
-    {
-        // Get the configuration value
-        $config = config('filament-users.model');
-
-        // Check if the configuration is an array
-        if (is_array($config)) {
-            // Get the ID from filament()
-            $id = filament()->getId();
-
-            // Check if the key exists in the array
-            if (isset($config[$id])) {
-                return $config[$id];
-            } else {
-                // If the key does not exist, return the first element of the array
-                return reset($config);
-            }
-        }
-
-        // If the configuration is not an array, return it as is
-        return $config;
-    }
-
     public static function getNavigationLabel(): string
     {
         return trans('filament-users::user.resource.label');
+    }
+
+    public static function getModel(): string
+    {
+        return FilamentUser::getModel();
     }
 
     public static function getPluralLabel(): string

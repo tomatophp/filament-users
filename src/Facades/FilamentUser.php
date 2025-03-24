@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static void register(array|string $relation)
  * @method static array getRelations()
+ * @method static string getModel()
  */
 class FilamentUser extends Facade
 {
