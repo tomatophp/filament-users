@@ -70,7 +70,7 @@ class DeleteAction extends Action
         }
 
         // Ensure the model class exists
-        if (!class_exists($model)) {
+        if (! class_exists($model)) {
             throw new \RuntimeException("Model class {$model} does not exist.");
         }
 
