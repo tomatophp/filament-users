@@ -23,7 +23,7 @@
     "icon": "heroicon-c-users",
     "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg",
     "type": "plugin",
-    "version": "v1.0.12",
+    "version": "v2.0.18",
     "github" : "https://github.com/tomatophp/filament-users",
     "docs" : "https://github.com/tomatophp/filament-users"
 }
