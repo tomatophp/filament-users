@@ -20,7 +20,25 @@ class UserResource extends Resource
 
     public static function getModel(): string
     {
-        return config('filament-users.model');
+        // Get the configuration value
+        $config = config('filament-users.model');
+
+        // Check if the configuration is an array
+        if (is_array($config)) {
+            // Get the ID from filament()
+            $id = filament()->getId();
+
+            // Check if the key exists in the array
+            if (isset($config[$id])) {
+                return $config[$id];
+            } else {
+                // If the key does not exist, return the first element of the array
+                return reset($config);
+            }
+        }
+
+        // If the configuration is not an array, return it as is
+        return $config;
     }
 
     public static function getNavigationLabel(): string
