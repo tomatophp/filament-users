@@ -13,6 +13,7 @@ return [
         'name' => 'الاسم',
         'email' => 'البريد الالكتروني',
         'password' => 'كلمة المرور',
+        'password_confirmation' => 'تأكيد كلمة المرور',
         'roles' => 'الرتب',
         'label' => 'المستخدمين',
         'title' => [

@@ -17,7 +17,25 @@ return [
      * ---------------------------------------------
      * The Group name of the resource.
      */
-    'group' => 'Settings',
+    'group' => null,
+
+
+    /**
+     * ---------------------------------------------
+     * Change The Navigation Sort
+     * ---------------------------------------------
+     * The navigation sort of the resource.
+     */
+    'navigation_sort' => 9,
+
+
+    /**
+     * ---------------------------------------------
+     * Change The Navigation Icon
+     * ---------------------------------------------
+     * The navigation icon of the resource.
+     */
+    'navigation_icon' => 'heroicon-o-user',
 
     /**
      * ---------------------------------------------
@@ -41,7 +59,7 @@ return [
      * ---------------------------------------------
      * change the resource from pages to modals by allow simple resource.
      */
-    'simple' => true,
+    'simple' => false,
 
     /**
      * ---------------------------------------------
@@ -83,22 +101,13 @@ return [
      */
     'resource' => [
         'table' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable::class,
-            'filters' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters::class,
-            'actions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions::class,
-            'bulkActions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions::class,
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UsersTable::class,
         ],
         'form' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class,
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm::class,
         ],
         'infolist' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfoList::class,
-        ],
-        'pages' => [
-            'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
-            'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
-            'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
-            'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class,
-        ],
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist::class,
+        ]
     ],
 ];

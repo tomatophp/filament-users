@@ -13,6 +13,7 @@ return [
         'name' => 'Имя',
         'email' => 'Email',
         'password' => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
         'roles' => 'Роли',
         'label' => 'Пользователи',
         'title' => [

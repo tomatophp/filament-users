@@ -13,6 +13,7 @@ return [
         'name' => 'Nome',
         'email' => 'Email',
         'password' => 'Palavra-passe',
+        'password_confirmation' => 'Confirmação de Palavra-passe',
         'roles' => 'Funções',
         'label' => 'Utilizadores',
         'title' => [

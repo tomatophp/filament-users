@@ -13,6 +13,7 @@ return [
         'name' => 'Име',
         'email' => 'Е-пошта',
         'password' => 'Лозинка',
+        'password_confirmation' => 'Потврди лозинка',
         'roles' => 'Улоги',
         'teams' => 'Тимови',
         'label' => 'Корисници',

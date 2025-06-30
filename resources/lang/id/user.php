@@ -13,6 +13,7 @@ return [
         'name' => 'Nama',
         'email' => 'Email',
         'password' => 'Kata Sandi',
+        'password_confirmation' => 'Konfirmasi Kata Sandi',
         'roles' => 'Peran',
         'teams' => 'Tim',
         'label' => 'Pengguna',

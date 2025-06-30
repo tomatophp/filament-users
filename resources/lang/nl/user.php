@@ -13,6 +13,7 @@ return [
         'name' => 'Naam',
         'email' => 'Email',
         'password' => 'Wachtwoord',
+        'password_confirmation' => 'Wachtwoord Bevestigen',
         'roles' => 'Rollen',
         'label' => 'Gebruikers',
         'title' => [
