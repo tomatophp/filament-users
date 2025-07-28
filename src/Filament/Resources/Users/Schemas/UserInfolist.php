@@ -2,9 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
 
-use Filament\Schemas\Schema;
 use Filament\Infolists\Components\Entry;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 
 class UserInfolist
 {

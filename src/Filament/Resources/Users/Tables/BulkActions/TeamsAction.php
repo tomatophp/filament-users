@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\BulkActions;
 
-use Filament\Forms;
 use Filament\Actions;
+use Filament\Forms;
 use Illuminate\Database\Eloquent\Collection;
 
 class TeamsAction extends Action

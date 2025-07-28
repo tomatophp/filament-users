@@ -2,13 +2,12 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 use Filament\Resources\Pages\CreateRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 
 class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
-
 
     public function getTitle(): string
     {

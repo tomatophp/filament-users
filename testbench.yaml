@@ -9,11 +9,14 @@ providers:
   - Filament\Support\SupportServiceProvider
   - Filament\Tables\TablesServiceProvider
   - Filament\Widgets\WidgetsServiceProvider
+  - Filament\Schemas\SchemasServiceProvider
   - RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider
   - TomatoPHP\FilamentUsers\FilamentUsersServiceProvider
   - TomatoPHP\FilamentUsers\Tests\AdminPanelProvider
 seeders:
   - TomatoPHP\FilamentUsers\Tests\Database\Seeders\DatabaseSeeder
+  # i want to add a facade class
+
 workbench:
   welcome: true
   install: true

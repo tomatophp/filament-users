@@ -19,7 +19,6 @@ return [
      */
     'group' => null,
 
-
     /**
      * ---------------------------------------------
      * Change The Navigation Sort
@@ -27,7 +26,6 @@ return [
      * The navigation sort of the resource.
      */
     'navigation_sort' => 9,
-
 
     /**
      * ---------------------------------------------
@@ -108,6 +106,6 @@ return [
         ],
         'infolist' => [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist::class,
-        ]
+        ],
     ],
 ];

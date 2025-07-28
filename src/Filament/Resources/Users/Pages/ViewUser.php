@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 
 class ViewUser extends ViewRecord
 {

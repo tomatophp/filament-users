@@ -5,8 +5,8 @@ namespace TomatoPHP\FilamentUsers;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Laravel\Jetstream\Jetstream;
-use TomatoPHP\FilamentUsers\Resources\TeamResource;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
+use TomatoPHP\FilamentUsers\Resources\TeamResource;
 
 class FilamentUsersPlugin implements Plugin
 {

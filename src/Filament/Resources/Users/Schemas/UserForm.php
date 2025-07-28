@@ -2,10 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
 
-use Filament\Schemas\Schema;
 use Filament\Forms\Components\Field;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Schemas\Schema;
 
 class UserForm
 {
@@ -44,6 +42,4 @@ class UserForm
             self::$schema[] = $component;
         }
     }
-
-
 }

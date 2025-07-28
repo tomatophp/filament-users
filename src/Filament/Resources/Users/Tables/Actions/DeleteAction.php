@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 
-use Filament\Notifications\Notification;
 use Filament\Actions;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Model;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 

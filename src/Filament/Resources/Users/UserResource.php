@@ -3,20 +3,15 @@
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users;
 
 use BackedEnum;
-use Filament\Tables\Table;
-use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UsersTable;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist;
 
 class UserResource extends Resource
 {
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function getNavigationLabel(): string
     {
@@ -84,7 +79,7 @@ class UserResource extends Resource
 
     public static function getPages(): array
     {
-           return config('filament-users.simple') ? [
+        return config('filament-users.simple') ? [
             'index' => Pages\ManageUsers::route('/'),
         ] : [
             'index' => Pages\ListUsers::route('/'),

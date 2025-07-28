@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
 
 class ListUsers extends ListRecords
 {
