@@ -3,15 +3,14 @@
 namespace TomatoPHP\FilamentUsers;
 
 use Filament\Facades\Filament;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Filament\Support\Facades\FilamentView;
-use Lab404\Impersonate\Events\TakeImpersonation;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 use Lab404\Impersonate\Events\LeaveImpersonation;
+use Lab404\Impersonate\Events\TakeImpersonation;
 use TomatoPHP\FilamentUsers\Console\FilamentUserTeamsCommand;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions\ImpersonateAction;
 
 class FilamentUsersServiceProvider extends ServiceProvider
 {

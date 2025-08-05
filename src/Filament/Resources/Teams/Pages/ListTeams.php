@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 
 class ListTeams extends ListRecords
 {

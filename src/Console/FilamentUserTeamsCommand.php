@@ -4,7 +4,6 @@ namespace TomatoPHP\FilamentUsers\Console;
 
 use Illuminate\Console\Command;
 use TomatoPHP\ConsoleHelpers\Traits\HandleFiles;
-use TomatoPHP\ConsoleHelpers\Traits\HandleStub;
 
 class FilamentUserTeamsCommand extends Command
 {
@@ -58,7 +57,7 @@ class FilamentUserTeamsCommand extends Command
             database_path('migrations/' . date('Y_m_d_His') . '_update_users_table.php')
         );
 
-        //Copy Models
+        // Copy Models
         $this->copyFile(
             __DIR__ . '/../../stubs/app/Models/Team.php',
             app_path('Models/Team.php')
@@ -73,7 +72,6 @@ class FilamentUserTeamsCommand extends Command
             __DIR__ . '/../../stubs/app/Models/Membership.php',
             app_path('Models/Membership.php')
         );
-
 
         $this->info('Filament User Teams Resource published successfully.');
     }

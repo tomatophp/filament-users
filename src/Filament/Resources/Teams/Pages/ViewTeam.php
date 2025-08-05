@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 
 class ViewTeam extends ViewRecord
 {

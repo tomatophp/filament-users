@@ -75,7 +75,6 @@ return [
         'auth_guard' => 'web',
     ],
 
-
     /**
      * ---------------------------------------------
      * User Filament Shield

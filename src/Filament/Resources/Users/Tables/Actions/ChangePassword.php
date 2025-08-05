@@ -4,9 +4,9 @@ namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 
 use Filament\Actions;
 use Filament\Forms;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ChangePassword extends Action
 {
@@ -39,7 +39,7 @@ class ChangePassword extends Action
                     ->dehydrated(false),
             ])
             ->action(function ($record, $data) {
-                $auto = !isset($data['password']);
+                $auto = ! isset($data['password']);
                 $password = $data['password'] ?? Str::random(12);
                 $record->password = $password;
                 $record->save();

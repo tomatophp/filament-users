@@ -4,13 +4,15 @@ namespace TomatoPHP\FilamentUsers;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users;
 
 class FilamentUsersPlugin implements Plugin
 {
     protected static bool $useAvatar = false;
+
     protected static bool $useUserResource = true;
+
     protected static bool $useTeamsResource = true;
 
     public function getId(): string

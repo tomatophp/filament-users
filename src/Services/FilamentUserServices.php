@@ -7,6 +7,7 @@ use TomatoPHP\FilamentUsers\Concerns\Impersonates;
 class FilamentUserServices
 {
     use Impersonates;
+
     private array $relations = [];
 
     public function register(array | string $relation): void
@@ -55,6 +56,4 @@ class FilamentUserServices
         // Return the model class name (or you can return the count if needed)
         return $model;
     }
-
-
 }

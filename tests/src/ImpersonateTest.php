@@ -44,7 +44,7 @@ it('can test impersonate action within Filament panel', function () {
     expect($action)->toBeInstanceOf(\Filament\Actions\Action::class);
 
     // Test the action within the panel context
-    $impersonateAction = new ImpersonateAction();
+    $impersonateAction = new ImpersonateAction;
     $impersonateAction->guard($this->panel->getAuthGuard());
     $impersonateAction->redirectTo($this->panel->getUrl());
     $impersonateAction->backTo($this->panel->getUrl());
@@ -65,7 +65,7 @@ it('can test impersonate action in Filament resource context', function () {
     actingAs($admin);
 
     // Test the action within the Filament resource context
-    $impersonateAction = new ImpersonateAction();
+    $impersonateAction = new ImpersonateAction;
 
     // Configure with panel-specific settings
     $impersonateAction->guard($this->panel->getAuthGuard());
@@ -94,7 +94,7 @@ it('uses custom guard for impersonation', function () {
 
     actingAs($admin);
 
-    $impersonateAction = new ImpersonateAction();
+    $impersonateAction = new ImpersonateAction;
     $impersonateAction->guard('testing');
     $impersonateAction->impersonate($targetUser);
 
@@ -113,7 +113,7 @@ it('tests impersonation with reflection for protected methods', function () {
 
     actingAs($admin);
 
-    $impersonateAction = new ImpersonateAction();
+    $impersonateAction = new ImpersonateAction;
 
     // Use reflection to test protected method
     $reflection = new \ReflectionClass($impersonateAction);
@@ -131,7 +131,7 @@ it('can test impersonate action in Filament table context', function () {
     actingAs($admin);
 
     // Test the action within the Filament table context
-    $impersonateAction = new ImpersonateAction();
+    $impersonateAction = new ImpersonateAction;
 
     // Configure with panel-specific settings
     $impersonateAction->guard($this->panel->getAuthGuard());

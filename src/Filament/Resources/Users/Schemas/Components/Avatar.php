@@ -3,7 +3,6 @@
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 
 class Avatar extends Component
 {

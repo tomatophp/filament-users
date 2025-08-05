@@ -2,6 +2,11 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams;
 
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\CreateTeam;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\EditTeam;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\ListTeams;
@@ -9,19 +14,12 @@ use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\ViewTeam;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas\TeamForm;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas\TeamInfolist;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Tables\TeamsTable;
-use App\Models\Team;
-use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
 
 class TeamResource extends Resource
 {
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::UserGroup;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
-
-        public static function getModel(): string
+    public static function getModel(): string
     {
         return config('filament-users.team_model');
     }
