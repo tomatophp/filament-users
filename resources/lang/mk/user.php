@@ -13,6 +13,7 @@ return [
         'name' => 'Име',
         'email' => 'Е-пошта',
         'password' => 'Лозинка',
+        'password_confirmation' => 'Потврди лозинка',
         'roles' => 'Улоги',
         'teams' => 'Тимови',
         'label' => 'Корисници',
@@ -35,6 +36,14 @@ return [
                 'body' => 'Не можете да се избришете себеси',
             ],
         ],
+        'avatar' => 'Аватар',
+        'change_password' => 'Промени лозинка',
+        'change_password_auto' => 'Лозинката е промената автоматски',
+        'change_password_success' => 'Лозинката е успешно промената',
+        'change_password_auto_body' => 'Лозинката е промената автоматски',
+        'change_password_success_body' => 'Лозинката е успешно промената',
+        'change_password_auto_body_placeholder' => 'Оставете празно за автоматско генерирање',
+        'change_password_success_body_placeholder' => 'Оставете празно за автоматско генерирање',
     ],
     'bulk' => [
         'teams' => 'Ажурирај тимови',
@@ -49,5 +58,9 @@ return [
             'owner' => 'Сопственик',
             'personal_team' => 'Личен тим',
         ],
+    ],
+    'banner' => [
+        'impersonating' => 'Имперсонирано',
+        'leave' => 'Напусти Имперсонирање',
     ],
 ];

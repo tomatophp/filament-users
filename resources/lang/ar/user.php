@@ -13,7 +13,9 @@ return [
         'name' => 'الاسم',
         'email' => 'البريد الالكتروني',
         'password' => 'كلمة المرور',
+        'password_confirmation' => 'تأكيد كلمة المرور',
         'roles' => 'الرتب',
+        'teams' => 'الفرق',
         'label' => 'المستخدمين',
         'title' => [
             'show' => 'عرض مستخدم',
@@ -34,5 +36,31 @@ return [
                 'body' => 'لا يمكنك حذف نفسك',
             ],
         ],
+        'avatar' => 'الصورة الشخصية',
+        'change_password' => 'تغيير كلمة المرور',
+        'change_password_auto' => 'تم تغيير كلمة المرور بشكل آلي',
+        'change_password_success' => 'تم تغيير كلمة المرور بنجاح',
+        'change_password_auto_body' => 'تم تغيير كلمة المرور بشكل آلي',
+        'change_password_success_body' => 'تم تغيير كلمة المرور بنجاح',
+        'change_password_auto_body_placeholder' => 'اترك فارغ لتوليد تلقائي',
+        'change_password_success_body_placeholder' => 'اترك فارغ لتوليد تلقائي',
+    ],
+    'bulk' => [
+        'teams' => 'تحديث الفرق',
+        'roles' => 'تحديث الأدوار',
+    ],
+    'team' => [
+        'title' => 'الفرق',
+        'single' => 'فريق',
+        'columns' => [
+            'avatar' => 'الصورة الشخصية',
+            'name' => 'الاسم',
+            'owner' => 'المالك',
+            'personal_team' => 'فريق شخصي',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'تقمص',
+        'leave' => 'ترك التقمص',
     ],
 ];

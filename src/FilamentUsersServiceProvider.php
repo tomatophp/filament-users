@@ -2,16 +2,23 @@
 
 namespace TomatoPHP\FilamentUsers;
 
+use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
+use Lab404\Impersonate\Events\TakeImpersonation;
+use Lab404\Impersonate\Events\LeaveImpersonation;
+use TomatoPHP\FilamentUsers\Console\FilamentUserTeamsCommand;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions\ImpersonateAction;
 
 class FilamentUsersServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Register generate command
         $this->commands([
-            \TomatoPHP\FilamentUsers\Console\PublishUserResourceCommand::class,
+            FilamentUserTeamsCommand::class,
         ]);
 
         // Register Config file
@@ -33,10 +40,34 @@ class FilamentUsersServiceProvider extends ServiceProvider
         $this->app->bind('filament-user', function () {
             return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices;
         });
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-users');
     }
 
     public function boot(): void
     {
-        // you boot methods here
+        $this->registerImpersonate();
+    }
+
+    public function registerImpersonate(): void
+    {
+        Event::listen(TakeImpersonation::class, fn () => $this->clearAuthHashes());
+        Event::listen(LeaveImpersonation::class, fn () => $this->clearAuthHashes());
+
+        FilamentView::registerRenderHook(
+            config('filament-users.impersonate.banner.render_hook', 'panels::body.start'),
+            static fn (): string => Blade::render('<x-filament-users::banner/>')
+        );
+    }
+
+    protected function clearAuthHashes(): void
+    {
+        session()->forget(array_unique([
+            'password_hash_' . session('impersonate.guard'),
+            'password_hash_' . Filament::getCurrentOrDefaultPanel()->getAuthGuard(),
+            'password_hash_' . auth()->getDefaultDriver(),
+            'password_hash_sanctum',
+        ]));
     }
 }

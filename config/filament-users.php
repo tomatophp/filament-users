@@ -17,7 +17,23 @@ return [
      * ---------------------------------------------
      * The Group name of the resource.
      */
-    'group' => 'Settings',
+    'group' => null,
+
+    /**
+     * ---------------------------------------------
+     * Change The Navigation Sort
+     * ---------------------------------------------
+     * The navigation sort of the resource.
+     */
+    'navigation_sort' => 9,
+
+    /**
+     * ---------------------------------------------
+     * Change The Navigation Icon
+     * ---------------------------------------------
+     * The navigation icon of the resource.
+     */
+    'navigation_icon' => 'heroicon-o-user',
 
     /**
      * ---------------------------------------------
@@ -25,7 +41,40 @@ return [
      * ---------------------------------------------
      * if you are using filament impersonate, you can set this to true.
      */
-    'impersonate' => false,
+    'impersonate' => [
+        'enabled' => true,
+        'banner' => [
+            // Available hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
+            'render_hook' => env('FILAMENT_IMPERSONATE_BANNER_RENDER_HOOK', 'panels::body.start'),
+
+            // Currently supports 'dark', 'light' and 'auto'.
+            'style' => env('FILAMENT_IMPERSONATE_BANNER_STYLE', 'dark'),
+
+            // Turn this off if you want `absolute` positioning, so the banner scrolls out of view
+            'fixed' => env('FILAMENT_IMPERSONATE_BANNER_FIXED', true),
+
+            // Currently supports 'top' and 'bottom'.
+            'position' => env('FILAMENT_IMPERSONATE_BANNER_POSITION', 'top'),
+
+            'styles' => [
+                'light' => [
+                    'text' => '#1f2937',
+                    'background' => '#f3f4f6',
+                    'border' => '#e8eaec',
+                ],
+                'dark' => [
+                    'text' => '#f3f4f6',
+                    'background' => '#1f2937',
+                    'border' => '#374151',
+                ],
+            ],
+        ],
+        'redirect_to' => '/admin',
+        'back_to' => '/admin',
+        'leave_middleware' => 'web',
+        'auth_guard' => 'web',
+    ],
+
 
     /**
      * ---------------------------------------------
@@ -41,7 +90,7 @@ return [
      * ---------------------------------------------
      * change the resource from pages to modals by allow simple resource.
      */
-    'simple' => true,
+    'simple' => false,
 
     /**
      * ---------------------------------------------
@@ -50,6 +99,14 @@ return [
      * if you want to allow team resource and filters and actions.
      */
     'teams' => false,
+
+    /**
+     * ---------------------------------------------
+     * Use Styled Columns
+     * ---------------------------------------------
+     * if you want to use styled columns for the resource.
+     */
+    'styled_columns' => false,
 
     /**
      * ---------------------------------------------
@@ -83,22 +140,16 @@ return [
      */
     'resource' => [
         'table' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable::class,
-            'filters' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters::class,
-            'actions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions::class,
-            'bulkActions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions::class,
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UsersTable::class,
+            'filters' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserFilters::class,
+            'actions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserActions::class,
+            'bulkActions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserBulkActions::class,
         ],
         'form' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class,
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm::class,
         ],
         'infolist' => [
-            'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfoList::class,
-        ],
-        'pages' => [
-            'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
-            'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
-            'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
-            'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class,
+            'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist::class,
         ],
     ],
 ];

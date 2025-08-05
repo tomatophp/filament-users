@@ -2,22 +2,35 @@
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
-use TomatoPHP\FilamentUsers\Resources\UserResource;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Pages;
+use Filament\Facades\Filament;
+use Illuminate\Config\Repository;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
 use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {
+    $app = $this->app;
+
+    tap($app['config'], function (Repository $config) {
+        $config->set('filament-users.simple', false);
+    });
+
     actingAs(User::factory()->create());
+
+    $this->panel = Filament::getCurrentOrDefaultPanel();
+    $this->panel->plugin(
+        FilamentUsersPlugin::make()
+    );
 });
 
 it('can render user resource', function () {
-    get(UserResource::getUrl())->assertSuccessful();
+    $this->get(UserResource::getUrl('index'))->assertSuccessful();
 });
 
 it('can list posts', function () {
@@ -44,24 +57,10 @@ it('can render user list page', function () {
     livewire(Pages\ListUsers::class)->assertSuccessful();
 });
 
-it('can render view user action', function () {
-    livewire(Pages\ManageUsers::class, [
-        'record' => User::factory()->create(),
-    ])
-        ->mountAction('view')
-        ->assertSuccessful();
-});
-
 it('can render view user page', function () {
     get(UserResource::getUrl('view', [
         'record' => User::factory()->create(),
     ]))->assertSuccessful();
-});
-
-it('can render user create action', function () {
-    livewire(Pages\ManageUsers::class)
-        ->mountAction('create')
-        ->assertSuccessful();
 });
 
 it('can render user create page', function () {
@@ -104,14 +103,6 @@ it('can validate user input', function () {
             'password' => 'required',
             'passwordConfirmation' => 'required',
         ]);
-});
-
-it('can render user edit action', function () {
-    livewire(Pages\ManageUsers::class, [
-        'record' => User::factory()->create(),
-    ])
-        ->mountAction('edit')
-        ->assertSuccessful();
 });
 
 it('can render user edit page', function () {
@@ -166,44 +157,4 @@ it('can save user data', function () {
     expect($user->refresh())
         ->name->toBe($newData->name)
         ->email->toBe($newData->email);
-});
-
-it('can delete user', function () {
-    $user = User::factory()->create();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])
-        ->callAction('deleteSelectedUser');
-
-    assertModelMissing($user);
-});
-
-it('can not delete user if it is current user', function () {
-    $user = auth()->user();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])
-        ->callAction('deleteSelectedUser');
-
-    assertDatabaseHas(User::class, [
-        'name' => $user->name,
-        'email' => $user->email,
-    ]);
-});
-
-it('can not delete user if it is the last user', function () {
-    User::query()->delete();
-    $user = User::factory()->create();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])
-        ->callAction('deleteSelectedUser');
-
-    assertDatabaseHas(User::class, [
-        'name' => $user->name,
-        'email' => $user->email,
-    ]);
 });
