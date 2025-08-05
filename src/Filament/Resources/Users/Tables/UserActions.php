@@ -19,6 +19,7 @@ class UserActions
         return [
             Actions\ViewAction::make(),
             Actions\EditAction::make(),
+            Actions\ChangePassword::make(),
             Actions\DeleteAction::make(),
         ];
     }

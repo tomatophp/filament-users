@@ -24,8 +24,8 @@ for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 - [x] custom User model from config file
 - [x] custom Team model from config file
 - [x] custom Role model from config file
+- [x] Allow User Avatars
 - [ ] Laravel Jetsream user profile page
-- [ ] Allow User / Teams Avatars
 - [ ] Custom Register/Login Pages for Laravel Jetstream
 - [ ] Add OTP Page to Register process
 
@@ -83,7 +83,8 @@ Publish the config file then setup your configuration:
 Now run the following command to install shield:
 
 ```bash
-php artisan shield:install
+php artisan shield:setup
+php artisan shield:super_admin
 ```
 
 Now we can [publish the package assets]([https://github.com/bezhanSalleh/filament-shield](https://github.com/tomatophp/filament-users?tab=readme-ov-file#publish-assets)).
@@ -103,17 +104,12 @@ now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
 
 for more information check the [Filament Shield](https://github.com/bezhanSalleh/filament-shield)
 
 ## Use Filament Impersonate
-
-you can use the impersonate to impersonate the user by install it first
-
-```bash
-composer require stechstudio/filament-impersonate
-```
 
 now on your `filament-users.php` config allow shield
 
@@ -121,16 +117,17 @@ now on your `filament-users.php` config allow shield
 /*
  * User Filament Impersonate
  */
-"impersonate" => true,
+"impersonate" => [
+    'enable' => true
+],
 ```
 
 now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
-
-for more information check the [Filament Impersonate](https://github.com/stechstudio/filament-impersonate)
 
 ## Use Laravel Jetstream Teams
 
@@ -140,28 +137,10 @@ you can use the Laravel Jetstream Teams by install it first
 composer require laravel/jetstream
 ```
 
-now you need to install the jetstream with livewire
+after that just publish the migration and models
 
 ```bash
-php artisan jetstream:install livewire
-```
-
-go to `jetstream.php` and allow teams feature
-
-```php
-'features' => [
-//     Features::termsAndPrivacyPolicy(),
-//     Features::profilePhotos(),
-//     Features::api(),
-     Features::teams(['invitations' => true]),
-//     Features::accountDeletion(),
-],
-```
-
-now you need to publish teams migration from jetstream
-
-```bash
-php artisan vendor:publish --tag=jetstream-teams-migrations
+php artisan filament-users:teams
 ```
 
 now you need to migrate the teams migration
@@ -183,19 +162,12 @@ now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
 
 ## Publish Resource
 
-you can publish the resource to your project
-
-```bash
-php artisan filament-users:publish
-```
-
-it will publish the resource to your project
-
-than go to `filament-users.php` config file and change the `publish_resource` to `true`
+you can custom the resource by just extend it and then make `->useUserResource(false)` or `->useTeamsResource(false)` to the plugin
 
 ## Register User Relation Manager
 
@@ -220,11 +192,11 @@ we have add a lot of hooks to make it easy to attach actions, columns, filters, 
 ### Table Columns
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserTable;
 
 public function boot()
 {
-    UserTable::register([
+    UsersTable::register([
         \Filament\Tables\Columns\TextColumn::make('something')
     ]);
 }
@@ -233,7 +205,7 @@ public function boot()
 ### Table Actions
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserActions;
 
 public function boot()
 {
@@ -246,7 +218,7 @@ public function boot()
 ### Table Filters
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserFilters;
 
 public function boot()
 {
@@ -259,7 +231,7 @@ public function boot()
 ### Table Bulk Actions
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserBulkActions;
 
 public function boot()
 {
@@ -272,7 +244,7 @@ public function boot()
 ### From Components
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm;
 
 public function boot()
 {
@@ -282,38 +254,10 @@ public function boot()
 }
 ```
 
-### Page Actions
-
-```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions;
-
-public function boot()
-{
-    ManageUserActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    EditPageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    ViewPageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    CreatePageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-}
-```
-
 ### Infolist Entries
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfolist;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist;
 
 public function boot()
 {
@@ -346,12 +290,6 @@ you can customize all resource classes to be any class you want with the same re
     ],
     'infolist' => [
         'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfoList::class
-    ],
-    'pages' => [
-        'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
-        'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
-        'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
-        'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class
     ]
 ]
 ```
@@ -369,6 +307,10 @@ you can use the simple user resource by change on config, on your `filament-user
  */
 'simple' => true,
 ```
+
+## Use User Avatar
+
+you can use User Avatar by just add `->useAvatar()` to the plugin
 
 ## Publish Assets
 

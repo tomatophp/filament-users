@@ -16,11 +16,16 @@ class UserInfolist
 
     public static function getDefaultComponents(): array
     {
-        return [
-            Entries\Name::make(),
-            Entries\Email::make(),
-            Entries\Verified::make(),
-        ];
+        $components = [];
+        if (filament('filament-user')::hasAvatar()) {
+            $components[] = Entries\Avatar::make();
+        }
+
+        $components[] = Entries\Name::make();
+        $components[] = Entries\Email::make();
+        $components[] = Entries\Verified::make();
+
+        return $components;
     }
 
     private static function getSchema(): array

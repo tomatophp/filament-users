@@ -12,15 +12,15 @@ class UsersTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->columns(static::getDefaultColumns())
-            ->filters(UserFilters::make())
-            ->recordActions(UserActions::make())
-            ->toolbarActions(UserBulkActions::make());
+            ->columns(static::getColumns())
+            ->filters(config('filament-users.resource.table.filters')::make())
+            ->recordActions(config('filament-users.resource.table.actions')::make())
+            ->toolbarActions(config('filament-users.resource.table.bulkActions')::make());
     }
 
     public static function getDefaultColumns(): array
     {
-        return [
+        $columns = [
             Columns\ID::make(),
             Columns\Name::make(),
             Columns\Email::make(),
@@ -28,6 +28,12 @@ class UsersTable
             Columns\CreatedAt::make(),
             Columns\UpdatedAt::make(),
         ];
+
+        if (filament('filament-user')::hasAvatar()) {
+            $columns[] = Columns\Avatar::make();
+        }
+
+        return $columns;
     }
 
     private static function getColumns(): array

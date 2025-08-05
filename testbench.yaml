@@ -1,4 +1,5 @@
 providers:
+  - Lab404\Impersonate\ImpersonateServiceProvider
   - BladeUI\Icons\BladeIconsServiceProvider
   - BladeUI\Heroicons\BladeHeroiconsServiceProvider
   - Filament\Actions\ActionsServiceProvider

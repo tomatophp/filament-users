@@ -41,7 +41,40 @@ return [
      * ---------------------------------------------
      * if you are using filament impersonate, you can set this to true.
      */
-    'impersonate' => false,
+    'impersonate' => [
+        'enabled' => true,
+        'banner' => [
+            // Available hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
+            'render_hook' => env('FILAMENT_IMPERSONATE_BANNER_RENDER_HOOK', 'panels::body.start'),
+
+            // Currently supports 'dark', 'light' and 'auto'.
+            'style' => env('FILAMENT_IMPERSONATE_BANNER_STYLE', 'dark'),
+
+            // Turn this off if you want `absolute` positioning, so the banner scrolls out of view
+            'fixed' => env('FILAMENT_IMPERSONATE_BANNER_FIXED', true),
+
+            // Currently supports 'top' and 'bottom'.
+            'position' => env('FILAMENT_IMPERSONATE_BANNER_POSITION', 'top'),
+
+            'styles' => [
+                'light' => [
+                    'text' => '#1f2937',
+                    'background' => '#f3f4f6',
+                    'border' => '#e8eaec',
+                ],
+                'dark' => [
+                    'text' => '#f3f4f6',
+                    'background' => '#1f2937',
+                    'border' => '#374151',
+                ],
+            ],
+        ],
+        'redirect_to' => '/admin',
+        'back_to' => '/admin',
+        'leave_middleware' => 'web',
+        'auth_guard' => 'web',
+    ],
+
 
     /**
      * ---------------------------------------------
@@ -66,6 +99,14 @@ return [
      * if you want to allow team resource and filters and actions.
      */
     'teams' => false,
+
+    /**
+     * ---------------------------------------------
+     * Use Styled Columns
+     * ---------------------------------------------
+     * if you want to use styled columns for the resource.
+     */
+    'styled_columns' => false,
 
     /**
      * ---------------------------------------------
@@ -100,6 +141,9 @@ return [
     'resource' => [
         'table' => [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UsersTable::class,
+            'filters' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserFilters::class,
+            'actions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserActions::class,
+            'bulkActions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserBulkActions::class,
         ],
         'form' => [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm::class,

@@ -36,6 +36,14 @@ return [
                 'body' => 'No puedes eliminarte a ti mismo',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Cambiar Contraseña',
+        'change_password_auto' => 'Contraseña cambiada automáticamente',
+        'change_password_success' => 'Contraseña cambiada correctamente',
+        'change_password_auto_body' => 'Contraseña cambiada automáticamente',
+        'change_password_success_body' => 'Contraseña cambiada correctamente',
+        'change_password_auto_body_placeholder' => 'Dejar en blanco para generar automáticamente',
+        'change_password_success_body_placeholder' => 'Dejar en blanco para generar automáticamente',
     ],
     'bulk' => [
         'teams' => 'Actualizar Equipos',
@@ -50,5 +58,9 @@ return [
             'owner' => 'Propietario',
             'personal_team' => 'Equipo Personal',
         ],
+    ],
+    'banner' => [
+        'impersonating' => 'Suplantando',
+        'leave' => 'Salir de la Suplantación',
     ],
 ];

@@ -3,18 +3,16 @@
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use Filament\Facades\Filament;
-use function Pest\Laravel\get;
 use Illuminate\Config\Repository;
-use Filament\Actions\DeleteAction;
-use function Pest\Laravel\actingAs;
-
-use function Pest\Livewire\livewire;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\get;
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     $app = $this->app;
@@ -59,13 +57,11 @@ it('can render user list page', function () {
     livewire(Pages\ListUsers::class)->assertSuccessful();
 });
 
-
 it('can render view user page', function () {
     get(UserResource::getUrl('view', [
         'record' => User::factory()->create(),
     ]))->assertSuccessful();
 });
-
 
 it('can render user create page', function () {
     get(UserResource::getUrl('create'))->assertSuccessful();
@@ -108,7 +104,6 @@ it('can validate user input', function () {
             'passwordConfirmation' => 'required',
         ]);
 });
-
 
 it('can render user edit page', function () {
     get(UserResource::getUrl('edit', [

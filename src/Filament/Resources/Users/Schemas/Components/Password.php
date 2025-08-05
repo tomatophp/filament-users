@@ -14,6 +14,7 @@ class Password extends Component
     public static function make(): Forms\Components\TextInput
     {
         return Forms\Components\TextInput::make('password')
+            ->hidden(fn ($record) => $record)
             ->label(trans('filament-users::user.resource.password'))
             ->password()
             ->revealable(filament()->arePasswordsRevealable())

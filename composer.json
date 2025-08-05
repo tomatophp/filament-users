@@ -57,7 +57,8 @@
     "require": {
         "php": "^8.2|^8.3|^8.4",
         "filament/filament": "^4.0",
-        "tomatophp/console-helpers": "^1.1"
+        "tomatophp/console-helpers": "^1.1",
+        "lab404/laravel-impersonate": "^1.7"
     },
     "require-dev": {
         "larastan/larastan": "^2.9||^3.0",

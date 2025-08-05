@@ -4,13 +4,14 @@ namespace TomatoPHP\FilamentUsers;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Laravel\Jetstream\Jetstream;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
-use TomatoPHP\FilamentUsers\Resources\TeamResource;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams;
 
 class FilamentUsersPlugin implements Plugin
 {
     protected static bool $useAvatar = false;
+    protected static bool $useUserResource = true;
+    protected static bool $useTeamsResource = true;
 
     public function getId(): string
     {
@@ -29,42 +30,66 @@ class FilamentUsersPlugin implements Plugin
         return self::$useAvatar;
     }
 
+    public function useUserResource(bool $useUserResource = true): self
+    {
+        self::$useUserResource = $useUserResource;
+
+        return $this;
+    }
+
+    public function hasUserResource(): bool
+    {
+        return self::$useUserResource;
+    }
+
+    public function useTeamsResource(bool $useTeamsResource = true): self
+    {
+        self::$useTeamsResource = $useTeamsResource;
+
+        return $this;
+    }
+
+    public function hasTeamsResource(): bool
+    {
+        return self::$useTeamsResource;
+    }
+
     public function register(Panel $panel): void
     {
-        if (! config('filament-users.publish_resource')) {
+        if (self::$useUserResource) {
             $panel->resources([
-                UserResource::class,
+                Users\UserResource::class,
             ]);
         }
 
-        if (config('filament-users.teams')) {
+        if (config('filament-users.teams') && self::$useTeamsResource) {
             $panel->resources([
-                // TeamResource::class,
+                Teams\TeamResource::class,
             ]);
         }
     }
 
     public function boot(Panel $panel): void
     {
-        // if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
-        //     UserResource\Form\UserForm::register(UserResource\Form\Components\Roles::make());
-        //     UserResource\Table\UserTable::register(UserResource\Table\Columns\Roles::make());
-        //     UserResource\Table\UserFilters::register(UserResource\Table\Filters\Roles::make());
-        //     UserResource\Table\UserBulkActions::register(UserResource\Table\BulkActions\RolesAction::make());
-        //     UserResource\Infolist\UserInfoList::register(UserResource\Infolist\Entries\Roles::make());
-        // }
+        if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
+            Users\Schemas\UserForm::register(Users\Schemas\Components\Roles::make());
+            Users\Tables\UsersTable::register(Users\Tables\Columns\Roles::make());
+            Users\Tables\UserFilters::register(Users\Tables\Filters\Roles::make());
+            Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\RolesAction::make());
+            Users\Schemas\UserInfoList::register(Users\Schemas\Entries\Roles::make());
+        }
 
-        // if (config('filament-users.teams') && class_exists(Jetstream::class)) {
-        //     UserResource\Form\UserForm::register(UserResource\Form\Components\Teams::make());
-        //     UserResource\Table\UserTable::register(UserResource\Table\Columns\Teams::make());
-        //     UserResource\Table\UserFilters::register(UserResource\Table\Filters\Teams::make());
-        //     UserResource\Table\UserBulkActions::register(UserResource\Table\BulkActions\TeamsAction::make());
-        //     UserResource\Infolist\UserInfoList::register(UserResource\Infolist\Entries\Teams::make());
-        // }
+        if (config('filament-users.teams') && class_exists(\Laravel\Jetstream\Team::class)) {
+            Users\Schemas\UserForm::register(Users\Schemas\Components\Teams::make());
+            Users\Tables\UsersTable::register(Users\Tables\Columns\Teams::make());
+            Users\Tables\UserFilters::register(Users\Tables\Filters\Teams::make());
+            Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\TeamsAction::make());
+            Users\Schemas\UserInfoList::register(Users\Schemas\Entries\Teams::make());
+        }
 
-        // if (config('filament-users.impersonate') && class_exists(\STS\FilamentImpersonate\Tables\Actions\Impersonate::class)) {
-        //     UserResource\Table\UserActions::register(UserResource\Table\Actions\ImpersonateAction::make());
-        // }
+        if (config('filament-users.impersonate.enabled')) {
+            Users\Tables\UserActions::register(Users\Tables\Actions\ImpersonateAction::make());
+        }
     }
 
     public static function make(): self

@@ -16,12 +16,18 @@ class UserForm
 
     public static function getDefaultComponents(): array
     {
-        return [
-            Components\Name::make(),
-            Components\Email::make(),
-            Components\Password::make(),
-            Components\PasswordConfirmation::make(),
-        ];
+
+        $components = [];
+        if (filament('filament-user')::hasAvatar()) {
+            $components[] = Components\Avatar::make();
+        }
+
+        $components[] = Components\Name::make();
+        $components[] = Components\Email::make();
+        $components[] = Components\Password::make();
+        $components[] = Components\PasswordConfirmation::make();
+
+        return $components;
     }
 
     private static function getSchema(): array

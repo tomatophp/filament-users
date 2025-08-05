@@ -2,21 +2,19 @@
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
-use Filament\Facades\Filament;
-use function Pest\Laravel\get;
-use Illuminate\Config\Repository;
 use Filament\Actions\DeleteAction;
-use function Pest\Laravel\actingAs;
-
-use function Pest\Livewire\livewire;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\Testing\TestAction;
+use Filament\Facades\Filament;
+use Illuminate\Config\Repository;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
+
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertModelMissing;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     $app = $this->app;
@@ -45,7 +43,6 @@ it('can bulk delete users', function () {
 
     $users->each(fn (User $user) => assertModelMissing($user));
 });
-
 
 it('can delete user', function () {
     $user = User::factory()->create();

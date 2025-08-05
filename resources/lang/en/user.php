@@ -36,6 +36,14 @@ return [
                 'body' => 'You cannot delete yourself',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Change Password',
+        'change_password_auto' => 'Password changed automatically',
+        'change_password_success' => 'Password changed successfully',
+        'change_password_auto_body' => 'Password changed automatically',
+        'change_password_success_body' => 'Password changed successfully',
+        'change_password_auto_body_placeholder' => 'Leave blank to auto-generate',
+        'change_password_success_body_placeholder' => 'Leave blank to auto-generate',
     ],
     'bulk' => [
         'teams' => 'Update Teams',
@@ -50,5 +58,9 @@ return [
             'owner' => 'Owner',
             'personal_team' => 'Personal Team',
         ],
+    ],
+    'banner' => [
+        'impersonating' => 'Impersonating',
+        'leave' => 'Leave Impersonation',
     ],
 ];

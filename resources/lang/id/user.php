@@ -36,6 +36,14 @@ return [
                 'body' => 'Anda tidak dapat menghapus diri sendiri',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Ubah Kata Sandi',
+        'change_password_auto' => 'Kata Sandi berubah secara otomatis',
+        'change_password_success' => 'Kata Sandi berubah secara sukses',
+        'change_password_auto_body' => 'Kata Sandi berubah secara otomatis',
+        'change_password_success_body' => 'Kata Sandi berubah secara sukses',
+        'change_password_auto_body_placeholder' => 'Biarkan kosong untuk menghasilkan secara otomatis',
+        'change_password_success_body_placeholder' => 'Biarkan kosong untuk menghasilkan secara otomatis',
     ],
     'bulk' => [
         'teams' => 'Perbarui Tim',
@@ -50,5 +58,9 @@ return [
             'owner' => 'Pemilik',
             'personal_team' => 'Tim Pribadi',
         ],
+    ],
+    'banner' => [
+        'impersonating' => 'Menyamar',
+        'leave' => 'Keluar dari Menyamar',
     ],
 ];

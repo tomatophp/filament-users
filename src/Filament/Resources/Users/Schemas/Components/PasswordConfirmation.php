@@ -13,6 +13,7 @@ class PasswordConfirmation extends Component
     public static function make(): Forms\Components\TextInput
     {
         return Forms\Components\TextInput::make('passwordConfirmation')
+            ->hidden(fn ($record): mixed => $record)
             ->label(trans('filament-users::user.resource.password_confirmation'))
             ->password()
             ->revealable(filament()->arePasswordsRevealable())

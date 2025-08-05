@@ -15,6 +15,7 @@ return [
         'password' => 'Wachtwoord',
         'password_confirmation' => 'Wachtwoord Bevestigen',
         'roles' => 'Rollen',
+        'teams' => 'Teams',
         'label' => 'Gebruikers',
         'title' => [
             'show' => 'Toon Gebruiker',
@@ -35,5 +36,31 @@ return [
                 'body' => 'Je kunt jezelf niet verwijderen',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Wachtwoord wijzigen',
+        'change_password_auto' => 'Wachtwoord is automatisch gewijzigd',
+        'change_password_success' => 'Wachtwoord is succesvol gewijzigd',
+        'change_password_auto_body' => 'Wachtwoord is automatisch gewijzigd',
+        'change_password_success_body' => 'Wachtwoord is succesvol gewijzigd',
+        'change_password_auto_body_placeholder' => 'Laat leeg voor automatisch genereren',
+        'change_password_success_body_placeholder' => 'Laat leeg voor automatisch genereren',
+    ],
+    'bulk' => [
+        'teams' => 'Teams bijwerken',
+        'roles' => 'Rollen bijwerken',
+    ],
+    'team' => [
+        'title' => 'Teams',
+        'single' => 'Team',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Name',
+            'owner' => 'Owner',
+            'personal_team' => 'Persoonlijk Team',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Impersonate',
+        'leave' => 'Leave Impersonation',
     ],
 ];

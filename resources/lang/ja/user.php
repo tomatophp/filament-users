@@ -15,6 +15,7 @@ return [
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード確認',
         'roles' => 'ロール',
+        'teams' => 'チーム',
         'label' => 'ユーザー',
         'title' => [
             'show' => 'ユーザーを表示',
@@ -35,5 +36,31 @@ return [
                 'body' => '自分自身を削除することはできません',
             ],
         ],
+        'avatar' => 'アバター',
+        'change_password' => 'パスワードを変更',
+        'change_password_auto' => 'パスワードが自動的に変更されました',
+        'change_password_success' => 'パスワードが正常に変更されました',
+        'change_password_auto_body' => 'パスワードが自動的に変更されました',
+        'change_password_success_body' => 'パスワードが正常に変更されました',
+        'change_password_auto_body_placeholder' => '自動生成する場合は空欄にしてください',
+        'change_password_success_body_placeholder' => '自動生成する場合は空欄にしてください',
+    ],
+    'bulk' => [
+        'teams' => 'チームを更新',
+        'roles' => 'ロールを更新',
+    ],
+    'team' => [
+        'title' => 'チーム',
+        'single' => 'チーム',
+        'columns' => [
+            'avatar' => 'アバター',
+            'name' => '名前',
+            'owner' => 'オーナー',
+            'personal_team' => '個人チーム',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => '偽装中',
+        'leave' => '偽装を終了',
     ],
 ];
