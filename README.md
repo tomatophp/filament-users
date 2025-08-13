@@ -286,10 +286,10 @@ you can customize all resource classes to be any class you want with the same re
         'bulkActions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions::class,
     ],
     'form' => [
-        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class
+        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Schemas\UserForm::class
     ],
     'infolist' => [
-        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfolist::class
+        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Schemas\UserInfolist::class
     ]
 ]
 ```
