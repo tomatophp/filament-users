@@ -289,7 +289,7 @@ you can customize all resource classes to be any class you want with the same re
         'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class
     ],
     'infolist' => [
-        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfoList::class
+        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfolist::class
     ]
 ]
 ```
