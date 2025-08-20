@@ -1,4 +1,4 @@
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/fadymondy-tomato-users.jpg)
 
 # Filament Users Manager
 
