@@ -2,8 +2,8 @@
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
 
-use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 use Filament\Resources\Pages\CreateRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
 
 class CreateTeam extends CreateRecord
 {

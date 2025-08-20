@@ -4,13 +4,15 @@ namespace TomatoPHP\FilamentUsers;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users;
 
 class FilamentUsersPlugin implements Plugin
 {
     protected static bool $useAvatar = false;
+
     protected static bool $useUserResource = true;
+
     protected static bool $useTeamsResource = true;
 
     public function getId(): string
@@ -76,7 +78,7 @@ class FilamentUsersPlugin implements Plugin
             Users\Tables\UsersTable::register(Users\Tables\Columns\Roles::make());
             Users\Tables\UserFilters::register(Users\Tables\Filters\Roles::make());
             Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\RolesAction::make());
-            Users\Schemas\UserInfoList::register(Users\Schemas\Entries\Roles::make());
+            Users\Schemas\UserInfolist::register(Users\Schemas\Entries\Roles::make());
         }
 
         if (config('filament-users.teams') && class_exists(\Laravel\Jetstream\Team::class)) {
@@ -84,7 +86,7 @@ class FilamentUsersPlugin implements Plugin
             Users\Tables\UsersTable::register(Users\Tables\Columns\Teams::make());
             Users\Tables\UserFilters::register(Users\Tables\Filters\Teams::make());
             Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\TeamsAction::make());
-            Users\Schemas\UserInfoList::register(Users\Schemas\Entries\Teams::make());
+            Users\Schemas\UserInfolist::register(Users\Schemas\Entries\Teams::make());
         }
 
         if (config('filament-users.impersonate.enabled')) {

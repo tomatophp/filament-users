@@ -2,29 +2,29 @@
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
-use Filament\Panel;
-use Filament\FilamentServiceProvider;
-use Livewire\LivewireServiceProvider;
-use Filament\Forms\FormsServiceProvider;
-use Filament\Tables\TablesServiceProvider;
-use Illuminate\Contracts\Config\Repository;
-use Orchestra\Testbench\Attributes\WithEnv;
+use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Forms\FormsServiceProvider;
+use Filament\Infolists\InfolistsServiceProvider;
+use Filament\Notifications\NotificationsServiceProvider;
+use Filament\Panel;
 use Filament\Schemas\SchemasServiceProvider;
 use Filament\Support\SupportServiceProvider;
+use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-use Orchestra\Testbench\Concerns\WithWorkbench;
-use Filament\Infolists\InfolistsServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
-use Lab404\Impersonate\ImpersonateServiceProvider;
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
-use Filament\Notifications\NotificationsServiceProvider;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Lab404\Impersonate\ImpersonateServiceProvider;
+use Livewire\LivewireServiceProvider;
+use Orchestra\Testbench\Attributes\WithEnv;
+use Orchestra\Testbench\Concerns\WithWorkbench;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use TomatoPHP\FilamentUsers\FilamentUsersServiceProvider;
 use TomatoPHP\FilamentUsers\Tests\Database\Seeders\UserSeed;
-use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 #[WithEnv('DB_CONNECTION', 'testing')]
 abstract class TestCase extends BaseTestCase
