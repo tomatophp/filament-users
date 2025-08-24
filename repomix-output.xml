@@ -90,11 +90,23 @@ src/
   Concerns/
     Impersonates.php
   Console/
-    PublishUserResourceCommand.php
+    FilamentUserTeamsCommand.php
   Facades/
     FilamentUser.php
   Filament/
     Resources/
+      Teams/
+        Pages/
+          CreateTeam.php
+          EditTeam.php
+          ListTeams.php
+          ViewTeam.php
+        Schemas/
+          TeamForm.php
+          TeamInfolist.php
+        Tables/
+          TeamsTable.php
+        TeamResource.php
       Users/
         Pages/
           CreateUser.php
@@ -104,6 +116,7 @@ src/
           ViewUser.php
         Schemas/
           Components/
+            Avatar.php
             Component.php
             Email.php
             Name.php
@@ -112,6 +125,7 @@ src/
             Roles.php
             Teams.php
           Entries/
+            Avatar.php
             Email.php
             Entry.php
             Name.php
@@ -123,6 +137,7 @@ src/
         Tables/
           Actions/
             Action.php
+            ChangePassword.php
             DeleteAction.php
             EditAction.php
             ImpersonateAction.php
@@ -133,6 +148,7 @@ src/
             RolesAction.php
             TeamsAction.php
           Columns/
+            Avatar.php
             Column.php
             CreatedAt.php
             Email.php
@@ -156,6 +172,18 @@ src/
     FilamentUserServices.php
   FilamentUsersPlugin.php
   FilamentUsersServiceProvider.php
+stubs/
+  app/
+    Models/
+      Membership.php
+      Team.php
+      TeamInvitation.php
+  database/
+    migrations/
+      create_team_invitations_table.php
+      create_team_user_table.php
+      create_teams_table.php
+      update_users_table.php
 tests/
   database/
     factories/
@@ -168,6 +196,7 @@ tests/
     AdminPanelProvider.php
     CanDeleteUser.php
     DebugTest.php
+    ImpersonateTest.php
     PluginTest.php
     SimpleUserResourceTest.php
     TestCase.php
@@ -175,10 +204,10 @@ tests/
   Pest.php
 .gitignore
 .php-cs-fixer.dist.php
-3x1io-tomato-users.md
 CHANGELOG.md
 CODE_OF_CONDUCT.md
 composer.json
+fadymondy-tomato-users.md
 LICENSE.md
 module.json
 phpunit.xml
@@ -191,8 +220,205 @@ testbench.yaml
 <files>
 This section contains the contents of the repository's files.
 
+<file path="CHANGELOG.md">
+### V1.1.7
+
+- update packages to the last version
+
+### V2.0.0
+
+- move namespace to TomatoPHP
+- update to filamentv3.0
+</file>
+
+<file path="LICENSE.md">
+The MIT License (MIT)
+
+Copyright (c)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</file>
+
+<file path=".github/ISSUE_TEMPLATE/bug.yml">
+name: Bug Report
+description: Report an Issue or Bug with the Package
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We're sorry to hear you have a problem. Can you help us solve it by providing the following details.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect to happen?
+      placeholder: I cannot currently do X thing because when I do, it breaks X thing.
+    validations:
+      required: true
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How to reproduce the bug
+      description: How did this occur, please add any config values used and provide a set of reliable steps if possible.
+      placeholder: When I do X I see Y.
+    validations:
+      required: true
+  - type: input
+    id: package-version
+    attributes:
+      label: Package Version
+      description: What version of our Package are you running? Please be as specific as possible
+      placeholder: 2.0.0
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP Version
+      description: What version of PHP are you running? Please be as specific as possible
+      placeholder: 8.2.0
+    validations:
+      required: true
+  - type: input
+    id: laravel-version
+    attributes:
+      label: Laravel Version
+      description: What version of Laravel are you running? Please be as specific as possible
+      placeholder: 9.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-systems
+    attributes:
+      label: Which operating systems does with happen with?
+      description: You may select more than one.
+      multiple: true
+      options:
+        - macOS
+        - Windows
+        - Linux
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Use this field to provide any other notes that you feel might be relevant to the issue.
+    validations:
+      required: false
+</file>
+
+<file path=".github/ISSUE_TEMPLATE/config.yml">
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/tomatophp/filament-users/discussions/new?category=q-a
+    about: Ask the community for help
+  - name: Request a feature
+    url: https://github.com/tomatophp/filament-users/discussions/new?category=ideas
+    about: Share ideas for new features
+  - name: Report a security issue
+    url: https://github.com/tomatophp/filament-users/security/policy
+    about: Learn how to notify us for sensitive bugs
+</file>
+
+<file path=".github/CONTRIBUTING.md">
+# Contributing
+
+Contributions are **welcome** and will be fully **credited**.
+
+Please read and understand the contribution guide before creating an issue or pull request.
+
+## Etiquette
+
+This project is open source, and as such, the maintainers give their free time to build and maintain the source code
+held within. They make the code freely available in the hope that it will be of use to other developers. It would be
+extremely unfair for them to suffer abuse or anger for their hard work.
+
+Please be considerate towards maintainers when raising issues or presenting pull requests. Let's show the
+world that developers are civilized and selfless people.
+
+It's the duty of the maintainer to ensure that all submissions to the project are of sufficient
+quality to benefit the project. Many developers have different skills, strengths, and weaknesses. Respect the maintainer's decision, and do not be upset or abusive if your submission is not used.
+
+## Viability
+
+When requesting or submitting new features, first consider whether it might be useful to others. Open
+source projects are used by many developers, who may have entirely different needs to your own. Think about
+whether or not your feature is likely to be used by other users of the project.
+
+## Procedure
+
+Before filing an issue:
+
+- Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
+- Check to make sure your feature suggestion isn't already present within the project.
+- Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
+- Check the pull requests tab to ensure that the feature isn't already in progress.
+
+Before submitting a pull request:
+
+- Check the codebase to ensure that your feature doesn't already exist.
+- Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
+
+## Requirements
+
+If the project maintainer has any additional requirements, you will find them listed here.
+
+- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://pear.php.net/package/PHP_CodeSniffer).
+
+- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
+
+- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+
+- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
+
+- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
+
+- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+
+**Happy coding**!
+</file>
+
+<file path=".github/dependabot.yml">
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+</file>
+
 <file path=".github/FUNDING.yml">
-github: [3x1io]
+github: [fadymondy]
+</file>
+
+<file path=".github/SECURITY.md">
+# Security Policy
+
+If you discover any security related issues, please email info@3x1.io instead of using the issue tracker.
 </file>
 
 <file path="resources/views/components/banner.blade.php">
@@ -438,262 +664,69 @@ trait Impersonates
 }
 </file>
 
-<file path="CHANGELOG.md">
-### V1.1.7
-
-- update packages to the last version
-
-### V2.0.0
-
-- move namespace to TomatoPHP
-- update to filamentv3.0
-</file>
-
-<file path="LICENSE.md">
-The MIT License (MIT)
-
-Copyright (c)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-</file>
-
-<file path=".github/ISSUE_TEMPLATE/bug.yml">
-name: Bug Report
-description: Report an Issue or Bug with the Package
-title: "[Bug]: "
-labels: ["bug"]
-body:
-  - type: markdown
-    attributes:
-      value: |
-        We're sorry to hear you have a problem. Can you help us solve it by providing the following details.
-  - type: textarea
-    id: what-happened
-    attributes:
-      label: What happened?
-      description: What did you expect to happen?
-      placeholder: I cannot currently do X thing because when I do, it breaks X thing.
-    validations:
-      required: true
-  - type: textarea
-    id: how-to-reproduce
-    attributes:
-      label: How to reproduce the bug
-      description: How did this occur, please add any config values used and provide a set of reliable steps if possible.
-      placeholder: When I do X I see Y.
-    validations:
-      required: true
-  - type: input
-    id: package-version
-    attributes:
-      label: Package Version
-      description: What version of our Package are you running? Please be as specific as possible
-      placeholder: 2.0.0
-    validations:
-      required: true
-  - type: input
-    id: php-version
-    attributes:
-      label: PHP Version
-      description: What version of PHP are you running? Please be as specific as possible
-      placeholder: 8.2.0
-    validations:
-      required: true
-  - type: input
-    id: laravel-version
-    attributes:
-      label: Laravel Version
-      description: What version of Laravel are you running? Please be as specific as possible
-      placeholder: 9.0.0
-    validations:
-      required: true
-  - type: dropdown
-    id: operating-systems
-    attributes:
-      label: Which operating systems does with happen with?
-      description: You may select more than one.
-      multiple: true
-      options:
-        - macOS
-        - Windows
-        - Linux
-  - type: textarea
-    id: notes
-    attributes:
-      label: Notes
-      description: Use this field to provide any other notes that you feel might be relevant to the issue.
-    validations:
-      required: false
-</file>
-
-<file path=".github/ISSUE_TEMPLATE/config.yml">
-blank_issues_enabled: false
-contact_links:
-  - name: Ask a question
-    url: https://github.com/tomatophp/filament-users/discussions/new?category=q-a
-    about: Ask the community for help
-  - name: Request a feature
-    url: https://github.com/tomatophp/filament-users/discussions/new?category=ideas
-    about: Share ideas for new features
-  - name: Report a security issue
-    url: https://github.com/tomatophp/filament-users/security/policy
-    about: Learn how to notify us for sensitive bugs
-</file>
-
-<file path=".github/CONTRIBUTING.md">
-# Contributing
-
-Contributions are **welcome** and will be fully **credited**.
-
-Please read and understand the contribution guide before creating an issue or pull request.
-
-## Etiquette
-
-This project is open source, and as such, the maintainers give their free time to build and maintain the source code
-held within. They make the code freely available in the hope that it will be of use to other developers. It would be
-extremely unfair for them to suffer abuse or anger for their hard work.
-
-Please be considerate towards maintainers when raising issues or presenting pull requests. Let's show the
-world that developers are civilized and selfless people.
-
-It's the duty of the maintainer to ensure that all submissions to the project are of sufficient
-quality to benefit the project. Many developers have different skills, strengths, and weaknesses. Respect the maintainer's decision, and do not be upset or abusive if your submission is not used.
-
-## Viability
-
-When requesting or submitting new features, first consider whether it might be useful to others. Open
-source projects are used by many developers, who may have entirely different needs to your own. Think about
-whether or not your feature is likely to be used by other users of the project.
-
-## Procedure
-
-Before filing an issue:
-
-- Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
-- Check to make sure your feature suggestion isn't already present within the project.
-- Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
-- Check the pull requests tab to ensure that the feature isn't already in progress.
-
-Before submitting a pull request:
-
-- Check the codebase to ensure that your feature doesn't already exist.
-- Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
-
-## Requirements
-
-If the project maintainer has any additional requirements, you will find them listed here.
-
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](https://pear.php.net/package/PHP_CodeSniffer).
-
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
-
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
-
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
-
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
-
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
-
-**Happy coding**!
-</file>
-
-<file path=".github/dependabot.yml">
-# Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
-version: 2
-updates:
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    labels:
-      - "dependencies"
-</file>
-
-<file path=".github/SECURITY.md">
-# Security Policy
-
-If you discover any security related issues, please email info@3x1.io instead of using the issue tracker.
-</file>
-
-<file path="resources/lang/id/user.php">
+<file path="src/Filament/Resources/Teams/Schemas/TeamForm.php">
 <?php
 
-return [
-    'group' => 'Pengaturan',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Pengguna',
-        'email_verified_at' => 'Email Terverifikasi',
-        'created_at' => 'Dibuat Pada',
-        'updated_at' => 'Diperbarui Pada',
-        'verified' => 'Terverifikasi',
-        'unverified' => 'Belum Terverifikasi',
-        'name' => 'Nama',
-        'email' => 'Email',
-        'password' => 'Kata Sandi',
-        'password_confirmation' => 'Konfirmasi Kata Sandi',
-        'roles' => 'Peran',
-        'teams' => 'Tim',
-        'label' => 'Pengguna',
-        'title' => [
-            'show' => 'Lihat Pengguna',
-            'delete' => 'Hapus Pengguna',
-            'impersonate' => 'Menyamar sebagai Pengguna',
-            'create' => 'Buat Pengguna',
-            'edit' => 'Edit Pengguna',
-            'list' => 'Pengguna',
-            'home' => 'Pengguna',
-        ],
-        'notifications' => [
-            'last' => [
-                'title' => 'Kesalahan',
-                'body' => 'Anda tidak dapat menghapus pengguna terakhir',
-            ],
-            'self' => [
-                'title' => 'Kesalahan',
-                'body' => 'Anda tidak dapat menghapus diri sendiri',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Perbarui Tim',
-        'roles' => 'Perbarui Peran',
-    ],
-    'team' => [
-        'title' => 'Tim',
-        'single' => 'Tim',
-        'columns' => [
-            'avatar' => 'Avatar',
-            'name' => 'Nama',
-            'owner' => 'Pemilik',
-            'personal_team' => 'Tim Pribadi',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Menyamar',
-        'leave' => 'Keluar dari Menyamar',
-    ],
-];
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas;
+
+use Filament\Forms;
+use Filament\Schemas\Schema;
+
+class TeamForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Forms\Components\TextInput::make('name')
+                    ->label(trans('filament-users::user.team.columns.name'))
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('user_id')
+                    ->label(trans('filament-users::user.team.columns.owner'))
+                    ->relationship('owner', 'name')
+                    ->required()
+                    ->preload()
+                    ->searchable(),
+                Forms\Components\Toggle::make('personal_team')
+                    ->label(trans('filament-users::user.team.columns.personal_team')),
+            ]);
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Schemas/TeamInfolist.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas;
+
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+class TeamInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextEntry::make('user.name')
+                    ->label(trans('filament-users::user.team.columns.owner'))
+                    ->numeric(),
+                TextEntry::make('name')
+                    ->label(trans('filament-users::user.team.columns.name')),
+                IconEntry::make('personal_team')
+                    ->label(trans('filament-users::user.team.columns.personal_team'))
+                    ->boolean(),
+                TextEntry::make('created_at')
+                    ->dateTime()
+                    ->label(trans('filament-users::user.resource.created_at')),
+                TextEntry::make('updated_at')
+                    ->dateTime()
+                    ->label(trans('filament-users::user.resource.updated_at')),
+            ]);
+    }
+}
 </file>
 
 <file path="src/Filament/Resources/Users/Schemas/Components/Component.php">
@@ -750,61 +783,6 @@ class Name extends Component
         return Forms\Components\TextInput::make('name')
             ->required()
             ->label(trans('filament-users::user.resource.name'));
-    }
-}
-</file>
-
-<file path="src/Filament/Resources/Users/Schemas/Components/Password.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
-
-use Filament\Forms;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Facades\Hash;
-
-class Password extends Component
-{
-    /**
-     * @return TextInput
-     */
-    public static function make(): Forms\Components\TextInput
-    {
-        return Forms\Components\TextInput::make('password')
-            ->label(trans('filament-users::user.resource.password'))
-            ->password()
-            ->revealable(filament()->arePasswordsRevealable())
-            ->required(fn ($record) => ! $record)
-            ->rule(\Illuminate\Validation\Rules\Password::default())
-            ->dehydrated(fn ($state) => filled($state))
-            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-            ->same('passwordConfirmation')
-            ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute'));
-    }
-}
-</file>
-
-<file path="src/Filament/Resources/Users/Schemas/Components/PasswordConfirmation.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
-
-use Filament\Forms;
-use Filament\Forms\Components\TextInput;
-
-class PasswordConfirmation extends Component
-{
-    /**
-     * @return TextInput
-     */
-    public static function make(): Forms\Components\TextInput
-    {
-        return Forms\Components\TextInput::make('passwordConfirmation')
-            ->label(trans('filament-users::user.resource.password_confirmation'))
-            ->password()
-            ->revealable(filament()->arePasswordsRevealable())
-            ->required(fn ($record) => ! $record)
-            ->dehydrated(false);
     }
 }
 </file>
@@ -996,38 +974,6 @@ class EditAction extends Action
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Tables/Actions/ImpersonateAction.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
-
-use Filament\Actions;
-use Filament\Support\Concerns\EvaluatesClosures;
-use TomatoPHP\FilamentUsers\Concerns\Impersonates;
-
-class ImpersonateAction extends Action
-{
-    use EvaluatesClosures;
-    use Impersonates;
-
-    public static function make(): Actions\Action
-    {
-        (new self)->guard(config('filament-users.impersonate.auth_guard'));
-        (new self)->redirectTo(config('filament-users.impersonate.redirect_to'));
-        (new self)->backTo(config('filament-users.impersonate.back_to'));
-
-        return Actions\Action::make('impersonate')
-            ->iconButton()
-            ->requiresConfirmation()
-            ->icon('heroicon-o-user-circle')
-            ->color('info')
-            ->tooltip(trans('filament-users::user.resource.title.impersonate'))
-            ->action(fn ($record) => (new self)->impersonate($record))
-            ->hidden(fn ($record) => ! (new self)->canBeImpersonated($record));
-    }
-}
-</file>
-
 <file path="src/Filament/Resources/Users/Tables/Actions/ViewAction.php">
 <?php
 
@@ -1091,33 +1037,6 @@ class CreatedAt extends Column
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Tables/Columns/Email.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Columns;
-
-use Filament\Tables;
-
-class Email extends Column
-{
-    public static function make(): Tables\Columns\TextColumn
-    {
-        return config('filament-users.styled_columns') ? Tables\Columns\TextColumn::make('email')
-            ->icon('heroicon-o-envelope')
-            ->color('primary')
-            ->badge()
-            ->url(fn ($record) => "mailto:{$record->email}")
-            ->sortable()
-            ->searchable()
-            ->label(trans('filament-users::user.resource.email'))
-        : Tables\Columns\TextColumn::make('email')
-            ->sortable()
-            ->searchable()
-            ->label(trans('filament-users::user.resource.email'));
-    }
-}
-</file>
-
 <file path="src/Filament/Resources/Users/Tables/Columns/ID.php">
 <?php
 
@@ -1151,28 +1070,6 @@ class Name extends Column
             ->sortable()
             ->searchable()
             ->label(trans('filament-users::user.resource.name'));
-    }
-}
-</file>
-
-<file path="src/Filament/Resources/Users/Tables/Columns/Roles.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Columns;
-
-use Filament\Tables;
-
-class Roles extends Column
-{
-    public static function make(): Tables\Columns\TextColumn
-    {
-        return Tables\Columns\TextColumn::make('roles.name')
-            ->formatStateUsing(fn ($state) => str($state)->replace('_', ' ')->replace('-', ' ')->title())
-            ->icon('heroicon-o-shield-check')
-            ->color('success')
-            ->toggleable()
-            ->badge()
-            ->label(trans('filament-users::user.resource.roles'));
     }
 }
 </file>
@@ -1322,52 +1219,6 @@ class Verified extends Filter
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Tables/UserActions.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
-
-class UserActions
-{
-    /**
-     * @var array
-     */
-    protected static $actions = [];
-
-    public static function make(): array
-    {
-        return self::getActions();
-    }
-
-    private static function getDefaultActions(): array
-    {
-        return [
-            Actions\ViewAction::make(),
-            Actions\EditAction::make(),
-            Actions\DeleteAction::make(),
-        ];
-    }
-
-    private static function getActions(): array
-    {
-        return array_merge(self::getDefaultActions(), self::$actions);
-    }
-
-    public static function register(\Filament\Actions\Action | array $action): void
-    {
-        if (is_array($action)) {
-            foreach ($action as $item) {
-                if ($item instanceof \Filament\Actions\Action) {
-                    self::$actions[] = $item;
-                }
-            }
-        } else {
-            self::$actions[] = $action;
-        }
-    }
-}
-</file>
-
 <file path="src/Filament/Resources/Users/Tables/UserBulkActions.php">
 <?php
 
@@ -1459,6 +1310,210 @@ class UserFilters
 }
 </file>
 
+<file path="stubs/app/Models/Membership.php">
+<?php
+
+namespace App\Models;
+
+use Laravel\Jetstream\Membership as JetstreamMembership;
+
+class Membership extends JetstreamMembership
+{
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+}
+</file>
+
+<file path="stubs/app/Models/Team.php">
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Jetstream\Events\TeamCreated;
+use Laravel\Jetstream\Events\TeamDeleted;
+use Laravel\Jetstream\Events\TeamUpdated;
+use Laravel\Jetstream\Team as JetstreamTeam;
+
+class Team extends JetstreamTeam
+{
+    /** @use HasFactory<\Database\Factories\TeamFactory> */
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'personal_team',
+        'user_id',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array<string, class-string>
+     */
+    protected $dispatchesEvents = [
+        'created' => TeamCreated::class,
+        'updated' => TeamUpdated::class,
+        'deleted' => TeamDeleted::class,
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'personal_team' => 'boolean',
+        ];
+    }
+}
+</file>
+
+<file path="stubs/app/Models/TeamInvitation.php">
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Jetstream\Jetstream;
+use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
+
+class TeamInvitation extends JetstreamTeamInvitation
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'email',
+        'role',
+    ];
+
+    /**
+     * Get the team that the invitation belongs to.
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Jetstream::teamModel());
+    }
+}
+</file>
+
+<file path="stubs/database/migrations/create_team_invitations_table.php">
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('team_invitations', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->string('email');
+            $table->string('role')->nullable();
+            $table->timestamps();
+
+            $table->unique(['team_id', 'email']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('team_invitations');
+    }
+};
+</file>
+
+<file path="stubs/database/migrations/create_team_user_table.php">
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('team_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('team_id');
+            $table->foreignId('user_id');
+            $table->string('role')->nullable();
+            $table->timestamps();
+
+            $table->unique(['team_id', 'user_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('team_user');
+    }
+};
+</file>
+
+<file path="stubs/database/migrations/create_teams_table.php">
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('teams', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->index();
+            $table->string('name');
+            $table->boolean('personal_team');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('teams');
+    }
+};
+</file>
+
 <file path="tests/database/factories/UserFactory.php">
 <?php
 
@@ -1485,179 +1540,11 @@ class UserFactory extends Factory
 }
 </file>
 
-<file path="tests/src/CanDeleteUser.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Tests;
-
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\Testing\TestAction;
-use Filament\Facades\Filament;
-use Illuminate\Config\Repository;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
-use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
-use function Pest\Livewire\livewire;
-
-beforeEach(function () {
-    $app = $this->app;
-
-    tap($app['config'], function (Repository $config) {
-        $config->set('filament-users.simple', false);
-    });
-
-    actingAs(User::factory()->create());
-
-    $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
-});
-
-it('can bulk delete users', function () {
-    $users = User::factory()->count(5)->create();
-
-    livewire(Pages\ListUsers::class)
-        ->assertCanSeeTableRecords($users)
-        ->selectTableRecords($users)
-        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
-        ->assertNotified()
-        ->assertCanNotSeeTableRecords($users);
-
-    $users->each(fn (User $user) => assertModelMissing($user));
-});
-
-it('can delete user', function () {
-    $user = User::factory()->create();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])->callAction(DeleteAction::class)
-        ->assertNotified()
-        ->assertRedirect();
-
-    assertModelMissing($user);
-});
-
-it('can not delete user if it is current user', function () {
-    $user = auth()->user();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])->callAction(DeleteAction::class);
-
-    assertDatabaseHas(User::class, [
-        'name' => $user->name,
-        'email' => $user->email,
-    ]);
-});
-
-it('can not delete user if it is the last user', function () {
-    User::query()->delete();
-    $user = User::factory()->create();
-
-    livewire(Pages\EditUser::class, [
-        'record' => $user->getRouteKey(),
-    ])->callAction(DeleteAction::class);
-
-    assertDatabaseHas(User::class, [
-        'name' => $user->name,
-        'email' => $user->email,
-    ]);
-});
-</file>
-
 <file path="tests/src/DebugTest.php">
 <?php
 
 it('will not use debugging functions', function () {
     expect(['dd', 'dump', 'ray'])->each->not->toBeUsed();
-});
-</file>
-
-<file path="tests/src/SimpleUserResourceTest.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers\Tests;
-
-use Filament\Facades\Filament;
-use Illuminate\Config\Repository;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
-use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-
-use function Pest\Laravel\actingAs;
-use function Pest\Livewire\livewire;
-
-beforeEach(function () {
-    $app = $this->app;
-
-    tap($app['config'], function (Repository $config) {
-        $config->set('filament-users.simple', true);
-    });
-
-    actingAs(User::factory()->create());
-
-    $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
-});
-
-it('can render user resource', function () {
-    $this->get(UserResource::getUrl('index'))->assertSuccessful();
-});
-
-it('can list posts', function () {
-    User::query()->delete();
-    $users = User::factory()->count(10)->create();
-
-    livewire(Pages\ManageUsers::class)
-        ->loadTable()
-        ->assertCanSeeTableRecords($users)
-        ->assertCountTableRecords(10);
-});
-
-it('can render user name/email column in table', function () {
-    User::factory()->count(10)->create();
-
-    livewire(Pages\ManageUsers::class)
-        ->loadTable()
-        ->assertCanRenderTableColumn('id')
-        ->assertCanRenderTableColumn('name')
-        ->assertCanRenderTableColumn('email');
-});
-
-it('can render user list page', function () {
-    livewire(Pages\ManageUsers::class)->assertSuccessful();
-});
-
-it('can render view user action', function () {
-    livewire(Pages\ManageUsers::class, [
-        'record' => User::factory()->create(),
-    ])
-        ->mountAction('view')
-        ->assertSuccessful();
-});
-
-it('can render user create action', function () {
-    livewire(Pages\ManageUsers::class)
-        ->mountAction('create')
-        ->assertSuccessful();
-});
-
-it('can render user edit action', function () {
-    livewire(Pages\ManageUsers::class, [
-        'record' => User::factory()->create(),
-    ])
-        ->mountAction('edit')
-        ->assertSuccessful();
 });
 </file>
 
@@ -1699,23 +1586,6 @@ return (new PhpCsFixer\Config())
         ]
     ])
     ->setFinder($finder);
-</file>
-
-<file path="3x1io-tomato-users.md">
----
-name: User Manager
-slug: 3x1io-tomato-users
-author_slug: 3x1io
-categories: [panel-authentication]
-description: Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate
-discord_url: 
-docs_url: https://raw.githubusercontent.com/tomatophp/filament-users/master/README.md
-github_repository: tomatophp/filament-users
-has_dark_theme: true
-has_translations: true
-versions: [3]
-publish_date: 2024-04-05
----
 </file>
 
 <file path="CODE_OF_CONDUCT.md">
@@ -1849,6 +1719,23 @@ https://www.contributor-covenant.org/faq. Translations are available at
 https://www.contributor-covenant.org/translations.
 </file>
 
+<file path="fadymondy-tomato-users.md">
+---
+name: User Manager
+slug: fadymondy-tomato-users
+author_slug: fadymondy
+categories: [panel-authentication]
+description: Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate
+discord_url:
+docs_url: https://raw.githubusercontent.com/tomatophp/filament-users/master/README.md
+github_repository: tomatophp/filament-users
+has_dark_theme: true
+has_translations: true
+versions: [3,4]
+publish_date: 2024-04-05
+---
+</file>
+
 <file path="pint.json">
 {
     "preset": "laravel",
@@ -1872,425 +1759,100 @@ https://www.contributor-covenant.org/translations.
 If you discover any security related issues, please email info@3x1.io instead of using the issue tracker.
 </file>
 
-<file path=".github/workflows/fix-php-code-styling.yml">
-name: 'PHP Code Styling'
-
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - master
-    paths:
-      - '**.php'
-
-permissions:
-  contents: write
-
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: Fix PHP code style issues
-        uses: aglipanci/laravel-pint-action@v2
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Format Code"
-          commit_user_name: 'GitHub Actions'
-</file>
-
-<file path="resources/lang/ja/user.php">
+<file path="resources/lang/id/user.php">
 <?php
 
 return [
-    'group' => 'ALC',
+    'group' => 'Pengaturan',
     'resource' => [
         'id' => 'ID',
-        'single' => 'ユーザー',
-        'email_verified_at' => 'メールアドレス認証日時',
-        'created_at' => '作成日時',
-        'updated_at' => '更新日時',
-        'verified' => '認証済',
-        'unverified' => '未認証',
-        'name' => '名前',
-        'email' => 'メールアドレス',
-        'password' => 'パスワード',
-        'password_confirmation' => 'パスワード確認',
-        'roles' => 'ロール',
-        'label' => 'ユーザー',
-        'title' => [
-            'show' => 'ユーザーを表示',
-            'delete' => 'ユーザーを削除',
-            'impersonate' => 'ユーザーを偽装',
-            'create' => 'ユーザーを作成',
-            'edit' => 'ユーザーを編集',
-            'list' => 'ユーザー',
-            'home' => 'ユーザー',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'エラー',
-                'body' => '最後のユーザーを削除することはできません',
-            ],
-            'self' => [
-                'title' => 'エラー',
-                'body' => '自分自身を削除することはできません',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'チームを更新',
-        'roles' => 'ロールを更新',
-    ],
-    'team' => [
-        'title' => 'チーム',
-        'single' => 'チーム',
-        'columns' => [
-            'avatar' => 'アバター',
-            'name' => '名前',
-            'owner' => 'オーナー',
-            'personal_team' => '個人チーム',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => '偽装中',
-        'leave' => '偽装を終了',
-    ],
-];
-</file>
-
-<file path="resources/lang/mk/user.php">
-<?php
-
-return [
-    'group' => 'Група',
-    'resource' => [
-        'id' => 'ИД',
-        'single' => 'Корисник',
-        'email_verified_at' => 'Е-пошта е верифицирана',
-        'created_at' => 'Креирано на',
-        'updated_at' => 'Ажурирано на',
-        'verified' => 'Верифициран',
-        'unverified' => 'Неверифициран',
-        'name' => 'Име',
-        'email' => 'Е-пошта',
-        'password' => 'Лозинка',
-        'password_confirmation' => 'Потврди лозинка',
-        'roles' => 'Улоги',
-        'teams' => 'Тимови',
-        'label' => 'Корисници',
-        'title' => [
-            'show' => 'Прикажи корисник',
-            'delete' => 'Избриши корисник',
-            'impersonate' => 'Имперсонирај корисник',
-            'create' => 'Креирај корисник',
-            'edit' => 'Уреди корисник',
-            'list' => 'Листа на корисници',
-            'home' => 'Корисници',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'Грешка',
-                'body' => 'Не можете да го избришете последниот корисник',
-            ],
-            'self' => [
-                'title' => 'Грешка',
-                'body' => 'Не можете да се избришете себеси',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Ажурирај тимови',
-        'roles' => 'Ажурирај улоги',
-    ],
-    'team' => [
-        'title' => 'Тимови',
-        'single' => 'Тим',
-        'columns' => [
-            'avatar' => 'Аватар',
-            'name' => 'Име',
-            'owner' => 'Сопственик',
-            'personal_team' => 'Личен тим',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Имперсонирано',
-        'leave' => 'Напусти Имперсонирање',
-    ],
-];
-</file>
-
-<file path="resources/lang/nl/user.php">
-<?php
-
-return [
-    'group' => 'ALC',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Gebruiker',
-        'email_verified_at' => 'Email Geverifieerd',
-        'created_at' => 'Aangemaakt Op',
-        'updated_at' => 'Bijgewerkt Op',
-        'verified' => 'Geverifieerd',
-        'unverified' => 'Niet geverifieerd',
-        'name' => 'Naam',
+        'single' => 'Pengguna',
+        'email_verified_at' => 'Email Terverifikasi',
+        'created_at' => 'Dibuat Pada',
+        'updated_at' => 'Diperbarui Pada',
+        'verified' => 'Terverifikasi',
+        'unverified' => 'Belum Terverifikasi',
+        'name' => 'Nama',
         'email' => 'Email',
-        'password' => 'Wachtwoord',
-        'password_confirmation' => 'Wachtwoord Bevestigen',
-        'roles' => 'Rollen',
-        'label' => 'Gebruikers',
+        'password' => 'Kata Sandi',
+        'password_confirmation' => 'Konfirmasi Kata Sandi',
+        'roles' => 'Peran',
+        'teams' => 'Tim',
+        'label' => 'Pengguna',
         'title' => [
-            'show' => 'Toon Gebruiker',
-            'delete' => 'Verwijder Gebruiker',
-            'impersonate' => 'Impersonate Gebruiker',
-            'create' => 'Maak Gebruiker',
-            'edit' => 'Bewerk Gebruiker',
-            'list' => 'Gebruikers',
-            'home' => 'Gebruikers',
+            'show' => 'Lihat Pengguna',
+            'delete' => 'Hapus Pengguna',
+            'impersonate' => 'Menyamar sebagai Pengguna',
+            'create' => 'Buat Pengguna',
+            'edit' => 'Edit Pengguna',
+            'list' => 'Pengguna',
+            'home' => 'Pengguna',
         ],
-        'notificaitons' => [
+        'notifications' => [
             'last' => [
-                'title' => 'Fout',
-                'body' => 'Je kunt de laatste gebruiker niet verwijderen',
+                'title' => 'Kesalahan',
+                'body' => 'Anda tidak dapat menghapus pengguna terakhir',
             ],
             'self' => [
-                'title' => 'Fout',
-                'body' => 'Je kunt jezelf niet verwijderen',
+                'title' => 'Kesalahan',
+                'body' => 'Anda tidak dapat menghapus diri sendiri',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Ubah Kata Sandi',
+        'change_password_auto' => 'Kata Sandi berubah secara otomatis',
+        'change_password_success' => 'Kata Sandi berubah secara sukses',
+        'change_password_auto_body' => 'Kata Sandi berubah secara otomatis',
+        'change_password_success_body' => 'Kata Sandi berubah secara sukses',
+        'change_password_auto_body_placeholder' => 'Biarkan kosong untuk menghasilkan secara otomatis',
+        'change_password_success_body_placeholder' => 'Biarkan kosong untuk menghasilkan secara otomatis',
     ],
     'bulk' => [
-        'teams' => 'Teams bijwerken',
-        'roles' => 'Rollen bijwerken',
+        'teams' => 'Perbarui Tim',
+        'roles' => 'Perbarui Peran',
     ],
     'team' => [
-        'title' => 'Teams',
-        'single' => 'Team',
+        'title' => 'Tim',
+        'single' => 'Tim',
         'columns' => [
             'avatar' => 'Avatar',
-            'name' => 'Name',
-            'owner' => 'Owner',
-            'personal_team' => 'Persoonlijk Team',
+            'name' => 'Nama',
+            'owner' => 'Pemilik',
+            'personal_team' => 'Tim Pribadi',
         ],
     ],
     'banner' => [
-        'impersonating' => 'Impersonate',
-        'leave' => 'Leave Impersonation',
+        'impersonating' => 'Menyamar',
+        'leave' => 'Keluar dari Menyamar',
     ],
 ];
 </file>
 
-<file path="resources/lang/pt_BR/user.php">
-<?php
-
-return [
-    'group' => 'ALC',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Usuário',
-        'email_verified_at' => 'Email Verificado',
-        'created_at' => 'Criado em',
-        'updated_at' => 'Atualizado em',
-        'verified' => 'Verificado',
-        'unverified' => 'Não verificado',
-        'name' => 'Nome',
-        'email' => 'Email',
-        'password' => 'Senha',
-        'password_confirmation' => 'Confirmação de Senha',
-        'roles' => 'Funções',
-        'label' => 'Usuários',
-        'title' => [
-            'show' => 'Mostrar Usuário',
-            'delete' => 'Deletar Usuário',
-            'impersonate' => 'Despersonificar Usuário',
-            'create' => 'Criar Usuário',
-            'edit' => 'Editar Usuário',
-            'list' => 'Usuários',
-            'home' => 'Usuários',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'Erro',
-                'body' => 'Você não pode deletar o último usuário',
-            ],
-            'self' => [
-                'title' => 'Erro',
-                'body' => 'Você não pode deletar a si mesmo',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Atualizar Equipes',
-        'roles' => 'Atualizar Funções',
-    ],
-    'team' => [
-        'title' => 'Equipes',
-        'single' => 'Equipe',
-        'columns' => [
-            'avatar' => 'Avatar',
-            'name' => 'Nome',
-            'owner' => 'Proprietário',
-            'personal_team' => 'Equipe Pessoal',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Despersonificando',
-        'leave' => 'Sair da Despersonificação',
-    ],
-];
-</file>
-
-<file path="resources/lang/pt_PT/user.php">
-<?php
-
-return [
-    'group' => 'ALC',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Utilizador',
-        'email_verified_at' => 'Email Verificado em',
-        'created_at' => 'Criado em',
-        'updated_at' => 'Atualizado em',
-        'verified' => 'Verificado',
-        'unverified' => 'Não verificado',
-        'name' => 'Nome',
-        'email' => 'Email',
-        'password' => 'Palavra-passe',
-        'password_confirmation' => 'Confirmação de Palavra-passe',
-        'roles' => 'Funções',
-        'label' => 'Utilizadores',
-        'title' => [
-            'show' => 'Ver Utilizador',
-            'delete' => 'Apagar Utilizador',
-            'impersonate' => 'Simular Utilizador',
-            'create' => 'Criar Utilizador',
-            'edit' => 'Editar Utilizador',
-            'list' => 'Utilizadores',
-            'home' => 'Utilizadores',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'Erro',
-                'body' => 'Não é possível apagar o último utilizador',
-            ],
-            'self' => [
-                'title' => 'Erro',
-                'body' => 'Não pode apagar-se a si mesmo',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Atualizar Equipes',
-        'roles' => 'Atualizar Funções',
-    ],
-    'team' => [
-        'title' => 'Equipes',
-        'single' => 'Equipe',
-        'columns' => [
-            'avatar' => 'Avatar',
-            'name' => 'Nome',
-            'owner' => 'Proprietário',
-            'personal_team' => 'Equipe Pessoal',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Simulando',
-        'leave' => 'Sair da Simulação',
-    ],
-];
-</file>
-
-<file path="resources/lang/ru/user.php">
-<?php
-
-return [
-    'group' => 'ALC',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Пользователь',
-        'email_verified_at' => 'Email подтвержден',
-        'created_at' => 'Создан',
-        'updated_at' => 'Изменен',
-        'verified' => 'Верифицирован',
-        'unverified' => 'Не верифицирован',
-        'name' => 'Имя',
-        'email' => 'Email',
-        'password' => 'Пароль',
-        'password_confirmation' => 'Подтверждение пароля',
-        'roles' => 'Роли',
-        'label' => 'Пользователи',
-        'title' => [
-            'show' => 'Показать Пользователя',
-            'delete' => 'Удалить Пользователя',
-            'impersonate' => 'Войти как Пользователь',
-            'create' => 'Создать',
-            'edit' => 'Редактировать',
-            'list' => 'Пользователи',
-            'home' => 'Пользователи',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'Ошибка',
-                'body' => 'Вы не можете удалить последнего пользователя',
-            ],
-            'self' => [
-                'title' => 'Ошибка',
-                'body' => 'Вы не можете удалить себя',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Обновить команды',
-        'roles' => 'Обновить роли',
-    ],
-    'team' => [
-        'title' => 'Команды',
-        'single' => 'Команда',
-        'columns' => [
-            'avatar' => 'Аватар',
-            'name' => 'Имя',
-            'owner' => 'Владелец',
-            'personal_team' => 'Личная команда',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Войти как',
-        'leave' => 'Выйти из режима',
-    ],
-];
-</file>
-
-<file path="src/Console/PublishUserResourceCommand.php">
+<file path="src/Console/FilamentUserTeamsCommand.php">
 <?php
 
 namespace TomatoPHP\FilamentUsers\Console;
 
 use Illuminate\Console\Command;
-use TomatoPHP\ConsoleHelpers\Traits\HandleStub;
+use TomatoPHP\ConsoleHelpers\Traits\HandleFiles;
 
-class PublishUserResourceCommand extends Command
+class FilamentUserTeamsCommand extends Command
 {
-    use HandleStub;
+    use HandleFiles;
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'filament-users:publish';
+    protected $name = 'filament-users:teams';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'publish filament user resource to the main app';
+    protected $description = 'publish filament user teams resource to the main app';
 
     public function __construct()
     {
@@ -2305,51 +1867,279 @@ class PublishUserResourceCommand extends Command
      */
     public function handle()
     {
-        $this->generateStubs(
-            __DIR__ . '/../../stubs/UserResource.stub',
-            app_path('Filament/Resources') . '/UserResource.php',
-            [],
-            [
-                app_path('Filament'),
-                app_path('Filament/Resources'),
-                app_path('Filament/Resources/UserResource'),
-            ]
-        );
-        $this->generateStubs(
-            __DIR__ . '/../../stubs/ListUsers.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/ListUsers.php',
-            [],
-            [
-                app_path('Filament'),
-                app_path('Filament/Resources'),
-                app_path('Filament/Resources/UserResource'),
-                app_path('Filament/Resources/UserResource/Pages'),
-            ]
-        );
-        $this->generateStubs(
-            __DIR__ . '/../../stubs/EditUser.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/EditUser.php',
-            [],
-            [
-                app_path('Filament'),
-                app_path('Filament/Resources'),
-                app_path('Filament/Resources/UserResource'),
-                app_path('Filament/Resources/UserResource/Pages'),
-            ]
-        );
-        $this->generateStubs(
-            __DIR__ . '/../../stubs/CreateUser.stub',
-            app_path('Filament/Resources/UserResource/Pages') . '/CreateUser.php',
-            [],
-            [
-                app_path('Filament'),
-                app_path('Filament/Resources'),
-                app_path('Filament/Resources/UserResource'),
-                app_path('Filament/Resources/UserResource/Pages'),
-            ]
+        // Copy Migrations
+        $this->copyFile(
+            __DIR__ . '/../../stubs/database/migrations/create_team_invitations_table.php',
+            database_path('migrations/' . date('Y_m_d_His') . '_create_team_invitations_table.php')
         );
 
-        $this->info('Filament User Resource published successfully.');
+        $this->copyFile(
+            __DIR__ . '/../../stubs/database/migrations/create_teams_table.php',
+            database_path('migrations/' . date('Y_m_d_His') . '_create_teams_table.php')
+        );
+
+        $this->copyFile(
+            __DIR__ . '/../../stubs/database/migrations/create_team_user_table.php',
+            database_path('migrations/' . date('Y_m_d_His') . '_create_team_user_table.php')
+        );
+
+        $this->copyFile(
+            __DIR__ . '/../../stubs/database/migrations/update_users_table.php',
+            database_path('migrations/' . date('Y_m_d_His') . '_update_users_table.php')
+        );
+
+        // Copy Models
+        $this->copyFile(
+            __DIR__ . '/../../stubs/app/Models/Team.php',
+            app_path('Models/Team.php')
+        );
+
+        $this->copyFile(
+            __DIR__ . '/../../stubs/app/Models/TeamInvitation.php',
+            app_path('Models/TeamInvitation.php')
+        );
+
+        $this->copyFile(
+            __DIR__ . '/../../stubs/app/Models/Membership.php',
+            app_path('Models/Membership.php')
+        );
+
+        $this->info('Filament User Teams Resource published successfully.');
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Pages/CreateTeam.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
+
+use Filament\Resources\Pages\CreateRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
+
+class CreateTeam extends CreateRecord
+{
+    protected static string $resource = TeamResource::class;
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Pages/EditTeam.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
+
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Pages\EditRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
+
+class EditTeam extends EditRecord
+{
+    protected static string $resource = TeamResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            ViewAction::make(),
+            DeleteAction::make(),
+        ];
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Pages/ListTeams.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
+
+use Filament\Actions\CreateAction;
+use Filament\Resources\Pages\ListRecords;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
+
+class ListTeams extends ListRecords
+{
+    protected static string $resource = TeamResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            CreateAction::make(),
+        ];
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Pages/ViewTeam.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages;
+
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\TeamResource;
+
+class ViewTeam extends ViewRecord
+{
+    protected static string $resource = TeamResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            EditAction::make(),
+        ];
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/Tables/TeamsTable.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+class TeamsTable
+{
+    public static function configure(Table $table): Table
+    {
+        if (filament('filament-user')::hasAvatar()) {
+            $columns[] = Tables\Columns\TextColumn::make('owner.name')
+                ->label(trans('filament-users::user.team.columns.owner'))
+                ->sortable();
+        } else {
+            $columns[] = Tables\Columns\TextColumn::make('owner.name')
+                ->label(trans('filament-users::user.team.columns.owner'))
+                ->sortable();
+        }
+
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->label(trans('filament-users::user.team.columns.name'))
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('personal_team')
+                    ->label(trans('filament-users::user.team.columns.personal_team'))
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label(trans('filament-users::user.resource.created_at'))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(trans('filament-users::user.resource.updated_at'))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('owner')
+                    ->label(trans('filament-users::user.team.columns.owner'))
+                    ->searchable()
+                    ->relationship('owner', 'name'),
+            ])
+            ->recordActions([
+                ViewAction::make()->iconButton()->tooltip(__('filament-actions::view.single.label')),
+                EditAction::make()->iconButton()->tooltip(__('filament-actions::edit.single.label')),
+            ])
+            ->defaultSort('id', 'desc')
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Teams/TeamResource.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams;
+
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\CreateTeam;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\EditTeam;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\ListTeams;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Pages\ViewTeam;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas\TeamForm;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Schemas\TeamInfolist;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams\Tables\TeamsTable;
+
+class TeamResource extends Resource
+{
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::UserGroup;
+
+    public static function getModel(): string
+    {
+        return config('filament-users.team_model');
+    }
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getLabel(): ?string
+    {
+        return trans('filament-users::user.team.single');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return trans('filament-users::user.team.title');
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return trans('filament-users::user.team.title');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        if (config('filament-users.shield')) {
+            return __('filament-shield::filament-shield.nav.group');
+        }
+
+        return config('filament-users.group') ?: trans('filament-users::user.group');
+    }
+
+    public static function form(Schema $schema): Schema
+    {
+        return TeamForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return TeamInfolist::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return TeamsTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListTeams::route('/'),
+            'create' => CreateTeam::route('/create'),
+            'view' => ViewTeam::route('/{record}'),
+            'edit' => EditTeam::route('/{record}/edit'),
+        ];
     }
 }
 </file>
@@ -2493,97 +2283,173 @@ class ViewUser extends ViewRecord
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Schemas/UserForm.php">
+<file path="src/Filament/Resources/Users/Schemas/Components/Avatar.php">
 <?php
 
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
-use Filament\Forms\Components\Field;
-use Filament\Schemas\Schema;
+use Filament\Forms;
 
-class UserForm
+class Avatar extends Component
 {
-    protected static array $schema = [];
-
-    public static function configure(Schema $schema): Schema
+    /**
+     * @return Avatar
+     */
+    public static function make(): Forms\Components\FileUpload
     {
-        return $schema->components(static::getSchema());
-    }
-
-    public static function getDefaultComponents(): array
-    {
-        return [
-            Components\Name::make(),
-            Components\Email::make(),
-            Components\Password::make(),
-            Components\PasswordConfirmation::make(),
-        ];
-    }
-
-    private static function getSchema(): array
-    {
-        return array_merge(self::getDefaultComponents(), self::$schema);
-    }
-
-    public static function register(Field | array $component): void
-    {
-        if (is_array($component)) {
-            foreach ($component as $item) {
-                if ($item instanceof Field) {
-                    self::$schema[] = $item;
-                }
-            }
-
-        } else {
-            self::$schema[] = $component;
-        }
+        return Forms\Components\FileUpload::make('profile_photo_path')
+            ->label(trans('filament-users::user.resource.avatar'))
+            ->columnSpanFull()
+            ->alignCenter()
+            ->image()
+            ->avatar()
+            ->imageEditor()
+            ->imageEditorAspectRatios([
+                '16:9',
+                '4:3',
+                '1:1',
+            ]);
     }
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Schemas/UserInfolist.php">
+<file path="src/Filament/Resources/Users/Schemas/Components/Password.php">
 <?php
 
-namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
-use Filament\Infolists\Components\Entry;
-use Filament\Schemas\Schema;
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Hash;
 
-class UserInfolist
+class Password extends Component
 {
-    protected static array $schema = [];
-
-    public static function configure(Schema $schema): Schema
+    /**
+     * @return TextInput
+     */
+    public static function make(): Forms\Components\TextInput
     {
-        return $schema->components(static::getSchema());
+        return Forms\Components\TextInput::make('password')
+            ->hidden(fn ($record) => $record)
+            ->label(trans('filament-users::user.resource.password'))
+            ->password()
+            ->revealable(filament()->arePasswordsRevealable())
+            ->required(fn ($record) => ! $record)
+            ->rule(\Illuminate\Validation\Rules\Password::default())
+            ->dehydrated(fn ($state) => filled($state))
+            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+            ->same('passwordConfirmation')
+            ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute'));
     }
+}
+</file>
 
-    public static function getDefaultComponents(): array
+<file path="src/Filament/Resources/Users/Schemas/Components/PasswordConfirmation.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
+
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+
+class PasswordConfirmation extends Component
+{
+    /**
+     * @return TextInput
+     */
+    public static function make(): Forms\Components\TextInput
     {
-        return [
-            Entries\Name::make(),
-            Entries\Email::make(),
-            Entries\Verified::make(),
-        ];
+        return Forms\Components\TextInput::make('passwordConfirmation')
+            ->hidden(fn ($record): mixed => $record)
+            ->label(trans('filament-users::user.resource.password_confirmation'))
+            ->password()
+            ->revealable(filament()->arePasswordsRevealable())
+            ->required(fn ($record) => ! $record)
+            ->dehydrated(false);
     }
+}
+</file>
 
-    private static function getSchema(): array
+<file path="src/Filament/Resources/Users/Schemas/Entries/Avatar.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Entries;
+
+use Filament\Infolists;
+
+class Avatar extends Entry
+{
+    public static function make(): Infolists\Components\ImageEntry
     {
-        return array_merge(self::getDefaultComponents(), self::$schema);
+        return Infolists\Components\ImageEntry::make('profile_photo_path')
+            ->default(function ($record) {
+                $default = 'identicon';
+                $size = 100;
+                $grav_url = 'https://www.gravatar.com/avatar/' . hash('sha256', strtolower(trim($record->email))) . '?d=' . urlencode($default) . '&s=' . $size;
+
+                return $grav_url;
+            })
+            ->label(trans('filament-users::user.resource.avatar'))
+            ->columnSpanFull()
+            ->alignCenter()
+            ->circular();
     }
+}
+</file>
 
-    public static function register(Entry | array $component): void
+<file path="src/Filament/Resources/Users/Tables/Actions/ChangePassword.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
+
+use Filament\Actions;
+use Filament\Forms;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+class ChangePassword extends Action
+{
+    public static function make(): Actions\Action
     {
-        if (is_array($component)) {
-            foreach ($component as $item) {
-                if ($item instanceof Entry) {
-                    self::$schema[] = $item;
-                }
-            }
+        return Actions\Action::make('changePassword')
+            ->requiresConfirmation()
+            ->color('danger')
+            ->icon('heroicon-o-key')
+            ->iconButton()
+            ->tooltip(trans('filament-users::user.resource.change_password'))
+            ->label(trans('filament-users::user.resource.change_password'))
+            ->schema([
+                Forms\Components\TextInput::make('password')
+                    ->label(trans('filament-users::user.resource.password'))
+                    ->placeholder(trans('filament-users::user.resource.change_password_auto'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required(fn ($record) => ! $record)
+                    ->rule(\Illuminate\Validation\Rules\Password::default())
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->same('passwordConfirmation'),
+                Forms\Components\TextInput::make('passwordConfirmation')
+                    ->label(trans('filament-users::user.resource.password_confirmation'))
+                    ->placeholder(trans('filament-users::user.resource.change_password_auto'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required(fn ($record) => ! $record)
+                    ->dehydrated(false),
+            ])
+            ->action(function ($record, $data) {
+                $auto = ! isset($data['password']);
+                $password = $data['password'] ?? Str::random(12);
+                $record->password = $password;
+                $record->save();
 
-        } else {
-            self::$schema[] = $component;
-        }
+                Notification::make()
+                    ->title(trans('filament-users::user.resource.change_password'))
+                    ->body($auto ? trans('filament-users::user.resource.change_password_auto') . ' [' . $password . ']' : trans('filament-users::user.resource.change_password_success'))
+                    ->success()
+                    ->send();
+            });
     }
 }
 </file>
@@ -2635,6 +2501,39 @@ class DeleteAction extends Action
             $record->delete();
             $action->success();
         }
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Tables/Actions/ImpersonateAction.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
+
+use Filament\Actions;
+use Filament\Support\Concerns\EvaluatesClosures;
+use TomatoPHP\FilamentUsers\Concerns\Impersonates;
+
+class ImpersonateAction extends Action
+{
+    use EvaluatesClosures;
+    use Impersonates;
+
+    public static function make(): Actions\Action
+    {
+        (new self)->guard(config('filament-users.impersonate.auth_guard'));
+        (new self)->redirectTo(config('filament-users.impersonate.redirect_to'));
+        (new self)->backTo(config('filament-users.impersonate.back_to'));
+
+        return Actions\Action::make('impersonate')
+            ->iconButton()
+            ->requiresConfirmation()
+            ->icon('heroicon-o-user-circle')
+            ->color('info')
+            ->tooltip(trans('filament-users::user.resource.title.impersonate'))
+            ->label(trans('filament-users::user.resource.title.impersonate'))
+            ->action(fn ($record) => (new self)->impersonate($record))
+            ->hidden(fn ($record) => ! (new self)->canBeImpersonated($record));
     }
 }
 </file>
@@ -2772,54 +2671,122 @@ class TeamsAction extends Action
 }
 </file>
 
-<file path="src/Filament/Resources/Users/Tables/UsersTable.php">
+<file path="src/Filament/Resources/Users/Tables/Columns/Avatar.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Columns;
+
+use Filament\Tables;
+
+class Avatar extends Column
+{
+    public static function make(): Tables\Columns\ImageColumn
+    {
+        return Tables\Columns\ImageColumn::make('profile_photo_path')
+            ->default(function ($record) {
+                $default = 'identicon';
+                $size = 100;
+                $grav_url = 'https://www.gravatar.com/avatar/' . hash('sha256', strtolower(trim($record->email))) . '?d=' . urlencode($default) . '&s=' . $size;
+
+                return $grav_url;
+            })
+            ->label(trans('filament-users::user.resource.avatar'))
+            ->circular();
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Tables/Columns/Email.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Columns;
+
+use Filament\Tables;
+
+class Email extends Column
+{
+    public static function make(): Tables\Columns\TextColumn
+    {
+        return config('filament-users.styled_columns') ? Tables\Columns\TextColumn::make('email')
+            ->icon('heroicon-o-envelope')
+            ->color('primary')
+            ->badge()
+            ->url(fn ($record) => "mailto:{$record->email}")
+            ->sortable()
+            ->searchable()
+            ->label(trans('filament-users::user.resource.email'))
+        : Tables\Columns\TextColumn::make('email')
+            ->sortable()
+            ->searchable()
+            ->label(trans('filament-users::user.resource.email'));
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Tables/Columns/Roles.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Columns;
+
+use Filament\Tables;
+
+class Roles extends Column
+{
+    public static function make(): Tables\Columns\TextColumn
+    {
+        return Tables\Columns\TextColumn::make('roles.name')
+            ->formatStateUsing(fn ($state) => str($state)->replace('_', ' ')->replace('-', ' ')->title())
+            ->icon('heroicon-o-shield-check')
+            ->color('success')
+            ->toggleable()
+            ->badge()
+            ->label(trans('filament-users::user.resource.roles'));
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Tables/UserActions.php">
 <?php
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
-use Filament\Tables\Columns\Column;
-use Filament\Tables\Table;
-
-class UsersTable
+class UserActions
 {
-    protected static array $columns = [];
+    /**
+     * @var array
+     */
+    protected static $actions = [];
 
-    public static function configure(Table $table): Table
+    public static function make(): array
     {
-        return $table
-            ->columns(static::getColumns())
-            ->filters(UserFilters::make())
-            ->recordActions(UserActions::make())
-            ->toolbarActions(UserBulkActions::make());
+        return self::getActions();
     }
 
-    public static function getDefaultColumns(): array
+    private static function getDefaultActions(): array
     {
         return [
-            Columns\ID::make(),
-            Columns\Name::make(),
-            Columns\Email::make(),
-            Columns\Verified::make(),
-            Columns\CreatedAt::make(),
-            Columns\UpdatedAt::make(),
+            Actions\ViewAction::make(),
+            Actions\EditAction::make(),
+            Actions\ChangePassword::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 
-    private static function getColumns(): array
+    private static function getActions(): array
     {
-        return array_merge(self::getDefaultColumns(), self::$columns);
+        return array_merge(self::getDefaultActions(), self::$actions);
     }
 
-    public static function register(Column | array $column): void
+    public static function register(\Filament\Actions\Action | array $action): void
     {
-        if (is_array($column)) {
-            foreach ($column as $item) {
-                if ($item instanceof Column) {
-                    self::$columns[] = $item;
+        if (is_array($action)) {
+            foreach ($action as $item) {
+                if ($item instanceof \Filament\Actions\Action) {
+                    self::$actions[] = $item;
                 }
             }
         } else {
-            self::$columns[] = $column;
+            self::$actions[] = $action;
         }
     }
 }
@@ -2919,6 +2886,47 @@ class UserResource extends Resource
 }
 </file>
 
+<file path="stubs/database/migrations/update_users_table.php">
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            if (! Schema::hasColumn('users', 'current_team_id')) {
+                $table->foreignId('current_team_id')->nullable();
+            }
+            if (! Schema::hasColumn('users', 'profile_photo_path')) {
+                $table->string('profile_photo_path', 2048)->nullable();
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            if (Schema::hasColumn('users', 'current_team_id')) {
+                $table->dropColumn('current_team_id');
+            }
+            if (Schema::hasColumn('users', 'profile_photo_path')) {
+                $table->dropColumn('profile_photo_path');
+            }
+        });
+    }
+};
+</file>
+
 <file path="tests/src/AdminPanelProvider.php">
 <?php
 
@@ -2973,6 +2981,255 @@ class AdminPanelProvider extends PanelProvider
 }
 </file>
 
+<file path="tests/src/CanDeleteUser.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Tests;
+
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\Testing\TestAction;
+use Filament\Facades\Filament;
+use Illuminate\Config\Repository;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertModelMissing;
+use function Pest\Livewire\livewire;
+
+beforeEach(function () {
+    $app = $this->app;
+
+    tap($app['config'], function (Repository $config) {
+        $config->set('filament-users.simple', false);
+    });
+
+    actingAs(User::factory()->create());
+
+    $this->panel = Filament::getCurrentOrDefaultPanel();
+    $this->panel->plugin(
+        FilamentUsersPlugin::make()
+    );
+});
+
+it('can bulk delete users', function () {
+    $users = User::factory()->count(5)->create();
+
+    livewire(Pages\ListUsers::class)
+        ->assertCanSeeTableRecords($users)
+        ->selectTableRecords($users)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertNotified()
+        ->assertCanNotSeeTableRecords($users);
+
+    $users->each(fn (User $user) => assertModelMissing($user));
+});
+
+it('can delete user', function () {
+    $user = User::factory()->create();
+
+    livewire(Pages\EditUser::class, [
+        'record' => $user->getRouteKey(),
+    ])->callAction(DeleteAction::class)
+        ->assertNotified()
+        ->assertRedirect();
+
+    assertModelMissing($user);
+});
+
+it('can not delete user if it is current user', function () {
+    $user = auth()->user();
+
+    livewire(Pages\EditUser::class, [
+        'record' => $user->getRouteKey(),
+    ])->callAction(DeleteAction::class);
+
+    assertDatabaseHas(User::class, [
+        'name' => $user->name,
+        'email' => $user->email,
+    ]);
+});
+
+it('can not delete user if it is the last user', function () {
+    User::query()->delete();
+    $user = User::factory()->create();
+
+    livewire(Pages\EditUser::class, [
+        'record' => $user->getRouteKey(),
+    ])->callAction(DeleteAction::class);
+
+    assertDatabaseHas(User::class, [
+        'name' => $user->name,
+        'email' => $user->email,
+    ]);
+});
+</file>
+
+<file path="tests/src/ImpersonateTest.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Tests;
+
+use Filament\Facades\Filament;
+use Illuminate\Config\Repository;
+use Lab404\Impersonate\Services\ImpersonateManager;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions\ImpersonateAction;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
+
+beforeEach(function () {
+    $app = $this->app;
+
+    tap($app['config'], function (Repository $config) {
+        $config->set('filament-users.impersonate.enabled', true);
+        $config->set('filament-users.impersonate.redirect_to', '/admin');
+        $config->set('filament-users.impersonate.back_to', '/admin');
+        $config->set('filament-users.impersonate.auth_guard', 'web');
+        $config->set('filament-users.impersonate.leave_middleware', 'web');
+        $config->set('filament-users.simple', false);
+    });
+
+    actingAs(User::factory()->create());
+
+    $this->panel = Filament::getCurrentOrDefaultPanel();
+    $this->panel->plugin(
+        FilamentUsersPlugin::make()
+    );
+});
+
+it('can test impersonate action within Filament panel', function () {
+    $admin = User::factory()->create(['email' => 'admin@example.com']);
+    $targetUser = User::factory()->create(['email' => 'user@example.com']);
+
+    actingAs($admin);
+
+    // Test that the action can be created and configured within the panel
+    $action = ImpersonateAction::make();
+
+    expect($action)->toBeInstanceOf(\Filament\Actions\Action::class);
+
+    // Test the action within the panel context
+    $impersonateAction = new ImpersonateAction;
+    $impersonateAction->guard($this->panel->getAuthGuard());
+    $impersonateAction->redirectTo($this->panel->getUrl());
+    $impersonateAction->backTo($this->panel->getUrl());
+
+    $result = $impersonateAction->impersonate($targetUser);
+
+    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result->getTargetUrl())->toBe($this->panel->getUrl());
+
+    $impersonateManager = app(ImpersonateManager::class);
+    expect($impersonateManager->isImpersonating())->toBeTrue();
+});
+
+it('can test impersonate action in Filament resource context', function () {
+    $admin = User::factory()->create(['email' => 'admin@example.com']);
+    $targetUser = User::factory()->create(['email' => 'user@example.com']);
+
+    actingAs($admin);
+
+    // Test the action within the Filament resource context
+    $impersonateAction = new ImpersonateAction;
+
+    // Configure with panel-specific settings
+    $impersonateAction->guard($this->panel->getAuthGuard());
+    $impersonateAction->redirectTo($this->panel->getUrl());
+    $impersonateAction->backTo($this->panel->getUrl());
+
+    // Test that the action works within the panel context
+    $result = $impersonateAction->impersonate($targetUser);
+
+    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result->getTargetUrl())->toBe($this->panel->getUrl());
+
+    // Verify impersonation state
+    $impersonateManager = app(ImpersonateManager::class);
+    expect($impersonateManager->isImpersonating())->toBeTrue();
+
+    // Test leaving impersonation within panel context
+    $response = get('/filament-impersonate/leave');
+    expect($response->getStatusCode())->toBe(302);
+    expect($impersonateManager->isImpersonating())->toBeFalse();
+});
+
+it('uses custom guard for impersonation', function () {
+    $admin = User::factory()->create(['email' => 'admin@example.com']);
+    $targetUser = User::factory()->create(['email' => 'user@example.com']);
+
+    actingAs($admin);
+
+    $impersonateAction = new ImpersonateAction;
+    $impersonateAction->guard('testing');
+    $impersonateAction->impersonate($targetUser);
+
+    expect(session('impersonate.guard'))->toBe('testing');
+});
+
+it('can create impersonate action', function () {
+    $action = ImpersonateAction::make();
+
+    expect($action)->toBeInstanceOf(\Filament\Actions\Action::class);
+});
+
+it('tests impersonation with reflection for protected methods', function () {
+    $admin = User::factory()->create(['email' => 'admin@example.com']);
+    $targetUser = User::factory()->create(['email' => 'user@example.com']);
+
+    actingAs($admin);
+
+    $impersonateAction = new ImpersonateAction;
+
+    // Use reflection to test protected method
+    $reflection = new \ReflectionClass($impersonateAction);
+    $canBeImpersonatedMethod = $reflection->getMethod('canBeImpersonated');
+    $canBeImpersonatedMethod->setAccessible(true);
+
+    expect($canBeImpersonatedMethod->invoke($impersonateAction, $targetUser))->toBeTrue();
+    expect($canBeImpersonatedMethod->invoke($impersonateAction, $admin))->toBeFalse();
+});
+
+it('can test impersonate action in Filament table context', function () {
+    $admin = User::factory()->create(['email' => 'admin@example.com']);
+    $targetUser = User::factory()->create(['email' => 'user@example.com']);
+
+    actingAs($admin);
+
+    // Test the action within the Filament table context
+    $impersonateAction = new ImpersonateAction;
+
+    // Configure with panel-specific settings
+    $impersonateAction->guard($this->panel->getAuthGuard());
+    $impersonateAction->redirectTo($this->panel->getUrl());
+    $impersonateAction->backTo($this->panel->getUrl());
+
+    // Test that the action works within the table context
+    $result = $impersonateAction->impersonate($targetUser);
+
+    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result->getTargetUrl())->toBe($this->panel->getUrl());
+
+    // Verify impersonation state
+    $impersonateManager = app(ImpersonateManager::class);
+    expect($impersonateManager->isImpersonating())->toBeTrue();
+
+    // Test session data within panel context
+    expect(session('impersonate.guard'))->toBe($this->panel->getAuthGuard());
+    expect(session('impersonate.back_to'))->toBe($this->panel->getUrl());
+
+    // Test leaving impersonation
+    $response = get('/filament-impersonate/leave');
+    expect($response->getStatusCode())->toBe(302);
+    expect($impersonateManager->isImpersonating())->toBeFalse();
+});
+</file>
+
 <file path="tests/src/PluginTest.php">
 <?php
 
@@ -3000,6 +3257,145 @@ it('can modify avatar', function ($condition) {
     false,
     fn () => true,
 ]);
+</file>
+
+<file path="tests/src/SimpleUserResourceTest.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Tests;
+
+use Filament\Facades\Filament;
+use Illuminate\Config\Repository;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\UserResource;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Livewire\livewire;
+
+beforeEach(function () {
+    $app = $this->app;
+
+    tap($app['config'], function (Repository $config) {
+        $config->set('filament-users.simple', true);
+    });
+
+    actingAs(User::factory()->create());
+
+    $this->panel = Filament::getCurrentOrDefaultPanel();
+    $this->panel->plugin(
+        FilamentUsersPlugin::make()
+    );
+});
+
+it('can render user resource', function () {
+    $this->get(UserResource::getUrl('index'))->assertSuccessful();
+});
+
+it('can list posts', function () {
+    User::query()->delete();
+    $users = User::factory()->count(10)->create();
+
+    livewire(Pages\ManageUsers::class)
+        ->loadTable()
+        ->assertCanSeeTableRecords($users)
+        ->assertCountTableRecords(10);
+});
+
+it('can render user name/email column in table', function () {
+    User::factory()->count(10)->create();
+
+    livewire(Pages\ManageUsers::class)
+        ->loadTable()
+        ->assertCanRenderTableColumn('id')
+        ->assertCanRenderTableColumn('name')
+        ->assertCanRenderTableColumn('email');
+});
+
+it('can render user list page', function () {
+    livewire(Pages\ManageUsers::class)->assertSuccessful();
+});
+
+it('can render view user action', function () {
+    livewire(Pages\ManageUsers::class, [
+        'record' => User::factory()->create(),
+    ])
+        ->mountAction('view')
+        ->assertSuccessful();
+});
+
+it('can render user create action', function () {
+    livewire(Pages\ManageUsers::class)
+        ->mountAction('create')
+        ->assertSuccessful();
+});
+
+it('can render user edit action', function () {
+    livewire(Pages\ManageUsers::class, [
+        'record' => User::factory()->create(),
+    ])
+        ->mountAction('edit')
+        ->assertSuccessful();
+});
+</file>
+
+<file path=".gitignore">
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+.DS_Store
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+/.zed
+</file>
+
+<file path="module.json">
+{
+    "name": "FilamentUsers",
+    "alias": "filament-users",
+    "description": {
+        "ar": "قم بإدارة مستخدمين النظام بسهولة",
+        "en": "User Resource For FilamentPHP Admin Dashboard",
+        "gr": "User Resource For FilamentPHP Admin Dashboard",
+        "sp": "User Resource For FilamentPHP Admin Dashboard"
+    },
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "TomatoPHP\\FilamentUsers\\FilamentUsersServiceProvider"
+    ],
+    "files": [],
+    "title": {
+        "ar": "المستخدمين",
+        "en": "User Manager",
+        "gr": "User Manager",
+        "sp": "User Manager"
+    },
+    "color": "#cc1448",
+    "icon": "heroicon-c-users",
+    "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg",
+    "type": "plugin",
+    "version": "v2.0.18",
+    "github" : "https://github.com/tomatophp/filament-users",
+    "docs" : "https://github.com/tomatophp/filament-users"
+}
 </file>
 
 <file path=".github/workflows/dependabot-auto-merge.yml">
@@ -3055,6 +3451,7 @@ return [
         'password' => 'كلمة المرور',
         'password_confirmation' => 'تأكيد كلمة المرور',
         'roles' => 'الرتب',
+        'teams' => 'الفرق',
         'label' => 'المستخدمين',
         'title' => [
             'show' => 'عرض مستخدم',
@@ -3075,6 +3472,14 @@ return [
                 'body' => 'لا يمكنك حذف نفسك',
             ],
         ],
+        'avatar' => 'الصورة الشخصية',
+        'change_password' => 'تغيير كلمة المرور',
+        'change_password_auto' => 'تم تغيير كلمة المرور بشكل آلي',
+        'change_password_success' => 'تم تغيير كلمة المرور بنجاح',
+        'change_password_auto_body' => 'تم تغيير كلمة المرور بشكل آلي',
+        'change_password_success_body' => 'تم تغيير كلمة المرور بنجاح',
+        'change_password_auto_body_placeholder' => 'اترك فارغ لتوليد تلقائي',
+        'change_password_success_body_placeholder' => 'اترك فارغ لتوليد تلقائي',
     ],
     'bulk' => [
         'teams' => 'تحديث الفرق',
@@ -3115,6 +3520,7 @@ return [
         'password' => 'Passwort',
         'password_confirmation' => 'Passwort bestätigen',
         'roles' => 'Rollen',
+        'teams' => 'Teams',
         'label' => 'Benutzer',
         'title' => [
             'show' => 'Benutzer anzeigen',
@@ -3135,6 +3541,14 @@ return [
                 'body' => 'Sie können sich nicht selbst löschen',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Passwort ändern',
+        'change_password_auto' => 'Passwort automatisch geändert',
+        'change_password_success' => 'Passwort erfolgreich geändert',
+        'change_password_auto_body' => 'Passwort automatisch geändert',
+        'change_password_success_body' => 'Passwort erfolgreich geändert',
+        'change_password_auto_body_placeholder' => 'Leer lassen, um automatisch zu generieren',
+        'change_password_success_body_placeholder' => 'Leer lassen, um automatisch zu generieren',
     ],
     'bulk' => [
         'teams' => 'Teams aktualisieren',
@@ -3196,6 +3610,14 @@ return [
                 'body' => 'You cannot delete yourself',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Change Password',
+        'change_password_auto' => 'Password changed automatically',
+        'change_password_success' => 'Password changed successfully',
+        'change_password_auto_body' => 'Password changed automatically',
+        'change_password_success_body' => 'Password changed successfully',
+        'change_password_auto_body_placeholder' => 'Leave blank to auto-generate',
+        'change_password_success_body_placeholder' => 'Leave blank to auto-generate',
     ],
     'bulk' => [
         'teams' => 'Update Teams',
@@ -3218,32 +3640,650 @@ return [
 ];
 </file>
 
-<file path="src/Facades/FilamentUser.php">
+<file path="resources/lang/it/user.php">
 <?php
 
-namespace TomatoPHP\FilamentUsers\Facades;
+return [
+    'group' => 'Configurazione',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'Utente',
+        'email_verified_at' => 'Email Verificata',
+        'created_at' => 'Creato il',
+        'updated_at' => 'Aggiornato il',
+        'verified' => 'Verificato',
+        'unverified' => 'Non Verificato',
+        'name' => 'Nome',
+        'email' => 'Email',
+        'password' => 'Password',
+        'password_confirmation' => 'Conferma Password',
+        'roles' => 'Ruoli',
+        'teams' => 'Teams',
+        'label' => 'Utenti',
+        'title' => [
+            'show' => 'Visualizza Utente',
+            'delete' => 'Elimina Utente',
+            'impersonate' => 'Impersonifica Utente',
+            'create' => 'crea Utente',
+            'edit' => 'Modifica Utente',
+            'list' => 'Utenti',
+            'home' => 'Utenti',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Errore',
+                'body' => "Non puoi eliminare l'ultimo utente",
+            ],
+            'self' => [
+                'title' => 'Errore',
+                'body' => 'Non puoi eliminare te stesso',
+            ],
+        ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Cambia Password',
+        'change_password_auto' => 'Password cambiata automaticamente',
+        'change_password_success' => 'Password cambiata con successo',
+        'change_password_auto_body' => 'Password cambiata automaticamente',
+        'change_password_success_body' => 'Password cambiata con successo',
+        'change_password_auto_body_placeholder' => 'Lasciare vuoto per generare automaticamente',
+        'change_password_success_body_placeholder' => 'Lasciare vuoto per generare automaticamente',
+    ],
+    'bulk' => [
+        'teams' => 'Aggiorna Team',
+        'roles' => 'Aggiorna Ruoli',
+    ],
+    'team' => [
+        'title' => 'Team',
+        'single' => 'Team',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Nome',
+            'owner' => 'Owner',
+            'personal_team' => 'Team Personale',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Impersonando',
+        'leave' => 'Lasciare l\'Impersonazione',
+    ],
+];
+</file>
 
-use Illuminate\Support\Facades\Facade;
+<file path="resources/lang/ja/user.php">
+<?php
 
-/**
- * @see \TomatoPHP\FilamentUsers\Services\FilamentUserServices
- *
- * @method static void register(array|string $relation)
- * @method static array getRelations()
- * @method static string getModel()
- * @method static bool isImpersonating()
- * @method static void impersonate(Model $user)
- * @method static void leaveImpersonation()
- * @method static void clearAuthHashes()
- * @method static void guard(string $guard)
- * @method static void redirectTo(string $redirectTo)
- * @method static void backTo(string $backTo)
- */
-class FilamentUser extends Facade
+return [
+    'group' => 'ALC',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'ユーザー',
+        'email_verified_at' => 'メールアドレス認証日時',
+        'created_at' => '作成日時',
+        'updated_at' => '更新日時',
+        'verified' => '認証済',
+        'unverified' => '未認証',
+        'name' => '名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'password_confirmation' => 'パスワード確認',
+        'roles' => 'ロール',
+        'teams' => 'チーム',
+        'label' => 'ユーザー',
+        'title' => [
+            'show' => 'ユーザーを表示',
+            'delete' => 'ユーザーを削除',
+            'impersonate' => 'ユーザーを偽装',
+            'create' => 'ユーザーを作成',
+            'edit' => 'ユーザーを編集',
+            'list' => 'ユーザー',
+            'home' => 'ユーザー',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'エラー',
+                'body' => '最後のユーザーを削除することはできません',
+            ],
+            'self' => [
+                'title' => 'エラー',
+                'body' => '自分自身を削除することはできません',
+            ],
+        ],
+        'avatar' => 'アバター',
+        'change_password' => 'パスワードを変更',
+        'change_password_auto' => 'パスワードが自動的に変更されました',
+        'change_password_success' => 'パスワードが正常に変更されました',
+        'change_password_auto_body' => 'パスワードが自動的に変更されました',
+        'change_password_success_body' => 'パスワードが正常に変更されました',
+        'change_password_auto_body_placeholder' => '自動生成する場合は空欄にしてください',
+        'change_password_success_body_placeholder' => '自動生成する場合は空欄にしてください',
+    ],
+    'bulk' => [
+        'teams' => 'チームを更新',
+        'roles' => 'ロールを更新',
+    ],
+    'team' => [
+        'title' => 'チーム',
+        'single' => 'チーム',
+        'columns' => [
+            'avatar' => 'アバター',
+            'name' => '名前',
+            'owner' => 'オーナー',
+            'personal_team' => '個人チーム',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => '偽装中',
+        'leave' => '偽装を終了',
+    ],
+];
+</file>
+
+<file path="resources/lang/mk/user.php">
+<?php
+
+return [
+    'group' => 'Група',
+    'resource' => [
+        'id' => 'ИД',
+        'single' => 'Корисник',
+        'email_verified_at' => 'Е-пошта е верифицирана',
+        'created_at' => 'Креирано на',
+        'updated_at' => 'Ажурирано на',
+        'verified' => 'Верифициран',
+        'unverified' => 'Неверифициран',
+        'name' => 'Име',
+        'email' => 'Е-пошта',
+        'password' => 'Лозинка',
+        'password_confirmation' => 'Потврди лозинка',
+        'roles' => 'Улоги',
+        'teams' => 'Тимови',
+        'label' => 'Корисници',
+        'title' => [
+            'show' => 'Прикажи корисник',
+            'delete' => 'Избриши корисник',
+            'impersonate' => 'Имперсонирај корисник',
+            'create' => 'Креирај корисник',
+            'edit' => 'Уреди корисник',
+            'list' => 'Листа на корисници',
+            'home' => 'Корисници',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Грешка',
+                'body' => 'Не можете да го избришете последниот корисник',
+            ],
+            'self' => [
+                'title' => 'Грешка',
+                'body' => 'Не можете да се избришете себеси',
+            ],
+        ],
+        'avatar' => 'Аватар',
+        'change_password' => 'Промени лозинка',
+        'change_password_auto' => 'Лозинката е промената автоматски',
+        'change_password_success' => 'Лозинката е успешно промената',
+        'change_password_auto_body' => 'Лозинката е промената автоматски',
+        'change_password_success_body' => 'Лозинката е успешно промената',
+        'change_password_auto_body_placeholder' => 'Оставете празно за автоматско генерирање',
+        'change_password_success_body_placeholder' => 'Оставете празно за автоматско генерирање',
+    ],
+    'bulk' => [
+        'teams' => 'Ажурирај тимови',
+        'roles' => 'Ажурирај улоги',
+    ],
+    'team' => [
+        'title' => 'Тимови',
+        'single' => 'Тим',
+        'columns' => [
+            'avatar' => 'Аватар',
+            'name' => 'Име',
+            'owner' => 'Сопственик',
+            'personal_team' => 'Личен тим',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Имперсонирано',
+        'leave' => 'Напусти Имперсонирање',
+    ],
+];
+</file>
+
+<file path="resources/lang/nl/user.php">
+<?php
+
+return [
+    'group' => 'ALC',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'Gebruiker',
+        'email_verified_at' => 'Email Geverifieerd',
+        'created_at' => 'Aangemaakt Op',
+        'updated_at' => 'Bijgewerkt Op',
+        'verified' => 'Geverifieerd',
+        'unverified' => 'Niet geverifieerd',
+        'name' => 'Naam',
+        'email' => 'Email',
+        'password' => 'Wachtwoord',
+        'password_confirmation' => 'Wachtwoord Bevestigen',
+        'roles' => 'Rollen',
+        'teams' => 'Teams',
+        'label' => 'Gebruikers',
+        'title' => [
+            'show' => 'Toon Gebruiker',
+            'delete' => 'Verwijder Gebruiker',
+            'impersonate' => 'Impersonate Gebruiker',
+            'create' => 'Maak Gebruiker',
+            'edit' => 'Bewerk Gebruiker',
+            'list' => 'Gebruikers',
+            'home' => 'Gebruikers',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Fout',
+                'body' => 'Je kunt de laatste gebruiker niet verwijderen',
+            ],
+            'self' => [
+                'title' => 'Fout',
+                'body' => 'Je kunt jezelf niet verwijderen',
+            ],
+        ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Wachtwoord wijzigen',
+        'change_password_auto' => 'Wachtwoord is automatisch gewijzigd',
+        'change_password_success' => 'Wachtwoord is succesvol gewijzigd',
+        'change_password_auto_body' => 'Wachtwoord is automatisch gewijzigd',
+        'change_password_success_body' => 'Wachtwoord is succesvol gewijzigd',
+        'change_password_auto_body_placeholder' => 'Laat leeg voor automatisch genereren',
+        'change_password_success_body_placeholder' => 'Laat leeg voor automatisch genereren',
+    ],
+    'bulk' => [
+        'teams' => 'Teams bijwerken',
+        'roles' => 'Rollen bijwerken',
+    ],
+    'team' => [
+        'title' => 'Teams',
+        'single' => 'Team',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Name',
+            'owner' => 'Owner',
+            'personal_team' => 'Persoonlijk Team',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Impersonate',
+        'leave' => 'Leave Impersonation',
+    ],
+];
+</file>
+
+<file path="resources/lang/pt_BR/user.php">
+<?php
+
+return [
+    'group' => 'ALC',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'Usuário',
+        'email_verified_at' => 'Email Verificado',
+        'created_at' => 'Criado em',
+        'updated_at' => 'Atualizado em',
+        'verified' => 'Verificado',
+        'unverified' => 'Não verificado',
+        'name' => 'Nome',
+        'email' => 'Email',
+        'password' => 'Senha',
+        'password_confirmation' => 'Confirmação de Senha',
+        'roles' => 'Funções',
+        'teams' => 'Equipes',
+        'label' => 'Usuários',
+        'title' => [
+            'show' => 'Mostrar Usuário',
+            'delete' => 'Deletar Usuário',
+            'impersonate' => 'Despersonificar Usuário',
+            'create' => 'Criar Usuário',
+            'edit' => 'Editar Usuário',
+            'list' => 'Usuários',
+            'home' => 'Usuários',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Erro',
+                'body' => 'Você não pode deletar o último usuário',
+            ],
+            'self' => [
+                'title' => 'Erro',
+                'body' => 'Você não pode deletar a si mesmo',
+            ],
+        ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Alterar Senha',
+        'change_password_auto' => 'Senha alterada automaticamente',
+        'change_password_success' => 'Senha alterada com sucesso',
+        'change_password_auto_body' => 'Senha alterada automaticamente',
+        'change_password_success_body' => 'Senha alterada com sucesso',
+        'change_password_auto_body_placeholder' => 'Deixe em branco para gerar automaticamente',
+        'change_password_success_body_placeholder' => 'Deixe em branco para gerar automaticamente',
+    ],
+    'bulk' => [
+        'teams' => 'Atualizar Equipes',
+        'roles' => 'Atualizar Funções',
+    ],
+    'team' => [
+        'title' => 'Equipes',
+        'single' => 'Equipe',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Nome',
+            'owner' => 'Proprietário',
+            'personal_team' => 'Equipe Pessoal',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Despersonificando',
+        'leave' => 'Sair da Despersonificação',
+    ],
+];
+</file>
+
+<file path="resources/lang/pt_PT/user.php">
+<?php
+
+return [
+    'group' => 'ALC',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'Utilizador',
+        'email_verified_at' => 'Email Verificado em',
+        'created_at' => 'Criado em',
+        'updated_at' => 'Atualizado em',
+        'verified' => 'Verificado',
+        'unverified' => 'Não verificado',
+        'name' => 'Nome',
+        'email' => 'Email',
+        'password' => 'Palavra-passe',
+        'password_confirmation' => 'Confirmação de Palavra-passe',
+        'roles' => 'Funções',
+        'teams' => 'Equipes',
+        'label' => 'Utilizadores',
+        'title' => [
+            'show' => 'Ver Utilizador',
+            'delete' => 'Apagar Utilizador',
+            'impersonate' => 'Simular Utilizador',
+            'create' => 'Criar Utilizador',
+            'edit' => 'Editar Utilizador',
+            'list' => 'Utilizadores',
+            'home' => 'Utilizadores',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Erro',
+                'body' => 'Não é possível apagar o último utilizador',
+            ],
+            'self' => [
+                'title' => 'Erro',
+                'body' => 'Não pode apagar-se a si mesmo',
+            ],
+        ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Alterar Palavra-passe',
+        'change_password_auto' => 'Palavra-passe alterada automaticamente',
+        'change_password_success' => 'Palavra-passe alterada com sucesso',
+        'change_password_auto_body' => 'Palavra-passe alterada automaticamente',
+        'change_password_success_body' => 'Palavra-passe alterada com sucesso',
+        'change_password_auto_body_placeholder' => 'Deixe em branco para gerar automaticamente',
+        'change_password_success_body_placeholder' => 'Deixe em branco para gerar automaticamente',
+    ],
+    'bulk' => [
+        'teams' => 'Atualizar Equipes',
+        'roles' => 'Atualizar Funções',
+    ],
+    'team' => [
+        'title' => 'Equipes',
+        'single' => 'Equipe',
+        'columns' => [
+            'avatar' => 'Avatar',
+            'name' => 'Nome',
+            'owner' => 'Proprietário',
+            'personal_team' => 'Equipe Pessoal',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Simulando',
+        'leave' => 'Sair da Simulação',
+    ],
+];
+</file>
+
+<file path="resources/lang/ru/user.php">
+<?php
+
+return [
+    'group' => 'ALC',
+    'resource' => [
+        'id' => 'ID',
+        'single' => 'Пользователь',
+        'email_verified_at' => 'Email подтвержден',
+        'created_at' => 'Создан',
+        'updated_at' => 'Изменен',
+        'verified' => 'Верифицирован',
+        'unverified' => 'Не верифицирован',
+        'name' => 'Имя',
+        'email' => 'Email',
+        'password' => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
+        'roles' => 'Роли',
+        'teams' => 'Команды',
+        'label' => 'Пользователи',
+        'title' => [
+            'show' => 'Показать Пользователя',
+            'delete' => 'Удалить Пользователя',
+            'impersonate' => 'Войти как Пользователь',
+            'create' => 'Создать',
+            'edit' => 'Редактировать',
+            'list' => 'Пользователи',
+            'home' => 'Пользователи',
+        ],
+        'notificaitons' => [
+            'last' => [
+                'title' => 'Ошибка',
+                'body' => 'Вы не можете удалить последнего пользователя',
+            ],
+            'self' => [
+                'title' => 'Ошибка',
+                'body' => 'Вы не можете удалить себя',
+            ],
+        ],
+        'avatar' => 'Аватар',
+        'change_password' => 'Изменить пароль',
+        'change_password_auto' => 'Пароль изменен автоматически',
+        'change_password_success' => 'Пароль изменен успешно',
+        'change_password_auto_body' => 'Пароль изменен автоматически',
+        'change_password_success_body' => 'Пароль изменен успешно',
+        'change_password_auto_body_placeholder' => 'Оставить пустым для автоматического генерации',
+        'change_password_success_body_placeholder' => 'Оставить пустым для автоматического генерации',
+    ],
+    'bulk' => [
+        'teams' => 'Обновить команды',
+        'roles' => 'Обновить роли',
+    ],
+    'team' => [
+        'title' => 'Команды',
+        'single' => 'Команда',
+        'columns' => [
+            'avatar' => 'Аватар',
+            'name' => 'Имя',
+            'owner' => 'Владелец',
+            'personal_team' => 'Личная команда',
+        ],
+    ],
+    'banner' => [
+        'impersonating' => 'Войти как',
+        'leave' => 'Выйти из режима',
+    ],
+];
+</file>
+
+<file path="src/Filament/Resources/Users/Schemas/UserForm.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
+
+use Filament\Forms\Components\Field;
+use Filament\Schemas\Schema;
+
+class UserForm
 {
-    protected static function getFacadeAccessor()
+    protected static array $schema = [];
+
+    public static function configure(Schema $schema): Schema
     {
-        return 'filament-user';
+        return $schema->components(static::getSchema());
+    }
+
+    public static function getDefaultComponents(): array
+    {
+
+        $components = [];
+        if (filament('filament-user')::hasAvatar()) {
+            $components[] = Components\Avatar::make();
+        }
+
+        $components[] = Components\Name::make();
+        $components[] = Components\Email::make();
+        $components[] = Components\Password::make();
+        $components[] = Components\PasswordConfirmation::make();
+
+        return $components;
+    }
+
+    private static function getSchema(): array
+    {
+        return array_merge(self::getDefaultComponents(), self::$schema);
+    }
+
+    public static function register(Field | array $component): void
+    {
+        if (is_array($component)) {
+            foreach ($component as $item) {
+                if ($item instanceof Field) {
+                    self::$schema[] = $item;
+                }
+            }
+
+        } else {
+            self::$schema[] = $component;
+        }
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Schemas/UserInfolist.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
+
+use Filament\Infolists\Components\Entry;
+use Filament\Schemas\Schema;
+
+class UserInfolist
+{
+    protected static array $schema = [];
+
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema->components(static::getSchema());
+    }
+
+    public static function getDefaultComponents(): array
+    {
+        $components = [];
+        if (filament('filament-user')::hasAvatar()) {
+            $components[] = Entries\Avatar::make();
+        }
+
+        $components[] = Entries\Name::make();
+        $components[] = Entries\Email::make();
+        $components[] = Entries\Verified::make();
+
+        return $components;
+    }
+
+    private static function getSchema(): array
+    {
+        return array_merge(self::getDefaultComponents(), self::$schema);
+    }
+
+    public static function register(Entry | array $component): void
+    {
+        if (is_array($component)) {
+            foreach ($component as $item) {
+                if ($item instanceof Entry) {
+                    self::$schema[] = $item;
+                }
+            }
+
+        } else {
+            self::$schema[] = $component;
+        }
+    }
+}
+</file>
+
+<file path="src/Filament/Resources/Users/Tables/UsersTable.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
+
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Table;
+
+class UsersTable
+{
+    protected static array $columns = [];
+
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns(static::getColumns())
+            ->filters(config('filament-users.resource.table.filters')::make())
+            ->recordActions(config('filament-users.resource.table.actions')::make())
+            ->toolbarActions(config('filament-users.resource.table.bulkActions')::make());
+    }
+
+    public static function getDefaultColumns(): array
+    {
+        $columns = [
+            Columns\ID::make(),
+            Columns\Name::make(),
+            Columns\Email::make(),
+            Columns\Verified::make(),
+            Columns\CreatedAt::make(),
+            Columns\UpdatedAt::make(),
+        ];
+
+        if (filament('filament-user')::hasAvatar()) {
+            $columns[] = Columns\Avatar::make();
+        }
+
+        return $columns;
+    }
+
+    private static function getColumns(): array
+    {
+        return array_merge(self::getDefaultColumns(), self::$columns);
+    }
+
+    public static function register(Column | array $column): void
+    {
+        if (is_array($column)) {
+            foreach ($column as $item) {
+                if ($item instanceof Column) {
+                    self::$columns[] = $item;
+                }
+            }
+        } else {
+            self::$columns[] = $column;
+        }
     }
 }
 </file>
@@ -3273,63 +4313,37 @@ class UserSeed extends Seeder
 }
 </file>
 
-<file path=".gitignore">
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/storage/pail
-/vendor
-.env
-.env.backup
-.env.production
-.phpactor.json
-.phpunit.result.cache
-.DS_Store
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
-/.vscode
-/.zed
-</file>
+<file path=".github/workflows/fix-php-code-styling.yml">
+name: 'PHP Code Styling'
 
-<file path="testbench.yaml">
-providers:
-  - Lab404\Impersonate\ImpersonateServiceProvider
-  - BladeUI\Icons\BladeIconsServiceProvider
-  - BladeUI\Heroicons\BladeHeroiconsServiceProvider
-  - Filament\Actions\ActionsServiceProvider
-  - Filament\FilamentServiceProvider
-  - Filament\Forms\FormsServiceProvider
-  - Filament\Infolists\InfolistsServiceProvider
-  - Filament\Notifications\NotificationsServiceProvider
-  - Filament\Support\SupportServiceProvider
-  - Filament\Tables\TablesServiceProvider
-  - Filament\Widgets\WidgetsServiceProvider
-  - Filament\Schemas\SchemasServiceProvider
-  - RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider
-  - TomatoPHP\FilamentUsers\FilamentUsersServiceProvider
-  - TomatoPHP\FilamentUsers\Tests\AdminPanelProvider
-seeders:
-  - TomatoPHP\FilamentUsers\Tests\Database\Seeders\DatabaseSeeder
-  # i want to add a facade class
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.php'
 
-workbench:
-  welcome: true
-  install: true
-  start: /
-  guard: testing
-  discovers:
-    web: true
-    api: false
-    commands: false
-    views: true
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Fix PHP code style issues
+        uses: aglipanci/laravel-pint-action@v2
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Format Code"
+          commit_user_name: 'GitHub Actions'
 </file>
 
 <file path="resources/lang/es/user.php">
@@ -3371,6 +4385,14 @@ return [
                 'body' => 'No puedes eliminarte a ti mismo',
             ],
         ],
+        'avatar' => 'Avatar',
+        'change_password' => 'Cambiar Contraseña',
+        'change_password_auto' => 'Contraseña cambiada automáticamente',
+        'change_password_success' => 'Contraseña cambiada correctamente',
+        'change_password_auto_body' => 'Contraseña cambiada automáticamente',
+        'change_password_success_body' => 'Contraseña cambiada correctamente',
+        'change_password_auto_body_placeholder' => 'Dejar en blanco para generar automáticamente',
+        'change_password_success_body_placeholder' => 'Dejar en blanco para generar automáticamente',
     ],
     'bulk' => [
         'teams' => 'Actualizar Equipos',
@@ -3393,133 +4415,32 @@ return [
 ];
 </file>
 
-<file path="resources/lang/it/user.php">
+<file path="src/Facades/FilamentUser.php">
 <?php
 
-return [
-    'group' => 'Configurazione',
-    'resource' => [
-        'id' => 'ID',
-        'single' => 'Utente',
-        'email_verified_at' => 'Email Verificata',
-        'created_at' => 'Creato il',
-        'updated_at' => 'Aggiornato il',
-        'verified' => 'Verificato',
-        'unverified' => 'Non Verificato',
-        'name' => 'Nome',
-        'email' => 'Email',
-        'password' => 'Password',
-        'password_confirmation' => 'Conferma Password',
-        'roles' => 'Ruoli',
-        'label' => 'Utenti',
-        'title' => [
-            'show' => 'Visualizza Utente',
-            'delete' => 'Elimina Utente',
-            'impersonate' => 'Impersonifica Utente',
-            'create' => 'crea Utente',
-            'edit' => 'Modifica Utente',
-            'list' => 'Utenti',
-            'home' => 'Utenti',
-        ],
-        'notificaitons' => [
-            'last' => [
-                'title' => 'Errore',
-                'body' => "Non puoi eliminare l'ultimo utente",
-            ],
-            'self' => [
-                'title' => 'Errore',
-                'body' => 'Non puoi eliminare te stesso',
-            ],
-        ],
-    ],
-    'bulk' => [
-        'teams' => 'Aggiorna Team',
-        'roles' => 'Aggiorna Ruoli',
-    ],
-    'team' => [
-        'title' => 'Team',
-        'single' => 'Team',
-        'columns' => [
-            'avatar' => 'Avatar',
-            'name' => 'Nome',
-            'owner' => 'Owner',
-            'personal_team' => 'Team Personale',
-        ],
-    ],
-    'banner' => [
-        'impersonating' => 'Impersonando',
-        'leave' => 'Lasciare l\'Impersonazione',
-    ],
-];
-</file>
+namespace TomatoPHP\FilamentUsers\Facades;
 
-<file path="src/FilamentUsersServiceProvider.php">
-<?php
+use Illuminate\Support\Facades\Facade;
 
-namespace TomatoPHP\FilamentUsers;
-
-use Filament\Facades\Filament;
-use Filament\Support\Facades\FilamentView;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
-use Lab404\Impersonate\Events\LeaveImpersonation;
-use Lab404\Impersonate\Events\TakeImpersonation;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions\ImpersonateAction;
-
-class FilamentUsersServiceProvider extends ServiceProvider
+/**
+ * @see \TomatoPHP\FilamentUsers\Services\FilamentUserServices
+ *
+ * @method static void register(array|string $relation)
+ * @method static array getRelations()
+ * @method static string getModel()
+ * @method static bool isImpersonating()
+ * @method static void impersonate(Model $user)
+ * @method static void leaveImpersonation()
+ * @method static void clearAuthHashes()
+ * @method static void guard(string $guard)
+ * @method static void redirectTo(string $redirectTo)
+ * @method static void backTo(string $backTo)
+ */
+class FilamentUser extends Facade
 {
-    public function register(): void
+    protected static function getFacadeAccessor()
     {
-        // Register Config file
-        $this->mergeConfigFrom(__DIR__ . '/../config/filament-users.php', 'filament-users');
-
-        // Publish Config
-        $this->publishes([
-            __DIR__ . '/../config/filament-users.php' => config_path('filament-users.php'),
-        ], 'filament-users-config');
-
-        // Register Langs
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-users');
-
-        // Publish Lang
-        $this->publishes([
-            __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-users'),
-        ], 'filament-users-lang');
-
-        $this->app->bind('filament-user', function () {
-            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices;
-        });
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-users');
-    }
-
-    public function boot(): void
-    {
-        $this->registerImpersonate();
-    }
-
-    public function registerImpersonate(): void
-    {
-        Event::listen(TakeImpersonation::class, fn () => $this->clearAuthHashes());
-        Event::listen(LeaveImpersonation::class, fn () => $this->clearAuthHashes());
-
-        FilamentView::registerRenderHook(
-            config('filament-users.impersonate.banner.render_hook', 'panels::body.start'),
-            static fn (): string => Blade::render('<x-filament-users::banner/>')
-        );
-    }
-
-    protected function clearAuthHashes(): void
-    {
-        session()->forget(array_unique([
-            'password_hash_' . session('impersonate.guard'),
-            'password_hash_' . Filament::getCurrentOrDefaultPanel()->getAuthGuard(),
-            'password_hash_' . auth()->getDefaultDriver(),
-            'password_hash_sanctum',
-        ]));
+        return 'filament-user';
     }
 }
 </file>
@@ -3575,6 +4496,39 @@ use TomatoPHP\FilamentUsers\Tests\TestCase;
 uses(TestCase::class)->in(__DIR__);
 </file>
 
+<file path="testbench.yaml">
+providers:
+  - Lab404\Impersonate\ImpersonateServiceProvider
+  - BladeUI\Icons\BladeIconsServiceProvider
+  - BladeUI\Heroicons\BladeHeroiconsServiceProvider
+  - Filament\Actions\ActionsServiceProvider
+  - Filament\FilamentServiceProvider
+  - Filament\Forms\FormsServiceProvider
+  - Filament\Infolists\InfolistsServiceProvider
+  - Filament\Notifications\NotificationsServiceProvider
+  - Filament\Support\SupportServiceProvider
+  - Filament\Tables\TablesServiceProvider
+  - Filament\Widgets\WidgetsServiceProvider
+  - Filament\Schemas\SchemasServiceProvider
+  - RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider
+  - TomatoPHP\FilamentUsers\FilamentUsersServiceProvider
+  - TomatoPHP\FilamentUsers\Tests\AdminPanelProvider
+seeders:
+  - TomatoPHP\FilamentUsers\Tests\Database\Seeders\DatabaseSeeder
+  # i want to add a facade class
+
+workbench:
+  welcome: true
+  install: true
+  start: /
+  guard: testing
+  discovers:
+    web: true
+    api: false
+    commands: false
+    views: true
+</file>
+
 <file path="phpunit.xml">
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -3602,6 +4556,81 @@ uses(TestCase::class)->in(__DIR__);
         <env name="DB_CONNECTION" value="testing"/>
     </php>
 </phpunit>
+</file>
+
+<file path="src/FilamentUsersServiceProvider.php">
+<?php
+
+namespace TomatoPHP\FilamentUsers;
+
+use Filament\Facades\Filament;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
+use Lab404\Impersonate\Events\LeaveImpersonation;
+use Lab404\Impersonate\Events\TakeImpersonation;
+use TomatoPHP\FilamentUsers\Console\FilamentUserTeamsCommand;
+
+class FilamentUsersServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->commands([
+            FilamentUserTeamsCommand::class,
+        ]);
+
+        // Register Config file
+        $this->mergeConfigFrom(__DIR__ . '/../config/filament-users.php', 'filament-users');
+
+        // Publish Config
+        $this->publishes([
+            __DIR__ . '/../config/filament-users.php' => config_path('filament-users.php'),
+        ], 'filament-users-config');
+
+        // Register Langs
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-users');
+
+        // Publish Lang
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-users'),
+        ], 'filament-users-lang');
+
+        $this->app->bind('filament-user', function () {
+            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices;
+        });
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-users');
+    }
+
+    public function boot(): void
+    {
+        $this->registerImpersonate();
+    }
+
+    public function registerImpersonate(): void
+    {
+        Event::listen(TakeImpersonation::class, fn () => $this->clearAuthHashes());
+        Event::listen(LeaveImpersonation::class, fn () => $this->clearAuthHashes());
+
+        FilamentView::registerRenderHook(
+            config('filament-users.impersonate.banner.render_hook', 'panels::body.start'),
+            static fn (): string => Blade::render('<x-filament-users::banner/>')
+        );
+    }
+
+    protected function clearAuthHashes(): void
+    {
+        session()->forget(array_unique([
+            'password_hash_' . session('impersonate.guard'),
+            'password_hash_' . Filament::getCurrentOrDefaultPanel()->getAuthGuard(),
+            'password_hash_' . auth()->getDefaultDriver(),
+            'password_hash_sanctum',
+        ]));
+    }
+}
 </file>
 
 <file path=".github/workflows/tests.yml">
@@ -3652,7 +4681,7 @@ jobs:
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache Dependencies
         uses: actions/cache@v4
@@ -3691,6 +4720,7 @@ use TomatoPHP\FilamentUsers\Concerns\Impersonates;
 class FilamentUserServices
 {
     use Impersonates;
+
     private array $relations = [];
 
     public function register(array | string $relation): void
@@ -3739,8 +4769,110 @@ class FilamentUserServices
         // Return the model class name (or you can return the count if needed)
         return $model;
     }
+}
+</file>
 
+<file path="src/FilamentUsersPlugin.php">
+<?php
 
+namespace TomatoPHP\FilamentUsers;
+
+use Filament\Contracts\Plugin;
+use Filament\Panel;
+use TomatoPHP\FilamentUsers\Filament\Resources\Teams;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users;
+
+class FilamentUsersPlugin implements Plugin
+{
+    protected static bool $useAvatar = false;
+
+    protected static bool $useUserResource = true;
+
+    protected static bool $useTeamsResource = true;
+
+    public function getId(): string
+    {
+        return 'filament-user';
+    }
+
+    public function useAvatar(bool $useAvatar = true): self
+    {
+        self::$useAvatar = $useAvatar;
+
+        return $this;
+    }
+
+    public static function hasAvatar(): bool
+    {
+        return self::$useAvatar;
+    }
+
+    public function useUserResource(bool $useUserResource = true): self
+    {
+        self::$useUserResource = $useUserResource;
+
+        return $this;
+    }
+
+    public function hasUserResource(): bool
+    {
+        return self::$useUserResource;
+    }
+
+    public function useTeamsResource(bool $useTeamsResource = true): self
+    {
+        self::$useTeamsResource = $useTeamsResource;
+
+        return $this;
+    }
+
+    public function hasTeamsResource(): bool
+    {
+        return self::$useTeamsResource;
+    }
+
+    public function register(Panel $panel): void
+    {
+        if (self::$useUserResource) {
+            $panel->resources([
+                Users\UserResource::class,
+            ]);
+        }
+
+        if (config('filament-users.teams') && self::$useTeamsResource) {
+            $panel->resources([
+                Teams\TeamResource::class,
+            ]);
+        }
+    }
+
+    public function boot(Panel $panel): void
+    {
+        if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
+            Users\Schemas\UserForm::register(Users\Schemas\Components\Roles::make());
+            Users\Tables\UsersTable::register(Users\Tables\Columns\Roles::make());
+            Users\Tables\UserFilters::register(Users\Tables\Filters\Roles::make());
+            Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\RolesAction::make());
+            Users\Schemas\UserInfolist::register(Users\Schemas\Entries\Roles::make());
+        }
+
+        if (config('filament-users.teams') && class_exists(\Laravel\Jetstream\Team::class)) {
+            Users\Schemas\UserForm::register(Users\Schemas\Components\Teams::make());
+            Users\Tables\UsersTable::register(Users\Tables\Columns\Teams::make());
+            Users\Tables\UserFilters::register(Users\Tables\Filters\Teams::make());
+            Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\TeamsAction::make());
+            Users\Schemas\UserInfolist::register(Users\Schemas\Entries\Teams::make());
+        }
+
+        if (config('filament-users.impersonate.enabled')) {
+            Users\Tables\UserActions::register(Users\Tables\Actions\ImpersonateAction::make());
+        }
+    }
+
+    public static function make(): self
+    {
+        return new FilamentUsersPlugin;
+    }
 }
 </file>
 
@@ -3749,29 +4881,29 @@ class FilamentUserServices
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
-use Filament\Panel;
-use Filament\FilamentServiceProvider;
-use Livewire\LivewireServiceProvider;
-use Filament\Forms\FormsServiceProvider;
-use Filament\Tables\TablesServiceProvider;
-use Illuminate\Contracts\Config\Repository;
-use Orchestra\Testbench\Attributes\WithEnv;
+use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Forms\FormsServiceProvider;
+use Filament\Infolists\InfolistsServiceProvider;
+use Filament\Notifications\NotificationsServiceProvider;
+use Filament\Panel;
 use Filament\Schemas\SchemasServiceProvider;
 use Filament\Support\SupportServiceProvider;
+use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
-use TomatoPHP\FilamentUsers\Tests\Models\User;
-use Orchestra\Testbench\Concerns\WithWorkbench;
-use Filament\Infolists\InfolistsServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
-use Lab404\Impersonate\ImpersonateServiceProvider;
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
-use Filament\Notifications\NotificationsServiceProvider;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Lab404\Impersonate\ImpersonateServiceProvider;
+use Livewire\LivewireServiceProvider;
+use Orchestra\Testbench\Attributes\WithEnv;
+use Orchestra\Testbench\Concerns\WithWorkbench;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use TomatoPHP\FilamentUsers\FilamentUsersServiceProvider;
 use TomatoPHP\FilamentUsers\Tests\Database\Seeders\UserSeed;
-use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use TomatoPHP\FilamentUsers\Tests\Models\User;
 
 #[WithEnv('DB_CONNECTION', 'testing')]
 abstract class TestCase extends BaseTestCase
@@ -3839,115 +4971,6 @@ abstract class TestCase extends BaseTestCase
                 __DIR__ . '/../resources/views',
             ]);
         });
-    }
-}
-</file>
-
-<file path="module.json">
-{
-    "name": "FilamentUsers",
-    "alias": "filament-users",
-    "description": {
-        "ar": "قم بإدارة مستخدمين النظام بسهولة",
-        "en": "User Resource For FilamentPHP Admin Dashboard",
-        "gr": "User Resource For FilamentPHP Admin Dashboard",
-        "sp": "User Resource For FilamentPHP Admin Dashboard"
-    },
-    "keywords": [],
-    "priority": 0,
-    "providers": [
-        "TomatoPHP\\FilamentUsers\\FilamentUsersServiceProvider"
-    ],
-    "files": [],
-    "title": {
-        "ar": "المستخدمين",
-        "en": "User Manager",
-        "gr": "User Manager",
-        "sp": "User Manager"
-    },
-    "color": "#cc1448",
-    "icon": "heroicon-c-users",
-    "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg",
-    "type": "plugin",
-    "version": "v2.0.18",
-    "github" : "https://github.com/tomatophp/filament-users",
-    "docs" : "https://github.com/tomatophp/filament-users"
-}
-</file>
-
-<file path="src/FilamentUsersPlugin.php">
-<?php
-
-namespace TomatoPHP\FilamentUsers;
-
-use Filament\Contracts\Plugin;
-use Filament\Panel;
-use Laravel\Jetstream\Jetstream;
-use TomatoPHP\FilamentUsers\Filament\Resources\Users;
-use TomatoPHP\FilamentUsers\Resources\TeamResource;
-
-class FilamentUsersPlugin implements Plugin
-{
-    protected static bool $useAvatar = false;
-
-    public function getId(): string
-    {
-        return 'filament-user';
-    }
-
-    public function useAvatar(bool $useAvatar = true): self
-    {
-        self::$useAvatar = $useAvatar;
-
-        return $this;
-    }
-
-    public static function hasAvatar(): bool
-    {
-        return self::$useAvatar;
-    }
-
-    public function register(Panel $panel): void
-    {
-        if (! config('filament-users.publish_resource')) {
-            $panel->resources([
-                Users\UserResource::class,
-            ]);
-        }
-
-        if (config('filament-users.teams')) {
-            $panel->resources([
-                // TeamResource::class,
-            ]);
-        }
-    }
-
-    public function boot(Panel $panel): void
-    {
-        if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
-            Users\Schemas\UserForm::register(Users\Schemas\Components\Roles::make());
-            Users\Tables\UsersTable::register(Users\Tables\Columns\Roles::make());
-            Users\Tables\UserFilters::register(Users\Tables\Filters\Roles::make());
-            Users\Tables\UserBulkActions::register(Users\Tables\BulkActions\RolesAction::make());
-            Users\Schemas\UserInfoList::register(Users\Schemas\Entries\Roles::make());
-        }
-
-        // if (config('filament-users.teams') && class_exists(Jetstream::class)) {
-        //     UserResource\Form\UserForm::register(UserResource\Form\Components\Teams::make());
-        //     UserResource\Table\UserTable::register(UserResource\Table\Columns\Teams::make());
-        //     UserResource\Table\UserFilters::register(UserResource\Table\Filters\Teams::make());
-        //     UserResource\Table\UserBulkActions::register(UserResource\Table\BulkActions\TeamsAction::make());
-        //     UserResource\Infolist\UserInfoList::register(UserResource\Infolist\Entries\Teams::make());
-        // }
-
-        if (config('filament-users.impersonate.enabled')) {
-            Users\Tables\UserActions::register(Users\Tables\Actions\ImpersonateAction::make());
-        }
-    }
-
-    public static function make(): self
-    {
-        return new FilamentUsersPlugin;
     }
 }
 </file>
@@ -4159,47 +5182,39 @@ return [
      * ---------------------------------------------
      * if you are using filament impersonate, you can set this to true.
      */
-    'impersonate' => false,
+    'impersonate' => [
+        'enabled' => true,
+        'banner' => [
+            // Available hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
+            'render_hook' => env('FILAMENT_IMPERSONATE_BANNER_RENDER_HOOK', 'panels::body.start'),
 
-    /**
-     * ---------------------------------------------
-     * User Filament Impersonate Redirect To
-     * ---------------------------------------------
-     * if you are using filament impersonate, you can set this to the url you want to redirect to.
-     */
-    'redirect_to' => '/admin',
+            // Currently supports 'dark', 'light' and 'auto'.
+            'style' => env('FILAMENT_IMPERSONATE_BANNER_STYLE', 'dark'),
 
-    /**
-     * ---------------------------------------------
-     * User Filament Impersonate Back To
-     * ---------------------------------------------
-     * if you are using filament impersonate, you can set this to the url you want to redirect to.
-     */
-    'back_to' => '/admin',
+            // Turn this off if you want `absolute` positioning, so the banner scrolls out of view
+            'fixed' => env('FILAMENT_IMPERSONATE_BANNER_FIXED', true),
 
-    /**
-     * ---------------------------------------------
-     * User Filament Impersonate Leave Middleware
-     * ---------------------------------------------
-     * if you are using filament impersonate, you can set this to the middleware you want to use.
-     */
-    'leave_middleware' => 'web',
+            // Currently supports 'top' and 'bottom'.
+            'position' => env('FILAMENT_IMPERSONATE_BANNER_POSITION', 'top'),
 
-    /**
-     * ---------------------------------------------
-     * User Filament Impersonate Banner Render Hook
-     * ---------------------------------------------
-     * if you are using filament impersonate, you can set this to the hook you want to use.
-     */
-    'banner_render_hook' => 'panels::body.start',
-
-    /**
-     * ---------------------------------------------
-     * User Filament Auth Guard
-     * ---------------------------------------------
-     * if you are using a custom auth guard, you can set this to the name of the guard.
-     */
-    'auth_guard' => 'web',
+            'styles' => [
+                'light' => [
+                    'text' => '#1f2937',
+                    'background' => '#f3f4f6',
+                    'border' => '#e8eaec',
+                ],
+                'dark' => [
+                    'text' => '#f3f4f6',
+                    'background' => '#1f2937',
+                    'border' => '#374151',
+                ],
+            ],
+        ],
+        'redirect_to' => '/admin',
+        'back_to' => '/admin',
+        'leave_middleware' => 'web',
+        'auth_guard' => 'web',
+    ],
 
     /**
      * ---------------------------------------------
@@ -4266,6 +5281,9 @@ return [
     'resource' => [
         'table' => [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UsersTable::class,
+            'filters' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserFilters::class,
+            'actions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserActions::class,
+            'bulkActions' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserBulkActions::class,
         ],
         'form' => [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm::class,
@@ -4278,7 +5296,7 @@ return [
 </file>
 
 <file path="README.md">
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/3x1io-tomato-users.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/fadymondy-tomato-users.jpg)
 
 # Filament Users Manager
 
@@ -4304,8 +5322,8 @@ for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 - [x] custom User model from config file
 - [x] custom Team model from config file
 - [x] custom Role model from config file
+- [x] Allow User Avatars
 - [ ] Laravel Jetsream user profile page
-- [ ] Allow User / Teams Avatars
 - [ ] Custom Register/Login Pages for Laravel Jetstream
 - [ ] Add OTP Page to Register process
 
@@ -4363,7 +5381,8 @@ Publish the config file then setup your configuration:
 Now run the following command to install shield:
 
 ```bash
-php artisan shield:install
+php artisan shield:setup
+php artisan shield:super_admin
 ```
 
 Now we can [publish the package assets]([https://github.com/bezhanSalleh/filament-shield](https://github.com/tomatophp/filament-users?tab=readme-ov-file#publish-assets)).
@@ -4383,17 +5402,12 @@ now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
 
 for more information check the [Filament Shield](https://github.com/bezhanSalleh/filament-shield)
 
 ## Use Filament Impersonate
-
-you can use the impersonate to impersonate the user by install it first
-
-```bash
-composer require stechstudio/filament-impersonate
-```
 
 now on your `filament-users.php` config allow shield
 
@@ -4401,16 +5415,17 @@ now on your `filament-users.php` config allow shield
 /*
  * User Filament Impersonate
  */
-"impersonate" => true,
+"impersonate" => [
+    'enable' => true
+],
 ```
 
 now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
-
-for more information check the [Filament Impersonate](https://github.com/stechstudio/filament-impersonate)
 
 ## Use Laravel Jetstream Teams
 
@@ -4420,28 +5435,10 @@ you can use the Laravel Jetstream Teams by install it first
 composer require laravel/jetstream
 ```
 
-now you need to install the jetstream with livewire
+after that just publish the migration and models
 
 ```bash
-php artisan jetstream:install livewire
-```
-
-go to `jetstream.php` and allow teams feature
-
-```php
-'features' => [
-//     Features::termsAndPrivacyPolicy(),
-//     Features::profilePhotos(),
-//     Features::api(),
-     Features::teams(['invitations' => true]),
-//     Features::accountDeletion(),
-],
-```
-
-now you need to publish teams migration from jetstream
-
-```bash
-php artisan vendor:publish --tag=jetstream-teams-migrations
+php artisan filament-users:teams
 ```
 
 now you need to migrate the teams migration
@@ -4463,19 +5460,12 @@ now clear your config
 
 ```bash
 php artisan config:cache
+php artisan optimize
 ```
 
 ## Publish Resource
 
-you can publish the resource to your project
-
-```bash
-php artisan filament-users:publish
-```
-
-it will publish the resource to your project
-
-than go to `filament-users.php` config file and change the `publish_resource` to `true`
+you can custom the resource by just extend it and then make `->useUserResource(false)` or `->useTeamsResource(false)` to the plugin
 
 ## Register User Relation Manager
 
@@ -4500,11 +5490,11 @@ we have add a lot of hooks to make it easy to attach actions, columns, filters, 
 ### Table Columns
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserTable;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserTable;
 
 public function boot()
 {
-    UserTable::register([
+    UsersTable::register([
         \Filament\Tables\Columns\TextColumn::make('something')
     ]);
 }
@@ -4513,7 +5503,7 @@ public function boot()
 ### Table Actions
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserActions;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserActions;
 
 public function boot()
 {
@@ -4526,7 +5516,7 @@ public function boot()
 ### Table Filters
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserFilters;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserFilters;
 
 public function boot()
 {
@@ -4539,7 +5529,7 @@ public function boot()
 ### Table Bulk Actions
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\UserBulkActions;
 
 public function boot()
 {
@@ -4552,7 +5542,7 @@ public function boot()
 ### From Components
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm;
 
 public function boot()
 {
@@ -4562,38 +5552,10 @@ public function boot()
 }
 ```
 
-### Page Actions
-
-```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions;
-use TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions;
-
-public function boot()
-{
-    ManageUserActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    EditPageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    ViewPageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-    
-    CreatePageActions::register([
-        Filament\Actions\Action::make('action')
-    ]);
-}
-```
-
 ### Infolist Entries
 
 ```php
-use TomatoPHP\FilamentUsers\Resources\UserResource\Infolist\UserInfolist;
+use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist;
 
 public function boot()
 {
@@ -4622,16 +5584,10 @@ you can customize all resource classes to be any class you want with the same re
         'bulkActions' => \TomatoPHP\FilamentUsers\Resources\UserResource\Table\UserBulkActions::class,
     ],
     'form' => [
-        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Form\UserForm::class
+        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Schemas\UserForm::class
     ],
     'infolist' => [
-        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\InfoList\UserInfoList::class
-    ],
-    'pages' => [
-        'list' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ManageUserActions::class,
-        'create' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\CreatePageActions::class,
-        'edit' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\EditPageActions::class,
-        'view' => \TomatoPHP\FilamentUsers\Resources\UserResource\Actions\ViewPageActions::class
+        'class' => \TomatoPHP\FilamentUsers\Resources\UserResource\Schemas\UserInfolist::class
     ]
 ]
 ```
@@ -4649,6 +5605,10 @@ you can use the simple user resource by change on config, on your `filament-user
  */
 'simple' => true,
 ```
+
+## Use User Avatar
+
+you can use User Avatar by just add `->useAvatar()` to the plugin
 
 ## Publish Assets
 
@@ -4770,7 +5730,7 @@ Checkout our [Awesome TomatoPHP](https://github.com/tomatophp/awesome)
         "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
         "phpstan/phpstan-phpunit": "^1.3||^2.0"
     },
-    "version": "4.0.0",
+    "version": "4.0.1",
     "minimum-stability": "beta"
 }
 </file>
