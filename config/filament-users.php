@@ -151,4 +151,12 @@ return [
             'class' => \TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserInfolist::class,
         ],
     ],
+
+    /**
+     * ---------------------------------------------
+     * Avatar Collection
+     * ---------------------------------------------
+     * if you want to use a custom avatar collection.
+     */
+    'avatar_collection' => 'avatar',
 ];
