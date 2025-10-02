@@ -71,7 +71,7 @@ return [
         ],
         'redirect_to' => '/admin',
         'back_to' => '/admin',
-        'leave_middleware' => 'web',
+        'leave_middleware' => 'auth',
         'auth_guard' => 'web',
     ],
 

@@ -13,4 +13,4 @@ Route::get('filament-impersonate/leave', function () {
     return redirect(
         session()->pull('impersonate.back_to')
     );
-})->name('filament-users.leave')->middleware(config('filament-users.leave_middleware'));
+})->name('filament-users.leave')->middleware(config('filament-users.impersonate.leave_middleware'));
