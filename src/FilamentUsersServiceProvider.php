@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers;
 
 use Filament\Facades\Filament;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Lab404\Impersonate\Events\LeaveImpersonation;
@@ -36,9 +37,7 @@ class FilamentUsersServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-users'),
         ], 'filament-users-lang');
 
-        $this->app->bind('filament-user', function () {
-            return new \TomatoPHP\FilamentUsers\Services\FilamentUserServices;
-        });
+        $this->app->bind('filament-user', static fn () => new \TomatoPHP\FilamentUsers\Services\FilamentUserServices);
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-users');
@@ -51,12 +50,12 @@ class FilamentUsersServiceProvider extends ServiceProvider
 
     public function registerImpersonate(): void
     {
-        Event::listen(TakeImpersonation::class, fn () => $this->clearAuthHashes());
-        Event::listen(LeaveImpersonation::class, fn () => $this->clearAuthHashes());
+        Event::listen(TakeImpersonation::class, $this->clearAuthHashes(...));
+        Event::listen(LeaveImpersonation::class, $this->clearAuthHashes(...));
 
         FilamentView::registerRenderHook(
-            config('filament-users.impersonate.banner.render_hook', 'panels::body.start'),
-            static fn (): string => Blade::render('<x-filament-users::banner/>')
+            config('filament-users.impersonate.banner.render_hook', default: 'panels::body.start'),
+            static fn (): string => Blade::render('<x-filament-users::banner/>'),
         );
     }
 

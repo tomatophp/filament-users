@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams;
 
 use BackedEnum;
@@ -47,7 +49,7 @@ class TeamResource extends Resource
             return __('filament-shield::filament-shield.nav.group');
         }
 
-        return config('filament-users.group') ?: trans('filament-users::user.group');
+        return config('filament-users.group') ?? trans('filament-users::user.group');
     }
 
     public static function form(Schema $schema): Schema
@@ -67,9 +69,7 @@ class TeamResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
 use Filament\Forms;
@@ -14,8 +16,12 @@ class Avatar extends Component
     public static function make(): Field
     {
         if (
-            (in_array("Spatie\MediaLibrary\InteractsWithMedia", class_uses(config('filament-users.model')))) ||
-            (in_array("TomatoPHP\FilamentSaasPanel\Traits\InteractsWithTenant", class_uses(config('filament-users.model'))))
+            in_array("Spatie\MediaLibrary\InteractsWithMedia", class_uses(config('filament-users.model')), strict: true)
+            || in_array(
+                "TomatoPHP\FilamentSaasPanel\Traits\InteractsWithTenant",
+                class_uses(config('filament-users.model')),
+                strict: true,
+            )
         ) {
             return SpatieMediaLibraryFileUpload::make(config('filament-users.avatar_collection'))
                 ->label(trans('filament-users::user.resource.avatar'))
@@ -30,20 +36,19 @@ class Avatar extends Component
                     '4:3',
                     '1:1',
                 ]);
-        } else {
-            return Forms\Components\FileUpload::make('profile_photo_path')
-                ->label(trans('filament-users::user.resource.avatar'))
-                ->columnSpanFull()
-                ->alignCenter()
-                ->image()
-                ->avatar()
-                ->imageEditor()
-                ->imageEditorAspectRatios([
-                    '16:9',
-                    '4:3',
-                    '1:1',
-                ]);
         }
 
+        return Forms\Components\FileUpload::make('profile_photo_path')
+            ->label(trans('filament-users::user.resource.avatar'))
+            ->columnSpanFull()
+            ->alignCenter()
+            ->image()
+            ->avatar()
+            ->imageEditor()
+            ->imageEditorAspectRatios([
+                '16:9',
+                '4:3',
+                '1:1',
+            ]);
     }
 }

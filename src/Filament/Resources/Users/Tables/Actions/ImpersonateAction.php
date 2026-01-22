@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 
 use Filament\Actions;
@@ -24,7 +26,7 @@ class ImpersonateAction extends Action
             ->color('info')
             ->tooltip(trans('filament-users::user.resource.title.impersonate'))
             ->label(trans('filament-users::user.resource.title.impersonate'))
-            ->action(fn ($record) => (new self)->impersonate($record))
-            ->hidden(fn ($record) => ! (new self)->canBeImpersonated($record));
+            ->action((new self)->impersonate(...))
+            ->hidden(static fn ($record) => ! (new self)->canBeImpersonated($record));
     }
 }

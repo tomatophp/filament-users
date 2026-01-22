@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Filament\Facades\Filament;
 use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
 
@@ -10,14 +12,11 @@ it('registers plugin', function () {
         FilamentUsersPlugin::make(),
     ]);
 
-    expect($panel->getPlugin('filament-user'))
-        ->not()
-        ->toThrow(Exception::class);
+    expect($panel->getPlugin('filament-user'))->not()->toThrow(Exception::class);
 });
 
 it('can modify avatar', function ($condition) {
-    $plugin = FilamentUsersPlugin::make()
-        ->useAvatar($condition);
+    $plugin = FilamentUsersPlugin::make()->useAvatar($condition);
 
     expect($plugin::hasAvatar())->toBe($condition);
 })->with([

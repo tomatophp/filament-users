@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
 
 use Filament\Infolists\Components\Entry;
@@ -37,13 +39,16 @@ class UserInfolist
     {
         if (is_array($component)) {
             foreach ($component as $item) {
-                if ($item instanceof Entry) {
-                    self::$schema[] = $item;
+                if (! $item instanceof Entry) {
+                    continue;
                 }
+
+                self::$schema[] = $item;
             }
 
-        } else {
-            self::$schema[] = $component;
+            return;
         }
+
+        self::$schema[] = $component;
     }
 }

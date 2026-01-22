@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use Filament\Facades\Filament;
@@ -22,9 +24,7 @@ beforeEach(function () {
     actingAs(User::factory()->create());
 
     $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
+    $this->panel->plugin(FilamentUsersPlugin::make());
 });
 
 it('can render user resource', function () {
@@ -35,10 +35,7 @@ it('can list posts', function () {
     User::query()->delete();
     $users = User::factory()->count(10)->create();
 
-    livewire(Pages\ManageUsers::class)
-        ->loadTable()
-        ->assertCanSeeTableRecords($users)
-        ->assertCountTableRecords(10);
+    livewire(Pages\ManageUsers::class)->loadTable()->assertCanSeeTableRecords($users)->assertCountTableRecords(10);
 });
 
 it('can render user name/email column in table', function () {
@@ -64,9 +61,7 @@ it('can render view user action', function () {
 });
 
 it('can render user create action', function () {
-    livewire(Pages\ManageUsers::class)
-        ->mountAction('create')
-        ->assertSuccessful();
+    livewire(Pages\ManageUsers::class)->mountAction('create')->assertSuccessful();
 });
 
 it('can render user edit action', function () {

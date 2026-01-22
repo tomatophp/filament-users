@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
 use Filament\Actions\BulkAction;
@@ -33,12 +35,16 @@ class UserBulkActions
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if ($item instanceof BulkAction) {
-                    self::$actions[] = $item;
+                if (! $item instanceof BulkAction) {
+                    continue;
                 }
+
+                self::$actions[] = $item;
             }
-        } else {
-            self::$actions[] = $action;
+
+            return;
         }
+
+        self::$actions[] = $action;
     }
 }

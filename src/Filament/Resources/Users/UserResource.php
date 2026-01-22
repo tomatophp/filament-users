@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users;
 
 use BackedEnum;
@@ -25,12 +27,12 @@ class UserResource extends Resource
 
     public static function getNavigationSort(): ?int
     {
-        return config('filament-users.navigation_sort') ?: 9;
+        return config('filament-users.navigation_sort') ?? 9;
     }
 
     public static function getNavigationIcon(): string
     {
-        return config('filament-users.navigation_icon') ?: Heroicon::OutlinedUser;
+        return config('filament-users.navigation_icon') ?? Heroicon::OutlinedUser;
     }
 
     public static function getPluralLabel(): string
@@ -49,7 +51,7 @@ class UserResource extends Resource
             return __('filament-shield::filament-shield.nav.group');
         }
 
-        return config('filament-users.group') ?: trans('filament-users::user.group');
+        return config('filament-users.group') ?? trans('filament-users::user.group');
     }
 
     public function getTitle(): string
@@ -79,13 +81,15 @@ class UserResource extends Resource
 
     public static function getPages(): array
     {
-        return config('filament-users.simple') ? [
-            'index' => Pages\ManageUsers::route('/'),
-        ] : [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
-            'view' => Pages\ViewUser::route('/{record}'),
-        ];
+        return
+            config('filament-users.simple')
+                ? [
+                    'index' => Pages\ManageUsers::route('/'),
+                ] : [
+                    'index' => Pages\ListUsers::route('/'),
+                    'create' => Pages\CreateUser::route('/create'),
+                    'edit' => Pages\EditUser::route('/{record}/edit'),
+                    'view' => Pages\ViewUser::route('/{record}'),
+                ];
     }
 }

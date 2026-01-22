@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\BulkActions;
 
 use Filament\Actions;
@@ -23,10 +25,10 @@ class RolesAction extends Action
                     ->preload()
                     ->options(config('filament-users.roles_model')::query()->pluck('name', 'id')->toArray()),
             ])
-            ->action(function (array $data, Collection $records, Actions\BulkAction $action) {
+            ->action(static function (array $data, Collection $records, Actions\BulkAction $action) {
                 $roles = $data['roles'];
 
-                $records->each(function ($user) use ($roles) {
+                $records->each(static function ($user) use ($roles) {
                     $user->roles()->sync($roles);
                 });
 

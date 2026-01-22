@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Services;
 
 use TomatoPHP\FilamentUsers\Concerns\Impersonates;
@@ -16,9 +18,11 @@ class FilamentUserServices
             foreach ($relation as $item) {
                 $this->relations[] = $item;
             }
-        } else {
-            $this->relations[] = $relation;
+
+            return;
         }
+
+        $this->relations[] = $relation;
     }
 
     public function getRelations(): array
@@ -28,32 +32,25 @@ class FilamentUserServices
 
     public static function getModel(): string
     {
-        // Get the configuration value
         $config = config('filament-users.model');
 
-        // Check if the configuration is an array
-        if (is_array($config)) {
-            // Get the ID from filament()
-            $id = filament()->getId();
-
-            // Check if the key exists in the array
-            if (isset($config[$id])) {
-                $model = $config[$id];
-            } else {
-                // If the key does not exist, return the first element of the array
-                $model = reset($config);
-            }
-        } else {
-            // If the configuration is not an array, use it as the model
+        if (! is_array($config)) {
             $model = $config;
+
+            if (! class_exists($model)) {
+                throw new \RuntimeException("Model class {$model} does not exist.");
+            }
+
+            return $model;
         }
 
-        // Ensure the model class exists
+        $id = filament()->getId();
+        $model = $config[$id] ?? reset($config);
+
         if (! class_exists($model)) {
             throw new \RuntimeException("Model class {$model} does not exist.");
         }
 
-        // Return the model class name (or you can return the count if needed)
         return $model;
     }
 }

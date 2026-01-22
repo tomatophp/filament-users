@@ -1,0 +1,5 @@
+[linter.rules]
+too-many-methods = { threshold = 15 }
+no-boolean-flag-parameter = { level = "note" }
+no-literal-password = { level = "note" }
+prefer-first-class-callable = { level = "note" }

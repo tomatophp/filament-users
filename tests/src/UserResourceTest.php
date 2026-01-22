@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use Filament\Facades\Filament;
@@ -24,9 +26,7 @@ beforeEach(function () {
     actingAs(User::factory()->create());
 
     $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
+    $this->panel->plugin(FilamentUsersPlugin::make());
 });
 
 it('can render user resource', function () {
@@ -37,10 +37,7 @@ it('can list posts', function () {
     User::query()->delete();
     $users = User::factory()->count(10)->create();
 
-    livewire(Pages\ListUsers::class)
-        ->loadTable()
-        ->assertCanSeeTableRecords($users)
-        ->assertCountTableRecords(10);
+    livewire(Pages\ListUsers::class)->loadTable()->assertCanSeeTableRecords($users)->assertCountTableRecords(10);
 });
 
 it('can render user name/email column in table', function () {
@@ -89,18 +86,20 @@ it('can create new user', function () {
 });
 
 it('can validate user input', function () {
+    $passwordField = 'password';
+
     livewire(Pages\CreateUser::class)
         ->fillForm([
             'name' => null,
             'email' => null,
-            'password' => null,
+            $passwordField => null,
             'passwordConfirmation' => null,
         ])
         ->call('create')
         ->assertHasFormErrors([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            $passwordField => 'required',
             'passwordConfirmation' => 'required',
         ]);
 });
@@ -116,11 +115,10 @@ it('can retrieve user data', function () {
 
     livewire(Pages\EditUser::class, [
         'record' => $user->getRouteKey(),
-    ])
-        ->assertFormSet([
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+    ])->assertFormSet([
+        'name' => $user->name,
+        'email' => $user->email,
+    ]);
 });
 
 it('can validate edit user input', function () {
@@ -154,7 +152,5 @@ it('can save user data', function () {
         ->call('save')
         ->assertHasNoFormErrors();
 
-    expect($user->refresh())
-        ->name->toBe($newData->name)
-        ->email->toBe($newData->email);
+    expect($user->refresh())->name->toBe($newData->name)->email->toBe($newData->email);
 });

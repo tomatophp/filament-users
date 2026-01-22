@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
 use Filament\Forms;
@@ -12,8 +14,6 @@ class Name extends Component
      */
     public static function make(): Forms\Components\TextInput
     {
-        return Forms\Components\TextInput::make('name')
-            ->required()
-            ->label(trans('filament-users::user.resource.name'));
+        return Forms\Components\TextInput::make('name')->required()->label(trans('filament-users::user.resource.name'));
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\BulkActions;
 
 use Filament\Actions;
@@ -11,15 +13,14 @@ class DeleteAction extends Action
 {
     public static function make(): Actions\DeleteBulkAction
     {
-        return Actions\DeleteBulkAction::make()
-            ->using(function ($records, Actions\BulkAction $action) {
-                foreach ($records as $record) {
-                    self::checkIfLastUserOrCurrentUser($record);
-                }
+        return Actions\DeleteBulkAction::make()->using(static function ($records, Actions\BulkAction $action) {
+            foreach ($records as $record) {
+                self::checkIfLastUserOrCurrentUser($record);
+            }
 
-                $action->success();
-                $action->deselectRecordsAfterCompletion();
-            });
+            $action->success();
+            $action->deselectRecordsAfterCompletion();
+        });
     }
 
     private static function checkIfLastUserOrCurrentUser(Model $record): void
@@ -34,7 +35,9 @@ class DeleteAction extends Action
                 ->send();
 
             return;
-        } elseif (auth()->user()->id === $record->id) {
+        }
+
+        if (auth()->user()->id === $record->id) {
             Notification::make()
                 ->title(trans('filament-users::user.resource.notificaitons.self.title'))
                 ->body(trans('filament-users::user.resource.notificaitons.self.body'))
@@ -43,8 +46,8 @@ class DeleteAction extends Action
                 ->send();
 
             return;
-        } else {
-            $record->delete();
         }
+
+        $record->delete();
     }
 }

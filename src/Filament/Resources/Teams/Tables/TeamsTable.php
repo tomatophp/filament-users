@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Teams\Tables;
 
 use Filament\Actions\BulkActionGroup;
@@ -13,16 +15,6 @@ class TeamsTable
 {
     public static function configure(Table $table): Table
     {
-        if (filament('filament-user')::hasAvatar()) {
-            $columns[] = Tables\Columns\TextColumn::make('owner.name')
-                ->label(trans('filament-users::user.team.columns.owner'))
-                ->sortable();
-        } else {
-            $columns[] = Tables\Columns\TextColumn::make('owner.name')
-                ->label(trans('filament-users::user.team.columns.owner'))
-                ->sortable();
-        }
-
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 
 use Filament\Actions;
@@ -25,20 +27,20 @@ class ChangePassword extends Action
                     ->placeholder(trans('filament-users::user.resource.change_password_auto'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn ($record) => ! $record)
+                    ->required(static fn ($record) => ! $record)
                     ->rule(\Illuminate\Validation\Rules\Password::default())
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(filled(...))
+                    ->dehydrateStateUsing(Hash::make(...))
                     ->same('passwordConfirmation'),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->label(trans('filament-users::user.resource.password_confirmation'))
                     ->placeholder(trans('filament-users::user.resource.change_password_auto'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn ($record) => ! $record)
+                    ->required(static fn ($record) => ! $record)
                     ->dehydrated(false),
             ])
-            ->action(function ($record, $data) {
+            ->action(static function ($record, $data) {
                 $auto = ! isset($data['password']);
                 $password = $data['password'] ?? Str::random(12);
                 $record->password = $password;
@@ -46,7 +48,11 @@ class ChangePassword extends Action
 
                 Notification::make()
                     ->title(trans('filament-users::user.resource.change_password'))
-                    ->body($auto ? trans('filament-users::user.resource.change_password_auto') . ' [' . $password . ']' : trans('filament-users::user.resource.change_password_success'))
+                    ->body(
+                        $auto
+                            ? trans('filament-users::user.resource.change_password_auto') . ' [' . $password . ']'
+                            : trans('filament-users::user.resource.change_password_success'),
+                    )
                     ->success()
                     ->send();
             });

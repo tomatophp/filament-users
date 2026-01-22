@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
 class UserFilters
@@ -30,12 +32,16 @@ class UserFilters
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if ($item instanceof \Filament\Tables\Filters\BaseFilter) {
-                    self::$filters[] = $item;
+                if (! $item instanceof \Filament\Tables\Filters\BaseFilter) {
+                    continue;
                 }
+
+                self::$filters[] = $item;
             }
-        } else {
-            self::$filters[] = $action;
+
+            return;
         }
+
+        self::$filters[] = $action;
     }
 }

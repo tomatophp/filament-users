@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers;
 
 use Filament\Contracts\Plugin;
@@ -20,9 +22,9 @@ class FilamentUsersPlugin implements Plugin
         return 'filament-user';
     }
 
-    public function useAvatar(bool $useAvatar = true): self
+    public function useAvatar(bool | callable $condition = true): self
     {
-        self::$useAvatar = $useAvatar;
+        self::$useAvatar = is_callable($condition) ? $condition() : $condition;
 
         return $this;
     }
@@ -32,9 +34,9 @@ class FilamentUsersPlugin implements Plugin
         return self::$useAvatar;
     }
 
-    public function useUserResource(bool $useUserResource = true): self
+    public function useUserResource(bool | callable $condition = true): self
     {
-        self::$useUserResource = $useUserResource;
+        self::$useUserResource = is_callable($condition) ? $condition() : $condition;
 
         return $this;
     }
@@ -44,9 +46,9 @@ class FilamentUsersPlugin implements Plugin
         return self::$useUserResource;
     }
 
-    public function useTeamsResource(bool $useTeamsResource = true): self
+    public function useTeamsResource(bool | callable $condition = true): self
     {
-        self::$useTeamsResource = $useTeamsResource;
+        self::$useTeamsResource = is_callable($condition) ? $condition() : $condition;
 
         return $this;
     }

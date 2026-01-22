@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
 use Filament\Forms;
@@ -14,14 +16,14 @@ class Password extends Component
     public static function make(): Forms\Components\TextInput
     {
         return Forms\Components\TextInput::make('password')
-            ->hidden(fn ($record) => $record)
+            ->hidden(static fn ($record) => $record)
             ->label(trans('filament-users::user.resource.password'))
             ->password()
             ->revealable(filament()->arePasswordsRevealable())
-            ->required(fn ($record) => ! $record)
+            ->required(static fn ($record) => ! $record)
             ->rule(\Illuminate\Validation\Rules\Password::default())
-            ->dehydrated(fn ($state) => filled($state))
-            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+            ->dehydrated(static fn ($state) => filled($state))
+            ->dehydrateStateUsing(Hash::make(...))
             ->same('passwordConfirmation')
             ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute'));
     }

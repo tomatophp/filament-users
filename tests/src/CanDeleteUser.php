@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use Filament\Actions\DeleteAction;
@@ -26,9 +28,7 @@ beforeEach(function () {
     actingAs(User::factory()->create());
 
     $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
+    $this->panel->plugin(FilamentUsersPlugin::make());
 });
 
 it('can bulk delete users', function () {
@@ -41,7 +41,7 @@ it('can bulk delete users', function () {
         ->assertNotified()
         ->assertCanNotSeeTableRecords($users);
 
-    $users->each(fn (User $user) => assertModelMissing($user));
+    $users->each(assertModelMissing(...));
 });
 
 it('can delete user', function () {
@@ -49,7 +49,8 @@ it('can delete user', function () {
 
     livewire(Pages\EditUser::class, [
         'record' => $user->getRouteKey(),
-    ])->callAction(DeleteAction::class)
+    ])
+        ->callAction(DeleteAction::class)
         ->assertNotified()
         ->assertRedirect();
 

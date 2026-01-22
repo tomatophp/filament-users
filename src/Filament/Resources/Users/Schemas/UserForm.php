@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas;
 
 use Filament\Forms\Components\Field;
@@ -16,7 +18,6 @@ class UserForm
 
     public static function getDefaultComponents(): array
     {
-
         $components = [];
         if (filament('filament-user')::hasAvatar()) {
             $components[] = Components\Avatar::make();
@@ -39,13 +40,16 @@ class UserForm
     {
         if (is_array($component)) {
             foreach ($component as $item) {
-                if ($item instanceof Field) {
-                    self::$schema[] = $item;
+                if (! $item instanceof Field) {
+                    continue;
                 }
+
+                self::$schema[] = $item;
             }
 
-        } else {
-            self::$schema[] = $component;
+            return;
         }
+
+        self::$schema[] = $component;
     }
 }

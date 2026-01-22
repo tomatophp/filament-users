@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use Filament\Facades\Filament;
@@ -27,9 +29,7 @@ beforeEach(function () {
     actingAs(User::factory()->create());
 
     $this->panel = Filament::getCurrentOrDefaultPanel();
-    $this->panel->plugin(
-        FilamentUsersPlugin::make()
-    );
+    $this->panel->plugin(FilamentUsersPlugin::make());
 });
 
 it('can test impersonate action within Filament panel', function () {

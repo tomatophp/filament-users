@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
 use Filament\Tables\Columns\Column;
@@ -45,12 +47,16 @@ class UsersTable
     {
         if (is_array($column)) {
             foreach ($column as $item) {
-                if ($item instanceof Column) {
-                    self::$columns[] = $item;
+                if (! $item instanceof Column) {
+                    continue;
                 }
+
+                self::$columns[] = $item;
             }
-        } else {
-            self::$columns[] = $column;
+
+            return;
         }
+
+        self::$columns[] = $column;
     }
 }

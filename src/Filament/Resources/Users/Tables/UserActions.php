@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
 class UserActions
@@ -33,12 +35,16 @@ class UserActions
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if ($item instanceof \Filament\Actions\Action) {
-                    self::$actions[] = $item;
+                if (! $item instanceof \Filament\Actions\Action) {
+                    continue;
                 }
+
+                self::$actions[] = $item;
             }
-        } else {
-            self::$actions[] = $action;
+
+            return;
         }
+
+        self::$actions[] = $action;
     }
 }

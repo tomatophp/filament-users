@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
@@ -71,8 +73,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineEnvironment($app)
     {
-
-        tap($app['config'], function (Repository $config) {
+        tap($app['config'], static function (Repository $config) {
             $config->set('filament-users.model', User::class);
             $config->set('filament-users.simple', false);
             $config->set('database.default', 'testing');

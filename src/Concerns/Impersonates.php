@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Concerns;
 
 use Closure;
@@ -66,7 +68,8 @@ trait Impersonates
     {
         $current = Filament::auth()->user();
 
-        return $current->isNot($target)
+        return
+            $current->isNot($target)
             && ! app(ImpersonateManager::class)->isImpersonating()
             && (! method_exists($current, 'canImpersonate') || $current->canImpersonate())
             && (! method_exists($target, 'canBeImpersonated') || $target->canBeImpersonated());
@@ -79,15 +82,14 @@ trait Impersonates
         }
 
         session()->put([
-            'impersonate.back_to' => $this->getBackTo() ?? request('fingerprint.path', request()->header('referer')) ?? Filament::getCurrentOrDefaultPanel()->getUrl(),
+            'impersonate.back_to' => $this->getBackTo() ?? request(
+                'fingerprint.path',
+                request()->header('referer'),
+            ) ?? Filament::getCurrentOrDefaultPanel()->getUrl(),
             'impersonate.guard' => $this->getGuard(),
         ]);
 
-        app(ImpersonateManager::class)->take(
-            Filament::auth()->user(),
-            $record,
-            $this->getGuard()
-        );
+        app(ImpersonateManager::class)->take(Filament::auth()->user(), $record, $this->getGuard());
 
         return redirect($this->getRedirectTo());
     }

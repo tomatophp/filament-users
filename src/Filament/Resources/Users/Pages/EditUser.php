@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Pages;
 
 use Filament\Actions\Action;
@@ -18,34 +20,35 @@ class EditUser extends EditRecord
     {
         return [
             ViewAction::make(),
-            DeleteAction::make()
-                ->using(function ($record, Action $action) {
-                    $count = FilamentUser::getModel()::query()->count();
-                    if ($count === 1) {
-                        Notification::make()
-                            ->title(trans('filament-users::user.resource.notificaitons.last.title'))
-                            ->body(trans('filament-users::user.resource.notificaitons.last.body'))
-                            ->danger()
-                            ->icon('heroicon-o-exclamation-triangle')
-                            ->send();
+            DeleteAction::make()->using(static function ($record, Action $action) {
+                $count = FilamentUser::getModel()::query()->count();
+                if ($count === 1) {
+                    Notification::make()
+                        ->title(trans('filament-users::user.resource.notificaitons.last.title'))
+                        ->body(trans('filament-users::user.resource.notificaitons.last.body'))
+                        ->danger()
+                        ->icon('heroicon-o-exclamation-triangle')
+                        ->send();
 
-                        return;
-                    } elseif (auth()->user()->id === $record->id) {
-                        Notification::make()
-                            ->title(trans('filament-users::user.resource.notificaitons.self.title'))
-                            ->body(trans('filament-users::user.resource.notificaitons.self.body'))
-                            ->danger()
-                            ->icon('heroicon-o-exclamation-triangle')
-                            ->send();
+                    return;
+                }
 
-                        return;
-                    } else {
-                        $record->delete();
-                        $action->success();
+                if (auth()->user()->id === $record->id) {
+                    Notification::make()
+                        ->title(trans('filament-users::user.resource.notificaitons.self.title'))
+                        ->body(trans('filament-users::user.resource.notificaitons.self.body'))
+                        ->danger()
+                        ->icon('heroicon-o-exclamation-triangle')
+                        ->send();
 
-                        return redirect()->to(UserResource::getUrl('index'));
-                    }
-                }),
+                    return;
+                }
+
+                $record->delete();
+                $action->success();
+
+                return redirect()->to(UserResource::getUrl('index'));
+            }),
         ];
     }
 }

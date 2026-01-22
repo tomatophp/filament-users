@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 
 use Filament\Actions;
@@ -12,7 +14,7 @@ class DeleteAction extends Action
     public static function make(): Actions\Action
     {
         return Actions\DeleteAction::make()
-            ->using(function (Model $record, Actions\Action $action) {
+            ->using(static function (Model $record, Actions\Action $action) {
                 self::checkIfLastUserOrCurrentUser($record, $action);
             })
             ->iconButton()
@@ -31,7 +33,9 @@ class DeleteAction extends Action
                 ->send();
 
             return;
-        } elseif (auth()->user()->id === $record->id) {
+        }
+
+        if (auth()->user()->id === $record->id) {
             Notification::make()
                 ->title(trans('filament-users::user.resource.notificaitons.self.title'))
                 ->body(trans('filament-users::user.resource.notificaitons.self.body'))
@@ -40,9 +44,9 @@ class DeleteAction extends Action
                 ->send();
 
             return;
-        } else {
-            $record->delete();
-            $action->success();
         }
+
+        $record->delete();
+        $action->success();
     }
 }
