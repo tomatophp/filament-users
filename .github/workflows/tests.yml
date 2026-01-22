@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - '**.php'
+      - "**.php"
   pull_request:
     types:
       - opened
@@ -14,11 +14,11 @@ on:
     branches:
       - master
     paths:
-      - '**.php'
-      - '.github/workflows/tests.yml'
-      - 'phpunit.xml.dist'
-      - 'composer.json'
-      - 'composer.lock'
+      - "**.php"
+      - ".github/workflows/tests.yml"
+      - "phpunit.xml.dist"
+      - "composer.json"
+      - "composer.lock"
 
 jobs:
   test:
@@ -27,7 +27,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.4, 8.3, 8.2]
+        php: [8.4, 8.3]
         laravel: [12.*, 11.*]
         stability: [prefer-stable]
         include:
