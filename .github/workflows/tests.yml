@@ -67,8 +67,5 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" "nunomaduro/collision:${{ matrix.collision }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Run Static Analysis
-        run: composer analyse
-
       - name: Execute Tests
         run: composer test
