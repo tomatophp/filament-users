@@ -5,20 +5,24 @@ on:
   push:
     branches:
       - master
+      - main
     paths:
       - "**.php"
+      - "mago.toml"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
       - master
+      - main
     paths:
       - "**.php"
       - ".github/workflows/tests.yml"
       - "phpunit.xml.dist"
       - "composer.json"
       - "composer.lock"
+      - "mago.toml"
 
 jobs:
   test:
@@ -27,28 +31,21 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.4, 8.3]
-        laravel: [12.*, 11.*]
+        php: [8.4, 8.3, 8.2]
+        laravel: [12.*]
         stability: [prefer-stable]
         include:
           - laravel: 12.*
             testbench: 10.*
             carbon: 3.*
             collision: 8.*
-          - laravel: 11.*
-            testbench: 9.*
-            carbon: 3.*
-            collision: 8.*
-        exclude:
-          - laravel: 11.*
-            php: 8.1
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Cache Dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache/files
           key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
@@ -60,7 +57,7 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
-      - name: Install Dependencies
+      - name: Setup Problem Matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -70,5 +67,8 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" "nunomaduro/collision:${{ matrix.collision }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Execute tests
+      - name: Run Static Analysis
+        run: composer analyse
+
+      - name: Execute Tests
         run: composer test
