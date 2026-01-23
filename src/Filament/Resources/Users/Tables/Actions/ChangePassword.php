@@ -7,7 +7,6 @@ namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions;
 use Filament\Actions;
 use Filament\Forms;
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class ChangePassword extends Action
@@ -30,7 +29,6 @@ class ChangePassword extends Action
                     ->required(static fn ($record) => ! $record)
                     ->rule(\Illuminate\Validation\Rules\Password::default())
                     ->dehydrated(filled(...))
-                    ->dehydrateStateUsing(Hash::make(...))
                     ->same('passwordConfirmation'),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->label(trans('filament-users::user.resource.password_confirmation'))
