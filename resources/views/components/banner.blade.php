@@ -119,6 +119,6 @@ $flipped = $default === 'dark' ? 'light' : 'dark';
         {{ trans('filament-users::user.banner.impersonating') }} <strong>{{ $display }}</strong>
     </div>
 
-    <a href="{{ route('filament-users.leave') }}">{{ trans('filament-users::user.banner.leave') }}</a>
+    <a href="{{ route('filament-impersonate.leave') }}">{{ trans('filament-users::user.banner.leave') }}</a>
 </div>
 @endIf
