@@ -30,8 +30,8 @@ class ChangePassword extends Action
                     ->revealable(filament()->arePasswordsRevealable())
                     ->required(static fn ($record) => ! $record)
                     ->rule(Password::default())
-                    ->dehydrated(filled(...))
-                    ->dehydrateStateUsing(Hash::make(...))
+                    // filled(...) as a first-class callable is invoked without $state, so the field was never dehydrated.
+                    ->dehydrated(static fn (?string $state): bool => filled($state))
                     ->same('passwordConfirmation'),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->label(trans('filament-users::user.resource.password_confirmation'))
@@ -41,10 +41,10 @@ class ChangePassword extends Action
                     ->required(static fn ($record) => ! $record)
                     ->dehydrated(false),
             ])
-            ->action(static function ($record, $data) {
-                $auto = ($data['password'] ?? null) === null;
-                $password = $data['password'] ?? Str::random(12);
-                $record->password = $password;
+            ->action(static function ($record, array $data) {
+                $auto = blank($data['password'] ?? null);
+                $password = $auto ? Str::random(12) : $data['password'];
+                $record->password = Hash::make($password);
                 $record->save();
 
                 Notification::make()

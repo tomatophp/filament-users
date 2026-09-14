@@ -1,3 +1,9 @@
+### V5.0.2
+
+- fix creating a user throwing `Too few arguments to HashManager::make()` (#58)
+- fix the change password action ignoring the entered password (#60, thanks @larsbo for #61)
+- add regression tests for password hashing on create and change password
+
 ### V5.0.1
 
 - add Laravel 13 support (Laravel 12 and 13, Testbench 10 and 11)
