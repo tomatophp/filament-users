@@ -1,3 +1,10 @@
+### V5.0.1
+
+- add Laravel 13 support (Laravel 12 and 13, Testbench 10 and 11)
+- allow Pest 4 and 5
+- run the test matrix on Laravel 12/13 and PHP 8.3/8.4
+- apply Pint formatting
+
 ### V5.0.0
 
 - upgrade to Filament v5

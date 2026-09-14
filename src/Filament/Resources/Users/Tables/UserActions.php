@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
+use Filament\Actions\Action;
+
 class UserActions
 {
     /**
@@ -31,11 +33,11 @@ class UserActions
         return array_merge(self::getDefaultActions(), self::$actions);
     }
 
-    public static function register(\Filament\Actions\Action | array $action): void
+    public static function register(Action | array $action): void
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if (! $item instanceof \Filament\Actions\Action) {
+                if (! $item instanceof Action) {
                     continue;
                 }
 

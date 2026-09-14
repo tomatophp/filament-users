@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables;
 
+use Filament\Tables\Filters\BaseFilter;
+
 class UserFilters
 {
     /**
@@ -28,11 +30,11 @@ class UserFilters
         return array_merge(self::getDefaultFilters(), self::$filters);
     }
 
-    public static function register(\Filament\Tables\Filters\BaseFilter | array $action): void
+    public static function register(BaseFilter | array $action): void
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if (! $item instanceof \Filament\Tables\Filters\BaseFilter) {
+                if (! $item instanceof BaseFilter) {
                     continue;
                 }
 

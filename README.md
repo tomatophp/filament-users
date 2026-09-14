@@ -41,6 +41,13 @@ for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 ![Roles Bulk Action](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/roles.png)
 ![Edit Roles](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/edit-roles.png)
 
+## Requirements
+
+| Package version | Filament | Laravel     | PHP  |
+|-----------------|----------|-------------|------|
+| 5.x             | 5.x      | 12.x, 13.x  | 8.2+ |
+| 4.x             | 4.x      | 11.x, 12.x  | 8.2+ |
+
 ## Installation
 
 ```bash

@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Hash;
 
 class Password extends Component
 {
-    /**
-     * @return TextInput
-     */
-    public static function make(): Forms\Components\TextInput
+    public static function make(): TextInput
     {
-        return Forms\Components\TextInput::make('password')
+        return TextInput::make('password')
             ->hidden(static fn ($record) => $record)
             ->label(trans('filament-users::user.resource.password'))
             ->password()

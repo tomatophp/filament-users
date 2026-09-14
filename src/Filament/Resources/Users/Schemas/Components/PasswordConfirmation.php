@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\Components;
 
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 
 class PasswordConfirmation extends Component
 {
-    /**
-     * @return TextInput
-     */
-    public static function make(): Forms\Components\TextInput
+    public static function make(): TextInput
     {
-        return Forms\Components\TextInput::make('passwordConfirmation')
+        return TextInput::make('passwordConfirmation')
             ->hidden(static fn ($record): mixed => $record)
             ->label(trans('filament-users::user.resource.password_confirmation'))
             ->password()

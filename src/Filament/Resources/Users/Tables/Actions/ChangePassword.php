@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 
 class ChangePassword extends Action
 {
@@ -28,7 +29,7 @@ class ChangePassword extends Action
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
                     ->required(static fn ($record) => ! $record)
-                    ->rule(\Illuminate\Validation\Rules\Password::default())
+                    ->rule(Password::default())
                     ->dehydrated(filled(...))
                     ->dehydrateStateUsing(Hash::make(...))
                     ->same('passwordConfirmation'),
@@ -41,7 +42,7 @@ class ChangePassword extends Action
                     ->dehydrated(false),
             ])
             ->action(static function ($record, $data) {
-                $auto = ! isset($data['password']);
+                $auto = ($data['password'] ?? null) === null;
                 $password = $data['password'] ?? Str::random(12);
                 $record->password = $password;
                 $record->save();

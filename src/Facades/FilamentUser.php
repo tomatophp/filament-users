@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace TomatoPHP\FilamentUsers\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use TomatoPHP\FilamentUsers\Services\FilamentUserServices;
 
 /**
- * @see \TomatoPHP\FilamentUsers\Services\FilamentUserServices
+ * @see FilamentUserServices
  *
  * @method static void register(array|string $relation)
  * @method static array getRelations()

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers;
 
+use BezhanSalleh\FilamentShield\FilamentShield;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Laravel\Jetstream\Team;
 use TomatoPHP\FilamentUsers\Filament\Resources\Teams;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users;
 
@@ -75,7 +77,7 @@ class FilamentUsersPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        if (config('filament-users.shield') && class_exists(\BezhanSalleh\FilamentShield\FilamentShield::class)) {
+        if (config('filament-users.shield') && class_exists(FilamentShield::class)) {
             Users\Schemas\UserForm::register(Users\Schemas\Components\Roles::make());
             Users\Tables\UsersTable::register(Users\Tables\Columns\Roles::make());
             Users\Tables\UserFilters::register(Users\Tables\Filters\Roles::make());
@@ -83,7 +85,7 @@ class FilamentUsersPlugin implements Plugin
             Users\Schemas\UserInfolist::register(Users\Schemas\Entries\Roles::make());
         }
 
-        if (config('filament-users.teams') && class_exists(\Laravel\Jetstream\Team::class)) {
+        if (config('filament-users.teams') && class_exists(Team::class)) {
             Users\Schemas\UserForm::register(Users\Schemas\Components\Teams::make());
             Users\Tables\UsersTable::register(Users\Tables\Columns\Teams::make());
             Users\Tables\UserFilters::register(Users\Tables\Filters\Teams::make());

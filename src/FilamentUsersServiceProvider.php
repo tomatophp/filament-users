@@ -12,6 +12,7 @@ use Illuminate\Support\ServiceProvider;
 use Lab404\Impersonate\Events\LeaveImpersonation;
 use Lab404\Impersonate\Events\TakeImpersonation;
 use TomatoPHP\FilamentUsers\Console\FilamentUserTeamsCommand;
+use TomatoPHP\FilamentUsers\Services\FilamentUserServices;
 
 class FilamentUsersServiceProvider extends ServiceProvider
 {
@@ -37,7 +38,7 @@ class FilamentUsersServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/lang' => base_path('lang/vendor/filament-users'),
         ], 'filament-users-lang');
 
-        $this->app->bind('filament-user', static fn () => new \TomatoPHP\FilamentUsers\Services\FilamentUserServices);
+        $this->app->bind('filament-user', static fn () => new FilamentUserServices);
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-users');

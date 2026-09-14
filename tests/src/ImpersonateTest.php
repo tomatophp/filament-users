@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace TomatoPHP\FilamentUsers\Tests;
 
+use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Illuminate\Config\Repository;
+use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\Actions\ImpersonateAction;
 use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
@@ -41,7 +43,7 @@ it('can test impersonate action within Filament panel', function () {
     // Test that the action can be created and configured within the panel
     $action = ImpersonateAction::make();
 
-    expect($action)->toBeInstanceOf(\Filament\Actions\Action::class);
+    expect($action)->toBeInstanceOf(Action::class);
 
     // Test the action within the panel context
     $impersonateAction = new ImpersonateAction;
@@ -51,7 +53,7 @@ it('can test impersonate action within Filament panel', function () {
 
     $result = $impersonateAction->impersonate($targetUser);
 
-    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result)->toBeInstanceOf(RedirectResponse::class);
     expect($result->getTargetUrl())->toBe($this->panel->getUrl());
 
     $impersonateManager = app(ImpersonateManager::class);
@@ -75,7 +77,7 @@ it('can test impersonate action in Filament resource context', function () {
     // Test that the action works within the panel context
     $result = $impersonateAction->impersonate($targetUser);
 
-    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result)->toBeInstanceOf(RedirectResponse::class);
     expect($result->getTargetUrl())->toBe($this->panel->getUrl());
 
     // Verify impersonation state
@@ -104,7 +106,7 @@ it('uses custom guard for impersonation', function () {
 it('can create impersonate action', function () {
     $action = ImpersonateAction::make();
 
-    expect($action)->toBeInstanceOf(\Filament\Actions\Action::class);
+    expect($action)->toBeInstanceOf(Action::class);
 });
 
 it('tests impersonation with reflection for protected methods', function () {
@@ -141,7 +143,7 @@ it('can test impersonate action in Filament table context', function () {
     // Test that the action works within the table context
     $result = $impersonateAction->impersonate($targetUser);
 
-    expect($result)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
+    expect($result)->toBeInstanceOf(RedirectResponse::class);
     expect($result->getTargetUrl())->toBe($this->panel->getUrl());
 
     // Verify impersonation state
