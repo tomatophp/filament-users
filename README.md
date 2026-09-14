@@ -31,6 +31,11 @@ for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 
 ## Screenshots
 
+Try it live on [demo.tomatophp.com](https://demo.tomatophp.com).
+
+![Demo dark](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/demo-dark.png)
+![Demo light](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/demo-light.png)
+
 ![Users List](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/user-list.png)
 ![Create User](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/create.png)
 ![Edit User](https://raw.githubusercontent.com/tomatophp/filament-users/master/arts/edit.png)
