@@ -1,3 +1,9 @@
+### V5.0.3
+
+- the change password action respects the app's user policy (`update`)
+- bulk delete, roles and teams actions skip users the policy does not allow
+- apps without a user policy keep full access
+
 ### V5.0.2
 
 - fix creating a user throwing `Too few arguments to HashManager::make()` (#58)

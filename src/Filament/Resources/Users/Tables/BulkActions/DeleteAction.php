@@ -7,10 +7,13 @@ namespace TomatoPHP\FilamentUsers\Filament\Resources\Users\Tables\BulkActions;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Model;
+use TomatoPHP\FilamentUsers\Concerns\AuthorizesRecords;
 use TomatoPHP\FilamentUsers\Facades\FilamentUser;
 
 class DeleteAction extends Action
 {
+    use AuthorizesRecords;
+
     public static function make(): Actions\DeleteBulkAction
     {
         return Actions\DeleteBulkAction::make()->using(static function ($records, Actions\BulkAction $action) {
@@ -25,6 +28,11 @@ class DeleteAction extends Action
 
     private static function checkIfLastUserOrCurrentUser(Model $record): void
     {
+        // The custom using() callback bypasses Filament's per-record authorization.
+        if (! self::allows('delete', $record)) {
+            return;
+        }
+
         $count = FilamentUser::getModel()::query()->count();
         if ($count === 1) {
             Notification::make()

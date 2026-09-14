@@ -10,12 +10,16 @@ use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
+use TomatoPHP\FilamentUsers\Concerns\AuthorizesRecords;
 
 class ChangePassword extends Action
 {
+    use AuthorizesRecords;
+
     public static function make(): Actions\Action
     {
         return Actions\Action::make('changePassword')
+            ->authorize(static fn ($record): bool => self::allows('update', $record))
             ->requiresConfirmation()
             ->color('danger')
             ->icon('heroicon-o-key')
