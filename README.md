@@ -11,6 +11,9 @@
 
 Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate.
 
+
+⭐ **If this plugin saves you time, star it** and browse 60+ more Filament plugins at [tomatophp.com/en/plugins](https://tomatophp.com/en/plugins).
+
 for filament v2 please use this [repo](https://github.com/3x1io/filament-user)
 
 ## Features
@@ -365,3 +368,11 @@ composer analyse
 ## Other Filament Packages
 
 Checkout our [Awesome TomatoPHP](https://github.com/tomatophp/awesome)
+
+## More open source from the same author
+
+- [Laravilt](https://laravilt.com): Laravel admin panels rendered with Inertia on Vue 3 or React 19
+- [ToGO](https://to-go.dev): the Laravel-style workflow for Go + React apps, with a plugin marketplace
+- [Zekra](https://zekra.dev): long-term memory for AI agents over MCP
+
+Built by [Fady Mondy](https://fadymondy.com).
