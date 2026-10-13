@@ -2,6 +2,7 @@
     "name": "tomatophp/filament-users",
     "type": "library",
     "description": "Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate",
+    "homepage": "https://tomatophp.com/en/plugins/filament-users",
     "keywords": [
         "php",
         "laravel",
